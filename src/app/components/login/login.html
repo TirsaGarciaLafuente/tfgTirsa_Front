@@ -1,0 +1,160 @@
+<!-- LOGIN -->
+<div class="page">
+  <div class="card">
+    <h1 class="brand">Break room</h1>
+    <h2 class="subtitle">Iniciar sesión</h2>
+
+    <form (ngSubmit)="onLogin()">
+      <div class="field">
+        <input
+          type="username"
+          name="username"
+          [(ngModel)]="loginData.username"
+          placeholder="Nombre de Usuario"
+          required
+        />
+      </div>
+      <div class="field">
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="loginData.password"
+          placeholder="Contraseña"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn-main">Iniciar sesión</button>
+    </form>
+
+    <div *ngIf="loginError" class="toast show">{{ loginError }}</div>
+
+    <div class="links">
+      <a href="#" (click)="openModalPassword(); $event.preventDefault()">¿Olvidaste tu contraseña?</a>
+      <a href="#" (click)="openModal(); $event.preventDefault()">Registrarse</a>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL REGISTRO -->
+<div class="overlay" [class.open]="modalAbierto" (click)="handleOverlayClick($event)">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <button class="close-btn" type="button" (click)="closeModal()">&#x2715;</button>
+    <h1 class="brand">Break room</h1>
+    <h2 class="subtitle">Crear cuenta</h2>
+
+    <form (ngSubmit)="onRegister()">
+      <div class="field">
+        <input
+          type="text"
+          name="nombre"
+          [(ngModel)]="registerData.nombre"
+          placeholder="Nombre"
+          required
+        />
+      </div>
+      <div class="field">
+        <input
+          type="email"
+          name="regEmail"
+          [(ngModel)]="registerData.email"
+          placeholder="Correo electrónico"
+          required
+        />
+      </div>
+      <div class="field">
+        <input
+          type="text"
+          name="username"
+          [(ngModel)]="registerData.username"
+          placeholder="Usuario"
+          required
+        />
+      </div>
+      <div class="field">
+        <input
+          type="password"
+          name="regPassword"
+          [(ngModel)]="registerData.password"
+          placeholder="Contraseña"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn-main">Registrarse</button>
+    </form>
+
+    <div *ngIf="registerMensaje" class="toast show">{{ registerMensaje }}</div>
+  </div>
+</div>
+
+<!-- MODAL RECUPERAR CONTRASEÑA -->
+<div class="overlay" [class.open]="modalPasswordAbierto" (click)="handleOverlayClickPassword($event)">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <button class="close-btn" type="button" (click)="closeModalPassword()">&#x2715;</button>
+    <h1 class="brand">Break room</h1>
+    <h2 class="subtitle">Recuperar contraseña</h2>
+
+    <form (ngSubmit)="onVerificarUsuario()">
+      <div class="field">
+        <input
+          type="email"
+          name="recEmail"
+          [(ngModel)]="recuperarData.email"
+          placeholder="Correo electrónico"
+          required
+        />
+      </div>
+      <div class="field">
+        <input
+          type="text"
+          name="recUsername"
+          [(ngModel)]="recuperarData.username"
+          placeholder="Usuario"
+          required
+        />
+      </div>
+      <button type="submit" class="btn-main">Verificar</button>
+    </form>
+
+    <div *ngIf="recuperarError" class="toast show error">{{ recuperarError }}</div>
+  </div>
+</div>
+
+<!-- MODAL NUEVA CONTRASEÑA -->
+<div class="overlay" [class.open]="modalNuevaPasswordAbierto" (click)="handleOverlayClickNuevaPassword($event)">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <button class="close-btn" type="button" (click)="closeModalNuevaPassword()">&#x2715;</button>
+    <h1 class="brand">Break room</h1>
+    <h2 class="subtitle">Nueva contraseña</h2>
+
+    <form (ngSubmit)="onCambiarPassword()">
+      <div class="field">
+        <input
+          type="password"
+          name="nuevaPassword"
+          [(ngModel)]="nuevaPasswordData.password"
+          placeholder="Nueva contraseña"
+          required
+        />
+      </div>
+      <div class="field">
+        <input
+          type="password"
+          name="confirmarPassword"
+          [(ngModel)]="nuevaPasswordData.confirmar"
+          placeholder="Confirmar contraseña"
+          required
+        />
+      </div>
+      <button type="submit" class="btn-main">Guardar contraseña</button>
+    </form>
+
+    <div *ngIf="nuevaPasswordError" class="toast show error">{{ nuevaPasswordError }}</div>
+    <div *ngIf="nuevaPasswordOk" class="toast show">{{ nuevaPasswordOk }}</div>
+  </div>
+</div>
+
+<p style="position:fixed; bottom:10px; left:10px; color:red; z-index:9999;">
+  password: {{ modalNuevaPasswordAbierto }}
+</p>

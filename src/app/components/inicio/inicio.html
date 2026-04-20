@@ -1,0 +1,78 @@
+<div class="page">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <span class="brand-icon">BR</span>
+      <span class="brand-name">Break Room</span>
+    </div>
+    <div class="navbar-right">
+      <div class="user-icon">U</div>
+      <button class="btn-logout" (click)="cerrarSesion()">
+        <span class="logout-icon">&#x2192;</span> Cerrar sesión
+      </button>
+    </div>
+  </nav>
+
+  <!-- CONTENIDO -->
+  <div class="content">
+
+    <h1 class="welcome">¡Bienvenid@, tómate un descanso!</h1>
+
+    <!-- ACCIONES -->
+    <div class="actions-card">
+      <button class="btn-crear">+ Crear nueva sala</button>
+      <div class="unirse-group">
+        <input type="text" placeholder="Introduce el código" class="input-codigo" />
+        <button class="btn-unirse">
+          <span>&#x1F4CB;</span> Unirse a sala
+        </button>
+      </div>
+    </div>
+
+    <!-- MIS SALAS -->
+    <h2 class="section-title">Mis salas</h2>
+
+    <div class="salas-grid">
+      <!-- Sala ejemplo 1 -->
+      <div class="sala-card">
+        <div class="sala-header">
+          <span class="sala-nombre">Grupo amigas UNI</span>
+          <div class="sala-actions">
+            <button class="icon-btn">&#x270E;</button>
+            <button class="icon-btn">&#x1F5D1;</button>
+          </div>
+        </div>
+        <p class="sala-desc">El grupo de las mejores amigas de Periodismo.</p>
+        <button class="btn-entrar">Entrar</button>
+      </div>
+
+      <!-- Sala ejemplo 2 -->
+      <div class="sala-card">
+        <div class="sala-header">
+          <span class="sala-nombre">Grupo amig@s barrio</span>
+          <div class="sala-actions">
+            <button class="icon-btn">&#x270E;</button>
+            <button class="icon-btn">&#x1F5D1;</button>
+          </div>
+        </div>
+        <p class="sala-desc">Desde pequeñit@s viviendo en Pinomontano.</p>
+        <button class="btn-entrar">Entrar</button>
+      </div>
+
+      <!-- Sala ejemplo 3 -->
+      <div class="sala-card">
+        <div class="sala-header">
+          <span class="sala-nombre">Grupo fútbol</span>
+          <div class="sala-actions">
+            <button class="icon-btn">&#x270E;</button>
+            <button class="icon-btn">&#x1F5D1;</button>
+          </div>
+        </div>
+        <p class="sala-desc">¡A por la liga!</p>
+        <button class="btn-entrar">Entrar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
