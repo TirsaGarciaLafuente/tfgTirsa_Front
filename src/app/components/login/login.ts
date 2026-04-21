@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   standalone: true,
@@ -26,7 +27,7 @@ export class LoginComponent {
   loginData = { username: '', password: '' };
   registerData = { nombre: '', email: '', username: '', password: '' };
 
-  constructor(private authService: AuthService, private router: Router,private cdr: ChangeDetectorRef ) { }
+  constructor(private authService: AuthService, private router: Router, private cdr: ChangeDetectorRef, private alertService:AlertService) { }
 
   openModal() { this.modalAbierto = true; }
   closeModal() { this.modalAbierto = false; }
@@ -34,28 +35,31 @@ export class LoginComponent {
   openModalPassword() { this.modalPasswordAbierto = true; }
   closeModalPassword() { this.modalPasswordAbierto = false; this.recuperarError = ''; }
   handleOverlayClickPassword(e: Event) { this.closeModalPassword(); }
+
   openModalNuevaPassword() {
-  console.log('abriendo nueva password');
-  this.modalNuevaPasswordAbierto = true;
-  console.log('estado:', this.modalNuevaPasswordAbierto);
-}
+    console.log('abriendo nueva password');
+    this.modalNuevaPasswordAbierto = true;
+    console.log('estado:', this.modalNuevaPasswordAbierto);
+  }
+
   closeModalNuevaPassword() {
     this.modalNuevaPasswordAbierto = false;
     this.nuevaPasswordError = '';
     this.nuevaPasswordOk = '';
   }
+
   handleOverlayClickNuevaPassword(e: Event) { this.closeModalNuevaPassword(); }
 
   onLogin() {
     this.authService.login(this.loginData).subscribe({
       next: (response: any) => {
         console.log('¡Bienvenido!', response);
-        alert('Login correcto');
+        this.alertService.success('Login correcto');
         this.router.navigate(['/inicio']);
       },
       error: (err: any) => {
         console.error('Error en el login', err);
-        alert('Usuario o contraseña incorrectos');
+        this.alertService.error('Usuario o contraseña incorrectos');
       }
     });
   }
@@ -63,12 +67,12 @@ export class LoginComponent {
     this.authService.registro(this.registerData).subscribe({
       next: (response: any) => {
         console.log('¡Bienvenido!', response);
-        alert('Registro correcto');
+        this.alertService.success('Registro correcto');
         this.router.navigate(['/inicio']);
       },
       error: (err: any) => {
         console.error('Error en el login', err);
-        alert('Email o nombre de usuario ya existente');
+        this.alertService.error('Email o nombre de usuario ya existente');
       }
     });
   }
@@ -78,11 +82,11 @@ export class LoginComponent {
       next: () => {
         this.closeModalPassword();
         this.openModalNuevaPassword();
-         this.cdr.detectChanges();
+        this.cdr.detectChanges();
       },
       error: () => {
         this.recuperarError = 'No existe ningún usuario con esos datos.';
-         this.cdr.detectChanges();
+        this.cdr.detectChanges();
       }
     });
   }

@@ -246,3 +246,173 @@
 .btn-entrar:hover {
   background: #be6e45;
 }
+
+/* ── Overlay (Fondo oscuro) ── */
+.overlay {
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  inset: 0;
+  background: rgba(100, 60, 20, 0.35);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  transition: opacity 0.2s;
+}
+
+/* Se activa cuando mostrarModal es true */
+.overlay.open {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* ── Modal (Contenedor) ── */
+.modal {
+  background: #f5e6d3;
+  border-radius: 28px;
+  padding: 2.5rem 3rem;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Tipografía ── */
+.brand {
+  font-size: 28px;
+  font-weight: 500;
+  color: #c97940;
+  margin-bottom: 6px;
+  margin-top: 0;
+}
+
+.subtitle {
+  font-size: 18px;
+  font-weight: 400;
+  color: #c97940;
+  margin-bottom: 2rem;
+}
+
+/* ── Campos de entrada ── */
+.field {
+  margin-bottom: 1rem;
+}
+
+.field input {
+  width: 100%; /* Ajustado para el interior del modal */
+  padding: 13px;
+  font-size: 14px;
+  color: #7a4a2a;
+  background: #fdf5ee;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+  box-sizing: border-box; /* Para que el padding no rompa el ancho */
+  transition: box-shadow 0.15s;
+}
+
+.field input::placeholder {
+  color: #c4a07a;
+}
+
+.field input:focus {
+  box-shadow: 0 0 0 2px rgba(201, 121, 64, 0.25);
+}
+
+/* ── Botón Principal ── */
+.btn-main {
+  width: 100%;
+  padding: 14px;
+  background: #d4845a;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 0.25rem;
+  transition: background 0.15s;
+}
+
+.btn-main:hover:not(:disabled) {
+  background: #be6e45;
+}
+
+.btn-main:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Botón de cerrar (X) ── */
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #b07050;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.close-btn:hover {
+  color: #c97940;
+}
+
+/* ── Enlaces y acciones secundarias ── */
+.links {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.links a {
+  font-size: 14px;
+  color: #b07050;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+.unirse-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.input-codigo {
+  flex: 1; /* Para que ocupe el espacio disponible */
+  padding: 13px;
+  border-radius: 12px;
+  border: none;
+  background: #fdf5ee;
+  color: #7a4a2a;
+  outline: none;
+}
+
+.input-codigo:focus {
+  box-shadow: 0 0 0 2px rgba(201, 121, 64, 0.25);
+}
+
+.btn-unirse {
+  padding: 13px 20px;
+  background: #d4845a;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap; /* Evita que el texto del botón se parta */
+  transition: background 0.2s;
+}
+
+.btn-unirse:hover {
+  background: #be6e45;
+}

@@ -1,5 +1,4 @@
 <div class="page">
-
   <!-- NAVBAR -->
   <nav class="navbar">
     <div class="navbar-brand">
@@ -16,15 +15,21 @@
 
   <!-- CONTENIDO -->
   <div class="content">
-
     <h1 class="welcome">¡Bienvenid@, tómate un descanso!</h1>
 
     <!-- ACCIONES -->
     <div class="actions-card">
-      <button class="btn-crear">+ Crear nueva sala</button>
+      <button class="btn-crear" (click)="abrirModal()">+ Crear nueva sala</button>
       <div class="unirse-group">
-        <input type="text" placeholder="Introduce el código" class="input-codigo" />
-        <button class="btn-unirse">
+        <input
+          type="text"
+          placeholder="Introduce el código"
+          class="input-codigo"
+          [(ngModel)]="codigoSala"
+          (keyup.enter)="unirmeASala()"
+        />
+
+        <button class="btn-unirse" (click)="unirmeASala()">
           <span>&#x1F4CB;</span> Unirse a sala
         </button>
       </div>
@@ -34,45 +39,51 @@
     <h2 class="section-title">Mis salas</h2>
 
     <div class="salas-grid">
-      <!-- Sala ejemplo 1 -->
-      <div class="sala-card">
+      <div class="sala-card" *ngFor="let sala of salas">
         <div class="sala-header">
-          <span class="sala-nombre">Grupo amigas UNI</span>
-          <div class="sala-actions">
-            <button class="icon-btn">&#x270E;</button>
-            <button class="icon-btn">&#x1F5D1;</button>
-          </div>
-        </div>
-        <p class="sala-desc">El grupo de las mejores amigas de Periodismo.</p>
-        <button class="btn-entrar">Entrar</button>
-      </div>
+          <span class="sala-nombre">{{ sala.nombre }}</span>
 
-      <!-- Sala ejemplo 2 -->
-      <div class="sala-card">
-        <div class="sala-header">
-          <span class="sala-nombre">Grupo amig@s barrio</span>
           <div class="sala-actions">
-            <button class="icon-btn">&#x270E;</button>
-            <button class="icon-btn">&#x1F5D1;</button>
+            <button class="icon-btn" title="Abandonar">&#x1F5D1;</button>
           </div>
         </div>
-        <p class="sala-desc">Desde pequeñit@s viviendo en Pinomontano.</p>
-        <button class="btn-entrar">Entrar</button>
-      </div>
 
-      <!-- Sala ejemplo 3 -->
-      <div class="sala-card">
-        <div class="sala-header">
-          <span class="sala-nombre">Grupo fútbol</span>
-          <div class="sala-actions">
-            <button class="icon-btn">&#x270E;</button>
-            <button class="icon-btn">&#x1F5D1;</button>
-          </div>
-        </div>
-        <p class="sala-desc">¡A por la liga!</p>
-        <button class="btn-entrar">Entrar</button>
+        <p class="sala-desc">
+          Código: <strong>{{ sala.codSala }}</strong>
+        </p>
+        <p class="sala-fecha">Creada el: {{ sala.fechaCreacion | date: 'dd/MM/yyyy' }}</p>
+
+        <button class="btn-entrar" (click)="entrarSala(sala.id)">Entrar</button>
+      </div>
+      <div *ngIf="salas.length == 0">
+        <h3>No perteneces a ninguna sala</h3>
       </div>
     </div>
+  </div>
 
+  <div class="overlay" [class.open]="mostrarModal">
+    <div class="modal">
+      <button class="close-btn" (click)="cerrarModal()">&times;</button>
+
+      <h2 class="brand">Nueva Sala</h2>
+      <p class="subtitle">Crea un espacio para tu grupo</p>
+
+      <div class="field">
+        <input
+          type="text"
+          [(ngModel)]="nuevoNombreSala"
+          placeholder="Nombre de la sala"
+          (keyup.enter)="confirmarCreacion()"
+        />
+      </div>
+
+      <button class="btn-main" (click)="confirmarCreacion()" [disabled]="!nuevoNombreSala">
+        Confirmar y Crear
+      </button>
+
+      <div class="links">
+        <a (click)="cerrarModal()">Cancelar</a>
+      </div>
+    </div>
   </div>
 </div>
