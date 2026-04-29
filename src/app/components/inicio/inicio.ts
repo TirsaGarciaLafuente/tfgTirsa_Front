@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router'; // 1. Añade RouterModule aquí
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SalaService } from '../../services/sala.service';
@@ -10,7 +10,7 @@ import { AlertService } from '../../services/alert.service';
   selector: 'app-inicio',
   templateUrl: './inicio.html',
   styleUrl: './inicio.css',
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, RouterModule] // 2. AÑÁDELO AQUÍ
 })
 export class InicioComponent implements OnInit {
 
@@ -73,7 +73,10 @@ export class InicioComponent implements OnInit {
       this.alertService.error('Debes introducir un código');
       return;
     }
-
+    if(this.salas.filter(s => s.codSala?.trim() === this.codigoSala.trim())){
+      this.alertService.error('Ya perteneces a esa sala');
+      return;
+    }
     const usuarioId = 1; // Provisional hasta tener el JWT
 
     this.salasService.unirse(this.codigoSala, usuarioId).subscribe({
@@ -93,6 +96,6 @@ export class InicioComponent implements OnInit {
   }
 
   entrarSala(salaId: number) {
-    // TODO: implementar
+    this.router.navigate(['/sala', salaId]);
   }
 }

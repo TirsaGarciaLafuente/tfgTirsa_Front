@@ -53,7 +53,7 @@
         </p>
         <p class="sala-fecha">Creada el: {{ sala.fechaCreacion | date: 'dd/MM/yyyy' }}</p>
 
-        <button class="btn-entrar" (click)="entrarSala(sala.id)">Entrar</button>
+        <button class="btn-entrar" [routerLink]="['/sala', sala.id]">Entrar</button>
       </div>
       <div *ngIf="salas.length == 0">
         <h3>No perteneces a ninguna sala</h3>
