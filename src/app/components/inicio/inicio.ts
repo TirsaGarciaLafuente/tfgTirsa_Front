@@ -41,7 +41,7 @@ export class InicioComponent implements OnInit {
   }
 
   confirmarCreacion() {
-    const usuarioId = 1;
+    const usuarioId = 2;
     this.salasService.crearSala(this.nuevoNombreSala, usuarioId).subscribe({
       next: (res: any) => {
         this.salas.push(res);
@@ -60,7 +60,7 @@ export class InicioComponent implements OnInit {
   }
 
   obtenerSalas() {
-    this.salasService.obtenerSalas(1).subscribe({
+    this.salasService.obtenerSalas(2).subscribe({
       next: (response: any) => {
         this.salas = response;
         this.cdr.detectChanges();
@@ -73,11 +73,11 @@ export class InicioComponent implements OnInit {
       this.alertService.error('Debes introducir un código');
       return;
     }
-    if(this.salas.filter(s => s.codSala?.trim() === this.codigoSala.trim())){
+    if(this.salas.length > 0 && this.salas.filter(s => s.codSala?.trim() === this.codigoSala.trim())){
       this.alertService.error('Ya perteneces a esa sala');
       return;
     }
-    const usuarioId = 1; // Provisional hasta tener el JWT
+    const usuarioId = 2; // Provisional hasta tener el JWT
 
     this.salasService.unirse(this.codigoSala, usuarioId).subscribe({
       next: (salaUnida: any) => {

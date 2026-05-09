@@ -1,0 +1,64 @@
+<!-- Cabecera unificada -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <span class="brand-icon">BR</span>
+    <span class="brand-name">Break Room</span>
+  </div>
+  <div class="navbar-right">
+    <button class="btn-logout" [routerLink]="['/inicio']">
+      <span class="logout-icon">←</span> Volver a Mis Salas
+    </button>
+  </div>
+</nav>
+  <nav class="navbar-sala">
+    <button [class.activo]="vistaActual === 'muro'" (click)="vistaActual = 'muro'">Muro de comentarios</button>
+    <button [class.activo]="vistaActual === 'votaciones'" (click)="vistaActual = 'votaciones'">Votaciones</button>
+    <button [class.activo]="vistaActual === 'pizarra'" (click)="vistaActual = 'pizarra'">Pizarra de dibujo</button>
+    <button [class.activo]="vistaActual === 'fotos'" (click)="vistaActual = 'fotos'">Subir foto</button>
+  </nav>
+<div class="contenedor-sala">
+  <!-- CONTENIDO 1: MURO DE COMENTARIOS -->
+  <div *ngIf="vistaActual === 'muro'" class="modulo-muro">
+    <div class="muro">
+      <div class="mensaje" *ngFor="let msg of mensajes">
+        <div class="datos-autor">
+          <strong>{{ msg.nombreAutor }}</strong> 
+          <span class="fecha">{{ msg.fechaEnvio | date:'shortTime' }}</span>
+        </div>
+        <p class="texto">{{ msg.texto }}</p>
+      </div>
+      
+      <div *ngIf="mensajes.length === 0" class="mensaje-vacio">
+        Aún no hay mensajes. ¡Escribe el primero!
+      </div>
+    </div>
+
+    <div class="caja-envio">
+      <input 
+        type="text" 
+        [(ngModel)]="nuevoMensaje" 
+        placeholder="Escribe un comentario..." 
+        (keyup.enter)="enviarMensaje()"
+      >
+      <button (click)="enviarMensaje()">Enviar</button>
+    </div>
+  </div>
+
+  <!-- CONTENIDO 2: VOTACIONES -->
+  <div *ngIf="vistaActual === 'votaciones'" class="modulo-placeholder">
+    <h3>Votaciones</h3>
+    <p>Aquí se construirá el sistema de encuestas.</p>
+  </div>
+
+  <!-- CONTENIDO 3: PIZARRA -->
+  <div *ngIf="vistaActual === 'pizarra'" class="modulo-placeholder">
+    <h3>Pizarra Virtual</h3>
+    <p>Aquí se integrará el lienzo de dibujo compartido.</p>
+  </div>
+
+  <!-- CONTENIDO 4: FOTOS -->
+  <div *ngIf="vistaActual === 'fotos'" class="modulo-placeholder">
+    <h3>Fotografías</h3>
+    <p>Aquí se implementará la galería y subida de imágenes.</p>
+  </div>
+</div>

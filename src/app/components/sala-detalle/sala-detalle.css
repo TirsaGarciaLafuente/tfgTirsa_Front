@@ -1,0 +1,238 @@
+/* ── Fondo general de la página ── */
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #fdeede;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* ── Navbar (Header unificado) ── */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 2rem;
+  background: #fdf5ee;
+  border-bottom: 0.5px solid #e8d5c0;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-icon {
+  background: #d4845a;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 8px;
+  border-radius: 8px;
+}
+
+.brand-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #7a4a2a;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-logout {
+  background: none;
+  border: none;
+  color: #b07050;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s;
+}
+
+.btn-logout:hover {
+  color: #c97940;
+}
+
+.logout-icon {
+  font-size: 16px;
+}
+
+/* ── Contenedor Principal de la Sala ── */
+.contenedor-sala {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #f5e6d3; /* Mismo fondo que las tarjetas de inicio */
+  border-radius: 16px;
+}
+
+/* ── Sub-Navbar de Vistas (Pestañas) ── */
+.navbar-sala {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  
+  /* Ocultar scrollbar */
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+.navbar-sala::-webkit-scrollbar {
+  display: none;
+}
+
+.navbar-sala button {
+  flex: 0 0 auto; 
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: #fdf5ee;
+  color: #a07050;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Pestaña activa */
+.navbar-sala button.activo {
+  background-color: #d4845a;
+  color: white;
+  box-shadow: 0 4px 8px rgba(212, 132, 90, 0.25);
+}
+
+/* Hover para pestañas inactivas */
+.navbar-sala button:hover:not(.activo) {
+  background-color: #f0ddc8;
+  color: #7a4a2a;
+}
+
+/* Distribución equitativa en ordenador */
+@media (min-width: 768px) {
+  .navbar-sala button {
+    flex: 1; 
+  }
+}
+
+/* ── Muro de comentarios ── */
+.modulo-muro {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.muro {
+  background-color: #fdf5ee;
+  border-radius: 12px;
+  padding: 1.5rem;
+  min-height: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #e8d5c0;
+}
+
+.mensaje {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e8d5c0;
+}
+
+.mensaje:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.datos-autor {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #a07050;
+  margin-bottom: 6px;
+}
+
+.datos-autor strong {
+  color: #7a4a2a;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.texto {
+  margin: 0;
+  color: #5a3a2a;
+  font-size: 14.5px;
+  line-height: 1.4;
+}
+
+.mensaje-vacio {
+  text-align: center;
+  color: #a07050;
+  margin-top: 3rem;
+  font-size: 15px;
+}
+
+/* ── Caja de envío ── */
+.caja-envio {
+  display: flex;
+  gap: 10px;
+}
+
+.caja-envio input {
+  flex: 1;
+  padding: 13px 16px;
+  font-size: 14px;
+  color: #7a4a2a;
+  background: #fdf5ee;
+  border: 1px solid #e8d5c0;
+  border-radius: 12px;
+  outline: none;
+  transition: box-shadow 0.15s;
+}
+
+.caja-envio input::placeholder {
+  color: #c4a07a;
+}
+
+.caja-envio input:focus {
+  box-shadow: 0 0 0 2px rgba(201, 121, 64, 0.25);
+}
+
+.caja-envio button {
+  padding: 13px 24px;
+  background: #d4845a;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.caja-envio button:hover {
+  background: #be6e45;
+}
+
+/* ── Vistas Placeholder (Otras funcionalidades) ── */
+.modulo-placeholder {
+  background-color: #fdf5ee;
+  padding: 4rem 2rem;
+  border-radius: 12px;
+  text-align: center;
+  color: #7a4a2a;
+  border: 1px dashed #d4845a;
+}
+
+.modulo-placeholder h3 {
+  margin-top: 0;
+  color: #c97940;
+}
