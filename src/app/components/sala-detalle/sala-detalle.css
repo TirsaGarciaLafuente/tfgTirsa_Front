@@ -236,3 +236,95 @@
   margin-top: 0;
   color: #c97940;
 }
+
+/* ── Pizarra ── */
+.modulo-pizarra {
+  background-color: #fdf5ee;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #e8d5c0;
+}
+
+.herramientas-pizarra {
+  display: flex;
+  flex-wrap: wrap; /* Clave: permite que bajen a la siguiente línea si no caben */
+  gap: 10px;
+  margin-bottom: 15px;
+  align-items: center;
+  justify-content: space-between; /* Distribuye el espacio */
+}
+
+.herramientas-pizarra button {
+  padding: 8px 16px;
+  background: #f5e6d3;
+  color: #7a4a2a;
+  border: 1px solid #e8d5c0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  flex: 1 1 auto; /* Permite que los botones crezcan o se encojan de forma fluida */
+  min-width: 100px; /* Evita que el texto de los botones se aplaste */
+  text-align: center;
+}
+
+.herramientas-pizarra button:hover {
+  background: #e8d5c0;
+}
+
+.herramientas-pizarra input[type="color"] {
+  cursor: pointer;
+}
+
+.herramientas-pizarra input[type="range"] {
+  flex: 1 1 100px; /* Permite que la barra se estire ocupando el espacio sobrante */
+  min-width: 80px;
+}
+
+.contenedor-canvas {
+  border: 2px dashed #d4845a;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+  /* Eliminamos el display: flex y justify-content de aquí */
+}
+
+canvas {
+  touch-action: none; /* Bloquea el scroll al arrastrar el dedo por la pizarra */
+}
+
+/* ── Galería Lista Vertical ── */
+.carrusel-dibujos {
+  display: flex;
+  flex-direction: column; /* Apila las tarjetas de arriba a abajo */
+  gap: 20px; /* Espacio vertical entre los dibujos */
+  width: 100%;
+}
+
+.dibujo-card {
+  width: 100%; /* La tarjeta ocupa todo el ancho disponible */
+  background: #fdf5ee; 
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e8d5c0;
+}
+
+.dibujo-card img {
+  width: 100%; 
+  height: auto; /* Deja que la altura se ajuste sola para no deformarse */
+  max-height: 400px; /* Evita que en pantallas muy grandes la foto sea kilométrica */
+  object-fit: contain; 
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #e8d5c0;
+}
+
+.info-dibujo {
+  font-size: 14px; 
+  padding: 10px 10px 5px 5px;
+  display: flex;
+  flex-direction: row; /* Coloca el nombre a la izquierda y fecha a la derecha */
+  justify-content: space-between; 
+  color: #7a4a2a;
+}

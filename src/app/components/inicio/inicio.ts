@@ -4,13 +4,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SalaService } from '../../services/sala.service';
 import { AlertService } from '../../services/alert.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   standalone: true,
   selector: 'app-inicio',
   templateUrl: './inicio.html',
   styleUrl: './inicio.css',
-  imports: [CommonModule, FormsModule, RouterModule] // 2. AÑÁDELO AQUÍ
+  imports: [CommonModule, FormsModule, RouterModule]
 })
 export class InicioComponent implements OnInit {
 
@@ -23,7 +24,8 @@ export class InicioComponent implements OnInit {
   constructor(private router: Router,
     private salasService: SalaService,
     private alertService: AlertService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService
   ) { }
 
 
@@ -38,11 +40,11 @@ export class InicioComponent implements OnInit {
   cerrarModal() {
     this.mostrarModal = false;
     this.nuevoNombreSala = '';
+    
   }
 
   confirmarCreacion() {
-    const usuarioId = 2;
-    this.salasService.crearSala(this.nuevoNombreSala, usuarioId).subscribe({
+    this.salasService.crearSala(this.nuevoNombreSala).subscribe({
       next: (res: any) => {
         this.salas.push(res);
         this.cerrarModal();
@@ -56,11 +58,12 @@ export class InicioComponent implements OnInit {
 
 
   cerrarSesion() {
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 
   obtenerSalas() {
-    this.salasService.obtenerSalas(2).subscribe({
+    this.salasService.obtenerSalas().subscribe({
       next: (response: any) => {
         this.salas = response;
         this.cdr.detectChanges();
@@ -77,9 +80,8 @@ export class InicioComponent implements OnInit {
       this.alertService.error('Ya perteneces a esa sala');
       return;
     }
-    const usuarioId = 2; // Provisional hasta tener el JWT
 
-    this.salasService.unirse(this.codigoSala, usuarioId).subscribe({
+    this.salasService.unirse(this.codigoSala).subscribe({
       next: (salaUnida: any) => {
         // Añadimos la sala a la lista de "Mis salas" para que aparezca al momento
         this.salas.push(salaUnida);

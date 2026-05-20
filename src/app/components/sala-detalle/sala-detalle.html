@@ -1,4 +1,3 @@
-<!-- Cabecera unificada -->
 <nav class="navbar">
   <div class="navbar-brand">
     <span class="brand-icon">BR</span>
@@ -10,55 +9,106 @@
     </button>
   </div>
 </nav>
-  <nav class="navbar-sala">
-    <button [class.activo]="vistaActual === 'muro'" (click)="vistaActual = 'muro'">Muro de comentarios</button>
-    <button [class.activo]="vistaActual === 'votaciones'" (click)="vistaActual = 'votaciones'">Votaciones</button>
-    <button [class.activo]="vistaActual === 'pizarra'" (click)="vistaActual = 'pizarra'">Pizarra de dibujo</button>
-    <button [class.activo]="vistaActual === 'fotos'" (click)="vistaActual = 'fotos'">Subir foto</button>
-  </nav>
+
+<nav class="navbar-sala">
+  <button [class.activo]="vistaActual === 'muro'" (click)="cambiarVista('muro')">
+    Muro de comentarios
+  </button>
+  <button [class.activo]="vistaActual === 'votaciones'" (click)="cambiarVista('votaciones')">
+    Votaciones
+  </button>
+  <button [class.activo]="vistaActual === 'pizarra'" (click)="cambiarVista('pizarra')">
+    Pizarra de dibujo
+  </button>
+  <button [class.activo]="vistaActual === 'fotos'" (click)="cambiarVista('fotos')">
+    Subir foto
+  </button>
+</nav>
+
 <div class="contenedor-sala">
-  <!-- CONTENIDO 1: MURO DE COMENTARIOS -->
   <div *ngIf="vistaActual === 'muro'" class="modulo-muro">
     <div class="muro">
       <div class="mensaje" *ngFor="let msg of mensajes">
         <div class="datos-autor">
-          <strong>{{ msg.nombreAutor }}</strong> 
-          <span class="fecha">{{ msg.fechaEnvio | date:'shortTime' }}</span>
+          <strong>{{ msg.nombreAutor }}</strong>
+          <span class="fecha">{{ msg.fechaEnvio | date: 'shortTime' }}</span>
         </div>
         <p class="texto">{{ msg.texto }}</p>
       </div>
-      
+
       <div *ngIf="mensajes.length === 0" class="mensaje-vacio">
         Aún no hay mensajes. ¡Escribe el primero!
       </div>
     </div>
 
     <div class="caja-envio">
-      <input 
-        type="text" 
-        [(ngModel)]="nuevoMensaje" 
-        placeholder="Escribe un comentario..." 
+      <input
+        type="text"
+        [(ngModel)]="nuevoMensaje"
+        placeholder="Escribe un comentario..."
         (keyup.enter)="enviarMensaje()"
-      >
+      />
       <button (click)="enviarMensaje()">Enviar</button>
     </div>
   </div>
 
-  <!-- CONTENIDO 2: VOTACIONES -->
   <div *ngIf="vistaActual === 'votaciones'" class="modulo-placeholder">
     <h3>Votaciones</h3>
     <p>Aquí se construirá el sistema de encuestas.</p>
   </div>
 
-  <!-- CONTENIDO 3: PIZARRA -->
-  <div *ngIf="vistaActual === 'pizarra'" class="modulo-placeholder">
-    <h3>Pizarra Virtual</h3>
-    <p>Aquí se integrará el lienzo de dibujo compartido.</p>
+  <div *ngIf="vistaActual === 'pizarra'" class="modulo-pizarra">
+    <div class="herramientas-pizarra">
+      <button (click)="limpiarPizarra()">🗑️ Borrar</button>
+      <button (click)="guardarDibujo()" class="btn-guardar">💾 Publicar</button>
+      
+      <input type="color" [(ngModel)]="colorPizarra" (change)="actualizarPincel()">
+      <input type="range" min="1" max="20" [(ngModel)]="grosorPincel" (change)="actualizarPincel()">
+      <span>{{grosorPincel}}px</span>
+    </div>
+    
+    <div class="contenedor-canvas">
+      <canvas #canvasPizarra width="800" height="400"
+              (mousedown)="empezarDibujo($event)"
+              (mousemove)="dibujar($event)"
+              (mouseup)="terminarDibujo()"
+              (mouseleave)="terminarDibujo()"
+              
+              (touchstart)="empezarDibujo($event)"
+              (touchmove)="dibujar($event)"
+              (touchend)="terminarDibujo()"
+              (touchcancel)="terminarDibujo()">
+      </canvas>
+    </div>
+
+    <div class="seccion-galeria">
+      <h4>Últimos dibujos publicados</h4>
+      <div class="carrusel-dibujos">
+        <div class="dibujo-card" *ngFor="let img of imagenesGaleria">
+          <img [src]="img.imagenBase64" alt="Dibujo">
+          <div class="info-dibujo">
+            <strong>{{ img.autor?.nombre }}</strong>
+            &nbsp;
+            <small>{{ img.fechaCreacion | date:'shortDate' }}</small>
+          </div>
+        </div>
+        
+        <div *ngIf="imagenesGaleria.length === 0" class="vacio">
+          No hay dibujos publicados. ¡Sé el primero en compartir!
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- CONTENIDO 4: FOTOS -->
-  <div *ngIf="vistaActual === 'fotos'" class="modulo-placeholder">
-    <h3>Fotografías</h3>
-    <p>Aquí se implementará la galería y subida de imágenes.</p>
+  <div *ngIf="vistaActual === 'fotos'" class="modulo-muro">
+    <h3>Galería de la Sala</h3>
+    <div class="carrusel-dibujos" style="flex-wrap: wrap;">
+       <div class="dibujo-card" *ngFor="let img of imagenesGaleria">
+          <img [src]="img.imagenBase64" alt="Dibujo">
+          <div class="info-dibujo">
+            <strong>{{ img.autor?.nombre }}</strong>
+          </div>
+        </div>
+    </div>
   </div>
 </div>

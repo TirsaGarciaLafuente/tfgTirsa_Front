@@ -11,24 +11,24 @@ export class SalaService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerSalas(idUsuario: number): Observable<any> {
-    return this.http.get(this.apiUrl +'/usuario/' + idUsuario,);
+  obtenerSalas(): Observable<any> {
+    return this.http.get(this.apiUrl +'/usuario',);
   }
 
   /**
    * Crea una nueva sala.
    */
-  crearSala(nombre: string, usuarioId: number): Observable<any> {
+  crearSala(nombre: string): Observable<any> {
     // Como tu controller usa @RequestParam, los mandamos en la URL
-    return this.http.post<any>(`${this.apiUrl}/crear?nombre=${nombre}&usuarioId=${usuarioId}`, {});
+    return this.http.post<any>(`${this.apiUrl}/crear?nombre=${nombre}`, {});
   }
 
     /**
    * Crea una nueva sala.
    */
-  unirse(nombre: string, usuarioId: number): Observable<any> {
+  unirse(nombre: string): Observable<any> {
     // Como tu controller usa @RequestParam, los mandamos en la URL
-    return this.http.post<any>(`${this.apiUrl}/unirse?codSala=${nombre}&usuarioId=${usuarioId}`, {});
+    return this.http.post<any>(`${this.apiUrl}/unirse?codSala=${nombre}`, {});
   }
 
 

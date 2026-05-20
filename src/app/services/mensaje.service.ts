@@ -15,10 +15,9 @@ export class MensajeService {
     return this.http.get<any[]>(`${this.apiUrl}/historial/${salaId}`);
   }
 
-  enviarMensaje(salaId: number, usuarioId: number, texto: string): Observable<any> {
+  enviarMensaje(salaId: number, texto: string): Observable<any> {
     const params = new HttpParams()
       .set('salaId', salaId.toString())
-      .set('usuarioId', usuarioId.toString())
       .set('texto', texto);
 
     return this.http.post<any>(`${this.apiUrl}/enviar`, null, { params });
