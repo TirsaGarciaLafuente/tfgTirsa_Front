@@ -1,0 +1,43 @@
+<div class="votacion-container">
+
+  <div *ngIf="cargando" class="loading-box">
+    <p>Cargando la votación del día...</p>
+  </div>
+
+  <div *ngIf="!cargando && mensajeError" class="alert-error">
+    <p>{{ mensajeError }}</p>
+  </div>
+
+  <div *ngIf="!cargando && !mensajeError && preguntaDelDia" class="voting-panel">
+    
+    <div class="question-card">
+      <span>PREGUNTA DEL DÍA</span>
+      <h2>¿{{ preguntaDelDia.texto }}?</h2>
+    </div>
+
+    <div *ngIf="mensajeExito" class="alert-success">
+      <p>{{ mensajeExito }}</p>
+    </div>
+
+    <div *ngIf="!mensajeExito" class="companions-section">
+      <h3>Selecciona a un compañero para emitir tu voto:</h3>
+      
+      <div class="companions-grid">
+        <div *ngFor="let companero of companeros" class="companion-card">
+          <div class="companion-info">
+            <p class="name">{{ companero.nombre }}</p>
+            <p class="username">@{{ companero.username }}</p>
+          </div>
+          <button (click)="emitirVoto(companero.id)" class="btn-vote">
+            Votar
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="companeros.length === 0" class="alert-info">
+        <p>No hay otros compañeros disponibles en esta sala para votar en este momento.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
