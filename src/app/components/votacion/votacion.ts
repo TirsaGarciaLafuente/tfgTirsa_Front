@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common'; // IMPRESCINDIBLE para usar *ngIf y *ngFor en el HTML
+import { CommonModule } from '@angular/common'; 
 import { VotacionService } from '../../services/votacion.service';
+import { SalaService } from '../../services/sala.service'; // 1. IMPORTAMOS EL SERVICIO DE SALAS
 
 @Component({
   selector: 'app-votacion',
-  standalone: true, // Indica que es un componente independiente
-  imports: [CommonModule], // Importamos CommonModule para que el HTML entienda las directivas de Angular
-  templateUrl: './votacion.html', // Ajustado a tus nombres de archivo exactos
+  standalone: true, 
+  imports: [CommonModule], 
+  templateUrl: './votacion.html', 
   styleUrl: './votacion.css',
 })
 export class Votacion implements OnInit {
@@ -21,11 +22,11 @@ export class Votacion implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private votacionService: VotacionService
+    private votacionService: VotacionService,
+    private salaService: SalaService // 2. INYECTAMOS EL SERVICIO DE SALAS
   ) { }
 
   ngOnInit(): void {
-    // Capturamos el ID de la sala desde la URL (ej: /sala/3/votacion)
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.salaId = +idParam;
@@ -39,11 +40,11 @@ export class Votacion implements OnInit {
       next: (data) => {
         if (data && data.id) {
           this.preguntaDelDia = data;
-          this.obtenerCompanerosSala(); 
+          this.obtenerCompanerosSala(); // Si hay pregunta, buscamos los compañeros
         } else {
           this.mensajeError = data.mensaje || 'No hay preguntas disponibles para hoy.';
+          this.cargando = false;
         }
-        this.cargando = false;
       },
       error: (err) => {
         this.mensajeError = 'Error al conectar con el servidor de votaciones.';
@@ -53,8 +54,21 @@ export class Votacion implements OnInit {
   }
 
   obtenerCompanerosSala(): void {
-    // Temporalmente vacío hasta que conectemos la lista de usuarios de la sala
-    this.companeros = []; 
+    // 3. LLAMAMOS AL SERVICIO DE SALAS PARA TRAER LOS MIEMBROS REALES
+    this.salaService.obtenerSalaPorId(this.salaId).subscribe({
+      next: (sala) => {
+        // Asumiendo que tu objeto Sala tiene una lista llamada 'usuarios' o 'miembros'
+        // Revisa cómo se llama el atributo en tu entidad Sala de Java (ej: sala.usuarios)
+        if (sala && sala.usuarios) {
+          this.companeros = sala.usuarios; 
+        }
+        this.cargando = false;
+      },
+      error: (err) => {
+        this.mensajeError = 'Error al cargar los compañeros de la sala.';
+        this.cargando = false;
+      }
+    });
   }
 
   emitirVoto(usuarioId: number): void {

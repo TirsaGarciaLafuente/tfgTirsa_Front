@@ -31,5 +31,12 @@ export class SalaService {
     return this.http.post<any>(`${this.apiUrl}/unirse?codSala=${nombre}`, {});
   }
 
+  /**
+   * Obtiene los detalles de una sala específica, incluyendo sus miembros.
+   * @param salaId ID de la sala
+   */
+  obtenerSalaPorId(salaId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${salaId}`);
+  }
 
 }
