@@ -4,38 +4,56 @@
     <p>Cargando la votación del día...</p>
   </div>
 
-  <div *ngIf="!cargando && mensajeError" class="alert-error">
-    <p>{{ mensajeError }}</p>
+  <div *ngIf="!cargando && !preguntaDelDia && mensajeError" class="alert-error-container">
+    <div class="alert-error">
+      <p>{{ mensajeError }}</p>
+    </div>
   </div>
 
-  <div *ngIf="!cargando && !mensajeError && preguntaDelDia" class="voting-panel">
+  <div *ngIf="!cargando && preguntaDelDia" class="voting-panel">
     
     <div class="question-card">
       <span>PREGUNTA DEL DÍA</span>
-      <h2>¿{{ preguntaDelDia.texto }}?</h2>
+      <h2>{{ preguntaDelDia.texto }}</h2>
     </div>
 
     <div *ngIf="mensajeExito" class="alert-success">
       <p>{{ mensajeExito }}</p>
     </div>
 
-    <div *ngIf="!mensajeExito" class="companions-section">
+    <div *ngIf="!haVotado" class="companions-section">
       <h3>Selecciona a un compañero para emitir tu voto:</h3>
       
       <div class="companions-grid">
-        <div *ngFor="let companero of companeros" class="companion-card">
-          <div class="companion-info">
-            <p class="name">{{ companero.nombre }}</p>
-            <p class="username">@{{ companero.username }}</p>
-          </div>
-          <button (click)="emitirVoto(companero.id)" class="btn-vote">
-            Votar
-          </button>
-        </div>
+        <button 
+          *ngFor="let companero of companeros" 
+          (click)="emitirVoto(companero.id)" 
+          class="companion-vote-card">
+          <span class="name">{{ companero.nombre }}</span>
+        </button>
       </div>
 
       <div *ngIf="companeros.length === 0" class="alert-info">
         <p>No hay otros compañeros disponibles en esta sala para votar en este momento.</p>
+      </div>
+    </div>
+
+    <div *ngIf="haVotado" class="results-section">
+      <h3>Resultados actuales</h3>
+      
+      <div class="results-list">
+        <div *ngFor="let res of resultados" class="result-item">
+          
+          <div class="result-info">
+            <span class="result-name">{{ res.nombre }}</span>
+            <span class="result-votes">{{ res.votos }} votos ({{ res.porcentaje }}%)</span>
+          </div>
+          
+          <div class="progress-bar-container">
+            <div class="progress-bar" [style.width.%]="res.porcentaje"></div>
+          </div>
+          
+        </div>
       </div>
     </div>
 

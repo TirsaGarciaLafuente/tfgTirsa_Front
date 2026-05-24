@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common'; 
+import { FormsModule } from '@angular/forms'; 
 import { VotacionService } from '../../services/votacion.service';
-import { SalaService } from '../../services/sala.service'; // 1. IMPORTAMOS EL SERVICIO DE SALAS
+import { SalaService } from '../../services/sala.service'; 
 
 @Component({
   selector: 'app-votacion',
   standalone: true, 
-  imports: [CommonModule], 
+  imports: [CommonModule, FormsModule], 
   templateUrl: './votacion.html', 
   styleUrl: './votacion.css',
 })
@@ -19,11 +20,16 @@ export class Votacion implements OnInit {
   cargando: boolean = true;
   mensajeError: string = '';
   mensajeExito: string = '';
+  
+  // Nuevas variables para el control de la gráfica
+  haVotado: boolean = false;
+  resultados: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private votacionService: VotacionService,
-    private salaService: SalaService // 2. INYECTAMOS EL SERVICIO DE SALAS
+    private salaService: SalaService, 
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -40,42 +46,66 @@ export class Votacion implements OnInit {
       next: (data) => {
         if (data && data.id) {
           this.preguntaDelDia = data;
-          this.obtenerCompanerosSala(); // Si hay pregunta, buscamos los compañeros
+          this.mensajeError = ''; 
+          this.obtenerCompanerosSala(); 
+          this.verificarSiHaVotado();
         } else {
-          this.mensajeError = data.mensaje || 'No hay preguntas disponibles para hoy.';
+          this.mensajeError = data.mensaje || 'No hay preguntas disponibles para esta sala.';
+          this.preguntaDelDia = null;
           this.cargando = false;
+          this.cdr.detectChanges();
         }
       },
       error: (err) => {
         this.mensajeError = 'Error al conectar con el servidor de votaciones.';
         this.cargando = false;
+        this.cdr.detectChanges();
       }
     });
   }
 
   obtenerCompanerosSala(): void {
-    // 3. LLAMAMOS AL SERVICIO DE SALAS PARA TRAER LOS MIEMBROS REALES
     this.salaService.obtenerSalaPorId(this.salaId).subscribe({
       next: (sala) => {
-        // Asumiendo que tu objeto Sala tiene una lista llamada 'usuarios' o 'miembros'
-        // Revisa cómo se llama el atributo en tu entidad Sala de Java (ej: sala.usuarios)
         if (sala && sala.usuarios) {
           this.companeros = sala.usuarios; 
         }
-        this.cargando = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.mensajeError = 'Error al cargar los compañeros de la sala.';
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  verificarSiHaVotado(): void {
+    this.votacionService.verificarVoto(this.preguntaDelDia.id).subscribe({
+      next: (res: any) => {
+        this.haVotado = res.haVotado;
+        if (this.haVotado) {
+          this.cargarResultados();
+        } else {
+          this.cargando = false;
+          this.cdr.detectChanges();
+        }
+      },
+      error: (err) => {
+        console.error('Error al verificar el estado del voto', err);
         this.cargando = false;
+        this.cdr.detectChanges();
       }
     });
   }
 
   emitirVoto(usuarioId: number): void {
-    this.votacionService.votar(usuarioId, this.preguntaDelDia.id).subscribe({
-      next: (res) => {
+    // Se envía el ID de la pregunta y el ID del compañero seleccionado
+    this.votacionService.votar(this.preguntaDelDia.id, usuarioId).subscribe({
+      next: () => {
         this.mensajeExito = '¡Tu voto ha sido registrado correctamente!';
         this.mensajeError = '';
+        this.haVotado = true;
+        this.cargarResultados();
       },
       error: (err) => {
         if (err.error && err.error.error) {
@@ -84,6 +114,23 @@ export class Votacion implements OnInit {
           this.mensajeError = 'No se ha podido registrar el voto.';
         }
         this.mensajeExito = '';
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  cargarResultados(): void {
+    this.votacionService.obtenerResultados(this.preguntaDelDia.id).subscribe({
+      next: (data) => {
+        // Ordenación de mayor a menor porcentaje para la visualización
+        this.resultados = data.sort((a, b) => b.porcentaje - a.porcentaje);
+        this.cargando = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error al cargar los resultados de la votación', err);
+        this.cargando = false;
+        this.cdr.detectChanges();
       }
     });
   }

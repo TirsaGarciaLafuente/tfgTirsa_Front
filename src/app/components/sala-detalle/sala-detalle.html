@@ -1,8 +1,5 @@
-<nav class="navbar">
-  <div class="navbar-brand">
-    <span class="brand-icon">BR</span>
-    <span class="brand-name">Break Room</span>
-  </div>
+<app-header></app-header>
+<nav>
   <div class="navbar-right">
     <button class="btn-logout" [routerLink]="['/inicio']">
       <span class="logout-icon">←</span> Volver a Mis Salas
@@ -53,8 +50,7 @@
   </div>
 
   <div *ngIf="vistaActual === 'votaciones'" class="modulo-placeholder">
-    <h3>Votaciones</h3>
-    <p>Aquí se construirá el sistema de encuestas.</p>
+    <app-votacion></app-votacion>
   </div>
 
   <div *ngIf="vistaActual === 'pizarra'" class="modulo-pizarra">
@@ -100,15 +96,47 @@
     </div>
   </div>
 
-  <div *ngIf="vistaActual === 'fotos'" class="modulo-muro">
-    <h3>Galería de la Sala</h3>
+<div *ngIf="vistaActual === 'fotos'" class="modulo-muro">
+
+    <div class="upload-section">
+      <input 
+        type="file" 
+        #fileInput 
+        (change)="onFileSelected($event)" 
+        accept="image/*" 
+        style="display: none;"
+      >
+      
+      <button *ngIf="!imagenPrevia" class="btn-seleccionar-foto" (click)="fileInput.click()">
+        📸 Añadir nueva foto
+      </button>
+
+      <div *ngIf="imagenPrevia" class="preview-container">
+        <img [src]="imagenPrevia" alt="Vista previa" class="img-preview">
+        <div class="preview-actions">
+          <button class="btn-cancelar" (click)="cancelarSubida()">Cancelar</button>
+          <button class="btn-confirmar" (click)="subirFoto()" [disabled]="subiendo">
+            {{ subiendo ? 'Subiendo...' : 'Publicar Foto' }}
+          </button>
+        </div>
+      </div>
+    </div>
     <div class="carrusel-dibujos" style="flex-wrap: wrap;">
        <div class="dibujo-card" *ngFor="let img of imagenesGaleria">
-          <img [src]="img.imagenBase64" alt="Dibujo">
+          <img [src]="img.imagenBase64" alt="Foto" (click)="abrirImagen(img.imagenBase64)" class="img-clickable">
           <div class="info-dibujo">
             <strong>{{ img.autor?.nombre }}</strong>
           </div>
         </div>
+        
+        <div *ngIf="imagenesGaleria.length === 0" class="alert-info" style="width: 100%;">
+          <p>Aún no hay fotos en esta sala. ¡Sube la primera!</p>
+        </div>
     </div>
   </div>
 </div>
+<div *ngIf="imagenSeleccionada" class="modal-fullscreen" (click)="cerrarImagen()">
+    <span class="btn-cerrar-modal">&times;</span>
+    
+    <img [src]="imagenSeleccionada" alt="Imagen ampliada" (click)="$event.stopPropagation()">
+  </div>

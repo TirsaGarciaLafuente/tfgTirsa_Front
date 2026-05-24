@@ -4,13 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MensajeService } from '../../services/mensaje.service';
 import { GaleriaService } from '../../services/galeria.service';
+import { Votacion } from '../votacion/votacion';
+import { HeaderComponent } from '../header/header';
 
 @Component({
   standalone: true,
   selector: 'app-sala-detalle',
   templateUrl: './sala-detalle.html',
   styleUrl: './sala-detalle.css',
-  imports: [CommonModule, FormsModule, RouterModule]
+  imports: [CommonModule, FormsModule, RouterModule, Votacion, HeaderComponent]
 })
 export class SalaDetalleComponent implements OnInit {
 
@@ -18,6 +20,10 @@ export class SalaDetalleComponent implements OnInit {
   mensajes: any[] = [];
   nuevoMensaje: string = '';
   vistaActual: string = 'muro';
+
+  // --- Mensajes de estado ---
+  mensajeError: string = '';
+  mensajeExito: string = '';
 
   // --- Variables para la Pizarra Nativa ---
   @ViewChild('canvasPizarra') canvasRef!: ElementRef<HTMLCanvasElement>;
@@ -28,6 +34,8 @@ export class SalaDetalleComponent implements OnInit {
 
   // --- Galería ---
   imagenesGaleria: any[] = [];
+  imagenPrevia: string | null = null;
+  subiendo: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -78,12 +86,10 @@ export class SalaDetalleComponent implements OnInit {
   inicializarPizarra() {
     if (!this.canvasRef) return;
     const canvasEl = this.canvasRef.nativeElement;
-    const contenedor = canvasEl.parentElement; // Capturamos el <div> que lo envuelve
+    const contenedor = canvasEl.parentElement;
 
-    // 1. Ajustamos la resolución interna para que coincida con el móvil/PC
     if (contenedor) {
       canvasEl.width = contenedor.clientWidth;
-      // Puedes fijar la altura o usar la del contenedor. 400px es buena medida.
       canvasEl.height = contenedor.clientHeight || 400;
     }
 
@@ -91,7 +97,6 @@ export class SalaDetalleComponent implements OnInit {
     this.cx.lineCap = 'round';
     this.cx.lineJoin = 'round';
 
-    // Fondo blanco
     this.cx.fillStyle = '#ffffff';
     this.cx.fillRect(0, 0, canvasEl.width, canvasEl.height);
     this.actualizarPincel();
@@ -126,11 +131,9 @@ export class SalaDetalleComponent implements OnInit {
     const canvasEl = this.canvasRef.nativeElement;
     const rect = canvasEl.getBoundingClientRect();
 
-    // Distinguir entre táctil y ratón
     const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
     const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
 
-    // Calcular la relación matemática entre el CSS y los píxeles reales
     const scaleX = canvasEl.width / rect.width;
     const scaleY = canvasEl.height / rect.height;
 
@@ -146,15 +149,6 @@ export class SalaDetalleComponent implements OnInit {
     this.cx.fillRect(0, 0, canvasEl.width, canvasEl.height);
   }
 
-  // --- Lógica de Galería ---
-  cargarGaleria() {
-    this.galeriaService.obtenerImagenes(this.salaId).subscribe({
-      next: (imgs) => {
-        this.imagenesGaleria = imgs;
-        this.cdr.detectChanges();
-      }
-    });
-  }
   guardarDibujo() {
     if (!this.canvasRef) return;
     const imagenBase64 = this.canvasRef.nativeElement.toDataURL('image/png');
@@ -171,5 +165,77 @@ export class SalaDetalleComponent implements OnInit {
       },
       error: (err) => console.error('Error al guardar dibujo', err)
     });
+  }
+
+  // --- Lógica de Galería (Fotos y Dibujos) ---
+  cargarGaleria() {
+    this.galeriaService.obtenerImagenes(this.salaId).subscribe({
+      next: (imgs) => {
+        this.imagenesGaleria = imgs;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        this.mensajeError = 'La imagen es demasiado grande. Máximo 5MB.';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagenPrevia = e.target.result;
+        this.cdr.detectChanges();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  cancelarSubida(): void {
+    this.imagenPrevia = null;
+    this.mensajeError = '';
+  }
+
+  subirFoto(): void {
+    if (!this.imagenPrevia) return;
+    
+    this.subiendo = true;
+    this.mensajeError = '';
+    this.mensajeExito = '';
+
+    const nuevaImagen = {
+      imagenBase64: this.imagenPrevia,
+      sala: { id: this.salaId }
+    };
+
+    this.galeriaService.subirImagen(nuevaImagen).subscribe({
+      next: () => {
+        this.mensajeExito = '¡Foto publicada!';
+        this.imagenPrevia = null; 
+        this.subiendo = false;
+        this.cargarGaleria(); 
+      },
+      error: (err) => {
+        this.mensajeError = 'Error al subir la imagen.';
+        this.subiendo = false;
+        console.error('Error al subir foto', err);
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  // --- Lógica de Pantalla Completa ---
+  imagenSeleccionada: string | null = null;
+
+  abrirImagen(base64: string): void {
+    this.imagenSeleccionada = base64;
+  }
+
+  cerrarImagen(): void {
+    this.imagenSeleccionada = null;
   }
 }

@@ -1,38 +1,34 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+export interface ResultadoVotacion {
+  nombre: string;
+  votos: number;
+  porcentaje: number;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class VotacionService {
-
-  // URL base de nuestro controlador de votaciones en Spring Boot
   private apiUrl = 'http://localhost:8080/api/votaciones';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  /**
-   * Obtiene la pregunta activa del día para una sala concreta.
-   * @param salaId ID de la sala actual
-   */
   obtenerPreguntaDelDia(salaId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/sala/${salaId}`);
+    return this.http.get(`${this.apiUrl}/pregunta-del-dia/${salaId}`);
   }
 
-  /**
-   * Registra el voto del usuario actual hacia un compañero.
-   * @param votadoId ID del usuario al que se vota
-   * @param preguntaId ID de la pregunta del día
-   */
-  votar(votadoId: number, preguntaId: number): Observable<any> {
-    // Configuramos los parámetros ?votadoId=X&preguntaId=Y que pide el @RequestParam del backend
-    const params = new HttpParams()
-      .set('votadoId', votadoId.toString())
-      .set('preguntaId', preguntaId.toString());
+  votar(preguntaId: number, votadoId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/votar`, { preguntaId, votadoId });
+  }
 
-    // Enviamos la petición POST. El token JWT se adjuntará automáticamente 
-    // si tienes configurado un interceptor en tu proyecto de Angular.
-    return this.http.post(`${this.apiUrl}/votar`, {}, { params });
+  verificarVoto(preguntaId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/verificar-voto/${preguntaId}`);
+  }
+
+  obtenerResultados(preguntaId: number): Observable<ResultadoVotacion[]> {
+    return this.http.get<ResultadoVotacion[]>(`${this.apiUrl}/resultados/${preguntaId}`);
   }
 }

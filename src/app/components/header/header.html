@@ -1,0 +1,40 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <span class="brand-icon">BR</span>
+    <span class="brand-name">Break Room</span>
+  </div>
+  <div class="navbar-right">
+    <div class="user-icon">
+      <img
+        [src]="avatarActual"
+        alt="Mi Perfil"
+        class="foto-perfil-header"
+        (click)="abrirModalAvatar()"
+        style="cursor: pointer"
+      />
+    </div>
+    <button class="btn-logout" (click)="cerrarSesion()">
+      <span class="logout-icon">&#x2192;</span> Cerrar sesión
+    </button>
+  </div>
+</nav>
+
+<div *ngIf="mostrarModalAvatar" class="modal-overlay" (click)="cerrarModalAvatar()">
+  <div class="modal-avatar-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Elige tu avatar</h3>
+      <span class="btn-cerrar-modal" (click)="cerrarModalAvatar()">&times;</span>
+    </div>
+
+    <div class="avatar-grid">
+      <img
+        *ngFor="let avatar of avataresDisponibles"
+        [src]="avatar"
+        alt="Opción de avatar"
+        class="avatar-option"
+        [class.selected]="avatar === avatarActual"
+        (click)="seleccionarAvatar(avatar)"
+      />
+    </div>
+  </div>
+</div>

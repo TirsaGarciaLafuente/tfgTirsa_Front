@@ -1,17 +1,6 @@
 <div class="page">
   <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="navbar-brand">
-      <span class="brand-icon">BR</span>
-      <span class="brand-name">Break Room</span>
-    </div>
-    <div class="navbar-right">
-      <div class="user-icon">U</div>
-      <button class="btn-logout" (click)="cerrarSesion()">
-        <span class="logout-icon">&#x2192;</span> Cerrar sesión
-      </button>
-    </div>
-  </nav>
+  <app-header></app-header>
 
   <!-- CONTENIDO -->
   <div class="content">
@@ -30,7 +19,7 @@
         />
 
         <button class="btn-unirse" (click)="unirmeASala()">
-          <span>&#x1F4CB;</span> Unirse a sala
+          Unirse a sala
         </button>
       </div>
     </div>

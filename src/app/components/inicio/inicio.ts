@@ -5,13 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { SalaService } from '../../services/sala.service';
 import { AlertService } from '../../services/alert.service';
 import { AuthService } from '../../services/auth.service';
+import { HeaderComponent } from '../header/header';
 
 @Component({
   standalone: true,
   selector: 'app-inicio',
   templateUrl: './inicio.html',
   styleUrl: './inicio.css',
-  imports: [CommonModule, FormsModule, RouterModule]
+  imports: [CommonModule, FormsModule, RouterModule,HeaderComponent]
 })
 export class InicioComponent implements OnInit {
 
@@ -76,7 +77,7 @@ export class InicioComponent implements OnInit {
       this.alertService.error('Debes introducir un código');
       return;
     }
-    if(this.salas.length > 0 && this.salas.filter(s => s.codSala?.trim() === this.codigoSala.trim())){
+    if(this.salas.length > 0 && this.salas.filter(s => s.codSala?.trim() === this.codigoSala.trim()).length > 0){
       this.alertService.error('Ya perteneces a esa sala');
       return;
     }
