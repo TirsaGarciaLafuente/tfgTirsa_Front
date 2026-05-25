@@ -39,4 +39,9 @@ export class SalaService {
     return this.http.get<any>(`${this.apiUrl}/${salaId}`);
   }
 
+  abandonarSala(salaId: string | number) {
+    // Si tu interceptor ya añade el token automáticamente, solo necesitas hacer esto:
+    return this.http.delete(`${this.apiUrl}/${salaId}/abandonar`);
+  }
+
 }

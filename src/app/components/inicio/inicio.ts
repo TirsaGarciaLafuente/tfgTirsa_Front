@@ -101,4 +101,31 @@ export class InicioComponent implements OnInit {
   entrarSala(salaId: number) {
     this.router.navigate(['/sala', salaId]);
   }
+
+// En tu archivo inicio.ts
+
+// 1. Asegúrate de tener inyectado tanto el AlertService como el SalaService en tu constructor:
+// constructor(private alertService: AlertService, private salaService: SalaService) {}
+
+confirmarYAbandonar(salaId: string) {
+  this.alertService.confirmarAbandono().then((result) => {
+    if (result.isConfirmed) {
+      
+      // Cambio 1: Añadida la 's' a salasService
+      this.salasService.abandonarSala(salaId).subscribe({
+        next: () => {
+          this.salas = this.salas.filter(s => s.id !== salaId);
+          this.cdr.detectChanges();
+          this.alertService.success('Has abandonado la sala correctamente');
+        },
+        // Cambio 2: Añadido ': any' al parámetro err
+        error: (err: any) => {
+          console.error('Error al abandonar la sala:', err);
+          this.alertService.error('No se pudo procesar la solicitud. Inténtalo de nuevo.');
+        }
+      });
+
+    }
+  });
+}
 }

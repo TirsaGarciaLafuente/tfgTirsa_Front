@@ -6,6 +6,7 @@ import { MensajeService } from '../../services/mensaje.service';
 import { GaleriaService } from '../../services/galeria.service';
 import { Votacion } from '../votacion/votacion';
 import { HeaderComponent } from '../header/header';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   standalone: true,
@@ -20,10 +21,11 @@ export class SalaDetalleComponent implements OnInit {
   mensajes: any[] = [];
   nuevoMensaje: string = '';
   vistaActual: string = 'muro';
-
+  miUsuarioId: number | null = null;
   // --- Mensajes de estado ---
   mensajeError: string = '';
   mensajeExito: string = '';
+@ViewChild('scrollMe') private myScrollContainer!: ElementRef;
 
   // --- Variables para la Pizarra Nativa ---
   @ViewChild('canvasPizarra') canvasRef!: ElementRef<HTMLCanvasElement>;
@@ -41,13 +43,15 @@ export class SalaDetalleComponent implements OnInit {
     private route: ActivatedRoute,
     private mensajeService: MensajeService,
     private galeriaService: GaleriaService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
     this.salaId = Number(this.route.snapshot.paramMap.get('id'));
     this.cargarHistorial();
     this.cargarGaleria();
+    this.miUsuarioId = this.authService.obtenerIdUsuarioLogueado();
   }
 
   // --- Lógica del Muro ---
@@ -55,6 +59,7 @@ export class SalaDetalleComponent implements OnInit {
     this.mensajeService.obtenerHistorial(this.salaId).subscribe({
       next: (historial) => {
         this.mensajes = historial;
+        this.hacerScrollHaciaAbajo();
         this.cdr.detectChanges();
       },
       error: (err) => console.error('Error al cargar mensajes', err)
@@ -80,6 +85,14 @@ export class SalaDetalleComponent implements OnInit {
     if (nuevaVista === 'pizarra') {
       setTimeout(() => this.inicializarPizarra(), 50);
     }
+  }
+
+  hacerScrollHaciaAbajo() {
+    setTimeout(() => {
+      try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      } catch(err) { }
+    }, 50); // 50 milisegundos dan tiempo a Angular a pintar el HTML
   }
 
   // --- Lógica de la Pizarra (Nativa) ---

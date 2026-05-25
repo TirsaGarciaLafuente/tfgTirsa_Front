@@ -1,5 +1,6 @@
 /* Esto es lo que controla la altura de toda la página */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -34,46 +35,105 @@ body {
 }
 
 .footer {
-  background: #2B2B2B;
+  background: #2b2b2b;
   color: #ffffff;
   padding: 3rem 1.5rem;
   border-top: 4px solid #000000;
   /* Añadimos esto para que no se pegue al resto de elementos */
-  margin-top: auto; 
+  margin-top: auto;
 }
 
 /* Esto garantiza que el contenido interno no se estire a lo loco */
-.footer-content, .footer-bottom {
+.footer-content,
+.footer-bottom {
   max-width: 900px; /* Igual que tu .content */
-  margin: 0 auto;   /* Centra el footer en la pantalla */
+  margin: 0 auto; /* Centra el footer en la pantalla */
 }
 
-.footer{
-  margin: 0!important;
+.footer {
+  margin: 0 !important;
 }
 
 /* --- ESTILOS SWEETALERT2 --- */
 .brutal-swal-popup {
   border-radius: 20px !important;
-  border: 3px solid #2B2B2B !important;
-  box-shadow: 6px 6px 0px #2B2B2B !important;
+  border: 3px solid #2b2b2b !important;
+  box-shadow: 6px 6px 0px #2b2b2b !important;
   font-family: inherit !important;
 }
 
-/* Estilo para el botón de cerrar en la alerta de error */
-.brutal-swal-button {
-  background-color: #F4AABB !important;
-  color: #2B2B2B !important;
-  border: 2px solid #2B2B2B !important;
-  border-radius: 40px !important;
-  font-weight: 800 !important;
-  box-shadow: 3px 3px 0px #2B2B2B !important;
-  text-transform: uppercase;
+/* Espacio entre los dos botones de confirmación */
+.swal2-actions {
+  gap: 15px;
 }
 
-/* Arregla el fondo blanco que trae por defecto el icono de éxito de SweetAlert */
+/* Estilo BASE (estructura y sombra) para cualquier botón */
+.brutal-swal-button {
+  border: 2.5px solid #2b2b2b !important;
+  border-radius: 40px !important;
+  font-weight: 800 !important;
+  font-size: 14px !important;
+  padding: 12px 24px !important;
+  box-shadow: 4px 4px 0px #2b2b2b !important;
+  text-transform: uppercase;
+  cursor: pointer !important;
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s !important;
+}
+
+.brutal-swal-button:hover {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 2px 2px 0px #2b2b2b !important;
+}
+
+/* Color para el botón de Abandonar (Derecha) */
+.brutal-btn-danger {
+  background-color: #f4aabb !important;
+  color: #2b2b2b !important;
+}
+
+/* Color para el botón de Quedarme (Izquierda) */
+.brutal-btn-safe {
+  background-color: #ffffff !important;
+  color: #2b2b2b !important;
+}
+
+/* Quita el contorno azul de Chrome al hacer clic */
+.swal2-styled:focus {
+  box-shadow: 4px 4px 0px #2b2b2b !important;
+}
+
+/* Arregla el fondo blanco del icono de éxito */
 .swal2-success-circular-line-left,
 .swal2-success-circular-line-right,
 .swal2-success-fix {
   background-color: transparent !important;
+}
+
+/* --- ESTILOS PARA LA BARRA DE DESPLAZAMIENTO (SCROLLBAR) --- */
+/* 1. Chrome, Edge, Safari y Opera (Ignoran scrollbar-color aquí para poder usar webkit) */
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff5e4;
+  border-left: 3px solid #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  /* Patrón de franjas diagonales (o tu imagen) */
+  background-image: linear-gradient(to bottom, #aaeff4, #ffd166);
+  border: 3px solid #000000;
+  border-radius: 15px;  
+}
+
+/* 2. Regla exclusiva para Firefox */
+/* Solo se aplicará si el navegador NO soporta ::-webkit-scrollbar */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #000000 #fff5e4;
+  }
 }

@@ -35,23 +35,24 @@
 
 /* ── Actions card ── */
 .actions-card {
-  background: #FFD166 ; /* Amarillo vibrante */
+  background: #FFD166; 
   border: 3px solid #000000;
   box-shadow: 6px 6px 0px #000000;
   padding: 1.5rem 2rem;
   display: flex;
+  justify-content: center; /* Alinea todo el bloque al centro */
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.5rem; /* Este es el espacio entre el botón rosa y el grupo */
   margin-bottom: 3rem;
   flex-wrap: wrap;
 }
 
 .btn-crear {
-  flex: 1;
+  /* Se elimina 'flex: 1;' para que no se estire */
   min-width: 180px;
   padding: 14px;
-  background: #F4AABB; /* Rosa vibrante */
-  color: #2B2B2B ;
+  background: #F4AABB; 
+  color: #2B2B2B;
   border: 2px solid #000000;
   font-size: 16px;
   font-weight: 800;
@@ -69,13 +70,13 @@
 .unirse-group {
   display: flex;
   align-items: center;
-  gap: 0;
-  flex: 1;
-  min-width: 260px;
+  /* Se elimina 'flex: 1;' */
+  gap: 1.5rem; /* Se iguala al gap de .actions-card para que la separación sea idéntica */
 }
 
 .input-codigo {
-  flex: 1;
+  /* Se elimina 'flex: 1;' */
+  width: 220px; /* Aquí controlas lo corto o largo que quieres el input */
   padding: 13px 16px;
   font-size: 15px;
   font-weight: 600;
@@ -95,9 +96,10 @@
 }
 
 .btn-unirse {
-  padding: 8px 15px;
+  /* Se ajusta el padding para que la altura visual sea parecida a la del input y el botón rosa */
+  padding: 13px 20px; 
   background: #000000;
-  margin: 3px;
+  /* Se elimina 'margin: 3px;' para no alterar el gap matemático */
   color: #ffffff;
   border: 2px solid #000000;
   font-size: 13px;
@@ -107,7 +109,6 @@
   white-space: nowrap;
   display: flex;
   align-items: center;
-  gap: 8px;
 }
 
 .btn-unirse:hover {
@@ -149,7 +150,7 @@
 
 .sala-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center; /* Cambiado de flex-start a center */
   justify-content: space-between;
 }
 
@@ -162,6 +163,7 @@
 
 .sala-actions {
   display: flex;
+  align-items: center; /* Asegura que el contenedor del botón también centre su contenido */
   gap: 8px;
 }
 
@@ -172,11 +174,22 @@
   cursor: pointer;
   color: #000000;
   padding: 4px 6px;
+  display: flex;         /* Añadido para centrar la imagen dentro del botón */
+  align-items: center;   /* Añadido para centrar la imagen dentro del botón */
+  justify-content: center;
 }
 
 .icon-btn:hover {
   border: 2px solid #000000;
   background: #ff6666;
+}
+
+/* Añade esta clase para controlar el tamaño exacto de la imagen de la puerta */
+.icono-abandonar {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
 }
 
 .sala-desc {
@@ -351,4 +364,20 @@
 
 .links a:hover {
   color: #0000FF;
+}
+
+/* --- Ajuste del botón para centrar la imagen --- */
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px; /* Ajusta el relleno si lo ves muy pegado a los bordes */
+  /* Mantén el resto de estilos que ya tuvieras en .icon-btn (background, border, hover...) */
+}
+
+/* --- Estilo para la imagen del icono --- */
+.icono-abandonar {
+  width: 20px;  /* Ajusta estos valores para hacer el icono más grande o más pequeño */
+  height: 20px;
+  object-fit: contain; /* Evita que la imagen se deforme */
 }

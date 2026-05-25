@@ -39,6 +39,26 @@ export class AlertService {
     });
   }
 
+  // NUEVA: Alerta de confirmación para abandonar la sala
+  confirmarAbandono(): Promise<any> {
+    return Swal.fire({
+      title: '¿Seguro que quieres abandonar esta sala?',
+      text: 'Para volver a entrar, necesitarás ingresar el código de nuevo.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Abandonar',
+      cancelButtonText: 'Quedarme',
+      reverseButtons: true, // Coloca 'Quedarme' a la izquierda y 'Abandonar' a la derecha
+      background: '#FFF5E4',
+      color: '#2B2B2B',
+      customClass: {
+        popup: 'brutal-swal-popup',
+        confirmButton: 'brutal-swal-button brutal-btn-danger',
+        cancelButton: 'brutal-swal-button brutal-btn-safe'
+      }
+    });
+  }
+
   // Alerta de carga
   loading() {
     Swal.fire({

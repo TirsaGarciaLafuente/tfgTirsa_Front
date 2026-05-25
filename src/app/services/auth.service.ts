@@ -49,4 +49,33 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
   }
+
+  // En auth.service.ts
+
+  obtenerIdUsuarioLogueado(): number | null {
+    // Cambia 'token' por el nombre exacto que uses en tu localStorage
+    const token = localStorage.getItem('token'); 
+    
+    if (!token) return null;
+
+    try {
+      // El JWT tiene 3 partes separadas por puntos. El índice 1 es el payload.
+      const payloadBase64 = token.split('.')[1];
+      
+      // Decodificamos la base64 a texto
+      const decodedJson = atob(payloadBase64);
+      
+      // Lo convertimos en un objeto de JavaScript
+      const valores = JSON.parse(decodedJson);
+      
+      // IMPORTANTE: Cambia 'valores.id' por el nombre de la propiedad 
+      // exacta que tu backend (Spring Boot) guarda en el token. 
+      // A veces es valores.sub, valores.userId, etc.
+      return valores.id; 
+      
+    } catch (error) {
+      console.error('Error al decodificar el token:', error);
+      return null;
+    }
+  }
 }
