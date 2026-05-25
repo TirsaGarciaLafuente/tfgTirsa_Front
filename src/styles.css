@@ -1,5 +1,79 @@
-/* You can add global styles to this file, and also import other style files */
-body {
+/* Esto es lo que controla la altura de toda la página */
+html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
+}
+
+/* El contenedor principal ocupa toda la pantalla */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* El main se estira para empujar el footer al fondo */
+.main-content {
+  flex: 1;
+}
+
+/* 1. Forzar que el footer sea compacto y no ocupe todo el ancho si no quieres */
+app-footer {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. Esto elimina cualquier espacio extra entre el contenido y el footer */
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.footer {
+  background: #2B2B2B;
+  color: #ffffff;
+  padding: 3rem 1.5rem;
+  border-top: 4px solid #000000;
+  /* Añadimos esto para que no se pegue al resto de elementos */
+  margin-top: auto; 
+}
+
+/* Esto garantiza que el contenido interno no se estire a lo loco */
+.footer-content, .footer-bottom {
+  max-width: 900px; /* Igual que tu .content */
+  margin: 0 auto;   /* Centra el footer en la pantalla */
+}
+
+.footer{
+  margin: 0!important;
+}
+
+/* --- ESTILOS SWEETALERT2 --- */
+.brutal-swal-popup {
+  border-radius: 20px !important;
+  border: 3px solid #2B2B2B !important;
+  box-shadow: 6px 6px 0px #2B2B2B !important;
+  font-family: inherit !important;
+}
+
+/* Estilo para el botón de cerrar en la alerta de error */
+.brutal-swal-button {
+  background-color: #F4AABB !important;
+  color: #2B2B2B !important;
+  border: 2px solid #2B2B2B !important;
+  border-radius: 40px !important;
+  font-weight: 800 !important;
+  box-shadow: 3px 3px 0px #2B2B2B !important;
+  text-transform: uppercase;
+}
+
+/* Arregla el fondo blanco que trae por defecto el icono de éxito de SweetAlert */
+.swal2-success-circular-line-left,
+.swal2-success-circular-line-right,
+.swal2-success-fix {
+  background-color: transparent !important;
 }

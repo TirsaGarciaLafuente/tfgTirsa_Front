@@ -50,19 +50,25 @@ export class LoginComponent {
 
   handleOverlayClickNuevaPassword(e: Event) { this.closeModalNuevaPassword(); }
 
-  onLogin() {
+ onLogin() {
     this.authService.login(this.loginData).subscribe({
       next: (response: any) => {
-        console.log('¡Bienvenido!', response);
+        if (response && response.jwt) {
+            localStorage.setItem('token', response.jwt);
+            localStorage.setItem('usuario', 'True');
+            
+            // 2. Avisamos al resto de la app de que ya estamos logueados
+            this.authService.loginSuccess$.next(); 
+        }
         this.alertService.success('Login correcto');
         this.router.navigate(['/inicio']);
       },
       error: (err: any) => {
-        console.error('Error en el login', err);
         this.alertService.error('Usuario o contraseña incorrectos');
       }
     });
   }
+  
   onRegister() {
     this.authService.registro(this.registerData).subscribe({
       next: (response: any) => {

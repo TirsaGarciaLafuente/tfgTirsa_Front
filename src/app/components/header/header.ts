@@ -21,18 +21,36 @@ export class HeaderComponent implements OnInit { // Implementamos OnInit
     private cdr: ChangeDetectorRef
   ) { }
 
-  ngOnInit(): void {
-    // Al cargar el header, pedimos el perfil al backend para obtener el avatar guardado
+ngOnInit(): void {
+    // A) Si el usuario recarga la página (F5) y ya tiene token, cargamos el avatar
+    if (localStorage.getItem('token')) {
+      this.cargarAvatar();
+    }
+
+    // B) Si el usuario acaba de hacer login, escuchamos el aviso y cargamos el avatar
+    this.authService.loginSuccess$.subscribe(() => {
+      this.cargarAvatar();
+    });
+  }
+
+  cargarAvatar(): void {
     this.usuarioService.obtenerPerfil().subscribe({
       next: (usuario) => {
         if (usuario && usuario.avatar) {
           this.avatarActual = usuario.avatar;
+          this.cdr.detectChanges();
         }
       },
       error: (err) => console.error('Error al cargar perfil:', err)
     });
   }
 
+  estaLogueado(): boolean {
+    // Devuelve true si existe el token, false si es null
+    return localStorage.getItem('token') !== null;
+    
+  }
+  
   cerrarSesion() {
     this.authService.logout();
     this.router.navigate(['/login']);

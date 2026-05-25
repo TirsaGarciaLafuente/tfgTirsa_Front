@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators'; // Importante importar tap para el JWT
 
 @Injectable({
@@ -10,20 +10,13 @@ export class AuthService {
   // Separamos las rutas según el controlador de Spring Boot
   private authUrl = 'http://localhost:8080/api/auth';
 
+  public loginSuccess$ = new Subject<void>();
+
   constructor(private http: HttpClient) { }
 
   // ─── MÉTODO LOGIN ACTUALIZADO CON JWT ───
   login(credentials: any): Observable<any> {
-    return this.http.post<any>(`${this.authUrl}/login`, credentials)
-      .pipe(
-        tap(response => {
-          // Si el servidor devuelve un token, lo guardamos en el navegador
-          if (response && response.jwt) {
-            localStorage.setItem('token', response.jwt);
-            localStorage.setItem('usuario', credentials.nombre);
-          }
-        })
-      );
+    return this.http.post<any>(`${this.authUrl}/login`, credentials);
   }
 
   // ─── TUS MÉTODOS ANTERIORES INTACTOS ───

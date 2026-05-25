@@ -13,8 +13,8 @@
   <div *ngIf="!cargando && preguntaDelDia" class="voting-panel">
     
     <div class="question-card">
-      <span>PREGUNTA DEL DÍA</span>
-      <h2>{{ preguntaDelDia.texto }}</h2>
+      <span class="pregunta-etiqueta">PREGUNTA DEL DÍA</span>
+      <h2 class="pregunta-texto">{{ preguntaDelDia.texto }}</h2>
     </div>
 
     <div *ngIf="mensajeExito" class="alert-success">
@@ -22,7 +22,7 @@
     </div>
 
     <div *ngIf="!haVotado" class="companions-section">
-      <h3>Selecciona a un compañero para emitir tu voto:</h3>
+      <h3 class="section-title">Selecciona a un compañero para emitir tu voto:</h3>
       
       <div class="companions-grid">
         <button 
@@ -39,13 +39,16 @@
     </div>
 
     <div *ngIf="haVotado" class="results-section">
-      <h3>Resultados actuales</h3>
+      <h3 class="section-title">Resultados actuales</h3>
       
       <div class="results-list">
         <div *ngFor="let res of resultados" class="result-item">
           
           <div class="result-info">
-            <span class="result-name">{{ res.nombre }}</span>
+            <div class="usuario-info">
+              <img [src]="res.avatar || 'assets/default-avatar.jpg'" alt="Avatar" class="voto-avatar">
+              <span class="result-name">{{ res.nombre }}</span>
+            </div>
             <span class="result-votes">{{ res.votos }} votos ({{ res.porcentaje }}%)</span>
           </div>
           

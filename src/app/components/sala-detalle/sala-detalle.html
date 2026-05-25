@@ -1,12 +1,3 @@
-<app-header></app-header>
-<nav>
-  <div class="navbar-right">
-    <button class="btn-logout" [routerLink]="['/inicio']">
-      <span class="logout-icon">←</span> Volver a Mis Salas
-    </button>
-  </div>
-</nav>
-
 <nav class="navbar-sala">
   <button [class.activo]="vistaActual === 'muro'" (click)="cambiarVista('muro')">
     Muro de comentarios

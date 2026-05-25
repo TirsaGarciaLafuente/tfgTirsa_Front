@@ -1,141 +1,141 @@
-/* Sección de compañeros */
-.companions-section {
-  width: 100%;
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* --- Contenedor Principal --- */
+.votacion-container {
+  background: #FFF5E4;
+  border: 3px solid #2B2B2B;
+  box-shadow: 8px 8px 0px #2B2B2B;
+  padding: 3rem 2rem;
+  margin: 2rem auto;
+  max-width: 800px;
 }
 
-.companions-section h3 {
-  font-size: 1.1rem;
-  color: #7c6e65;
-  margin-bottom: 20px;
+/* --- Pregunta del día --- */
+.question-card {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.pregunta-etiqueta {
+  font-size: 14px;
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.pregunta-texto {
+  font-size: 26px;
+  font-weight: 900;
+  color: #2B2B2B;
+  margin: 0;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #2B2B2B;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
   text-align: center;
 }
 
-/* El Grid Mágico: Se adapta automáticamente al espacio disponible */
+/* --- Botones de Votación (Flexbox) --- */
 .companions-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  width: 100%;
-  max-width: 600px; /* Centra y limita el ancho para que no se deforme en pantallas gigantes */
-  padding: 10px;
-  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Esto es la clave para centrarlos */
+  gap: 1rem;
 }
 
-/* Tarjeta/Botón de votación estilo Askus */
 .companion-vote-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #ffffff;
-  border: 2px solid #e1d3c1;
-  border-radius: 16px; /* Bordes muy redondeados como la app de referencia */
-  padding: 20px 15px;
+  background: #FFD166; /* Amarillo corporativo */
+  border: 2.5px solid #2B2B2B;
+  box-shadow: 4px 4px 0px #2B2B2B;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 800;
+  width: 25%;
+  color: #2B2B2B;
+  text-transform: uppercase;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(124, 110, 101, 0.05);
-  transition: all 0.2s ease-in-out;
+  transition: transform 0.1s, box-shadow 0.1s;
 }
 
-/* Efectos visuales al pasar el ratón (PC) */
-@media (hover: hover) {
-  .companion-vote-card:hover {
-    border-color: #cc8b65;
-    background-color: #fffbf7;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(204, 139, 101, 0.15);
-  }
+.companion-vote-card:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #2B2B2B;
+  background: #F4AABB; /* Cambia a rosa al pasar el ratón */
 }
 
-/* Efecto de pulsación activa (Móvil y PC) */
-.companion-vote-card:active {
-  transform: scale(0.96);
-  background-color: #f7ede2;
-}
-
-/* Estilos de los textos dentro de la tarjeta */
-.companion-vote-card .name {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #534a42;
-  margin-bottom: 4px;
-}
-
-.companion-vote-card .username {
-  font-size: 0.85rem;
-  color: #a69a8e;
-}
-
-
-/* --- SECCIÓN DE RESULTADOS --- */
-.results-section {
-  width: 100%;
-  max-width: 500px;
-  margin: 30px auto 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.results-section h3 {
-  font-size: 1.1rem;
-  color: #7c6e65;
-  margin-bottom: 25px;
-  text-align: center;
-}
-
+/* --- Resultados (Avatar y Texto) --- */
 .result-item {
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 
 .result-info {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: #534a42;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.usuario-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.voto-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #2B2B2B;
+  object-fit: cover;
+  background: #ffffff;
 }
 
 .result-name {
-  font-size: 1.1rem;
+  font-weight: 800;
+  font-size: 18px;
+  color: #2B2B2B;
+  text-transform: uppercase;
 }
 
 .result-votes {
-  font-size: 0.85rem;
-  color: #a69a8e;
-  font-weight: normal;
+  font-weight: 700;
+  font-size: 14px;
+  color: #666666;
 }
 
+/* --- Barra de Progreso --- */
 .progress-bar-container {
   width: 100%;
-  height: 14px;
-  background-color: #f0e6db; /* Gris/Beige claro de fondo */
-  border-radius: 12px;
+  height: 28px;
+  background: #ffffff;
+  border: 2.5px solid #2B2B2B;
+  box-shadow: 4px 4px 0px #2B2B2B;
+  position: relative;
   overflow: hidden;
 }
 
 .progress-bar {
   height: 100%;
-  background-color: #cc8b65; /* Color corporativo de la barra */
-  border-radius: 12px;
-  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); /* Animación fluida al rellenarse */
+  background: #7EC8C8; /* Azul claro para la barra */
+  border-right: 2.5px solid #2B2B2B;
+  transition: width 0.5s ease-out;
 }
 
-/* --- REGLAS RESPONSIVE ESPECÍFICAS --- */
-
-/* Pantallas móviles (estilo Askus puro vertical) */
-@media (max-width: 480px) {
-  .companions-grid {
-    grid-template-columns: 1fr; /* Una sola columna ocupando todo el ancho */
-    gap: 12px;
-    max-width: 100%;
-  }
-  
-  .companion-vote-card {
-    padding: 16px;
-    border-radius: 14px;
-  }
+/* --- Alertas --- */
+.alert-error, .alert-info, .alert-success {
+  border: 2.5px solid #2B2B2B;
+  padding: 1rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  box-shadow: 4px 4px 0px #2B2B2B;
 }
+
+.alert-error { background: #F4AABB; }
+.alert-info { background: #ffffff; }
+.alert-success { background: #FFD166; }

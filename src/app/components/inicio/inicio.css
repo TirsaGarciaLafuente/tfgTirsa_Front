@@ -8,7 +8,7 @@
 /* ── Page ── */
 .page {
   min-height: 100vh;
-  background: #f1a0fc;
+  background: #FFF5E4 ;
   font-family: 'Helvetica Neue', Arial, sans-serif;
   color: #000000;
 }
@@ -35,7 +35,7 @@
 
 /* ── Actions card ── */
 .actions-card {
-  background: #FFF200; /* Amarillo vibrante */
+  background: #FFD166 ; /* Amarillo vibrante */
   border: 3px solid #000000;
   box-shadow: 6px 6px 0px #000000;
   padding: 1.5rem 2rem;
@@ -50,8 +50,8 @@
   flex: 1;
   min-width: 180px;
   padding: 14px;
-  background: #FF3366; /* Rosa vibrante */
-  color: #ffffff;
+  background: #F4AABB; /* Rosa vibrante */
+  color: #2B2B2B ;
   border: 2px solid #000000;
   font-size: 16px;
   font-weight: 800;
@@ -176,7 +176,7 @@
 
 .icon-btn:hover {
   border: 2px solid #000000;
-  background: #FFF200;
+  background: #ff6666;
 }
 
 .sala-desc {
@@ -189,8 +189,8 @@
 .btn-entrar {
   width: 100%;
   padding: 12px;
-  background: #0000FF; /* Azul profundo */
-  color: #ffffff;
+  background: #7EC8C8; /* Azul profundo */
+  color: #2B2B2B ;
   border: 2px solid #000000;
   font-size: 15px;
   font-weight: 800;
@@ -278,7 +278,7 @@
 }
 
 .field input:focus {
-  background: #FFF200;
+  background: #f5eedd;
 }
 
 /* ── Botón Principal ── */

@@ -1,24 +1,34 @@
-
-
 /* ── Navbar ── */
 .navbar {
   display: flex;
-  align-items: center;
+  align-items: center; /* Alinea todo verticalmente al centro */
   justify-content: space-between;
-  padding: 1rem 2rem;
-  background: #a670ad;
+  padding: 2px 2rem; /* El "10px" es el espacio general arriba/abajo de la barra */
+  background: #2B2B2B;
   border-bottom: 3px solid #000000;
 }
 
 .navbar-brand {
+  /* Aquí está el truco: usamos margin-top para empujar el logo hacia abajo */
+  margin-top: 2px; /* Sube o baja este número (ej: 8px, 10px) para ajustar el margen superior */
   display: flex;
   align-items: center;
-  gap: 12px;
+}
+
+.navbar-logo {
+  height: 70px; /* Ajusta aquí el tamaño si sientes que sigue siendo grande */
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.inicio{
+  cursor: pointer;
 }
 
 .brand-icon {
-  background: #000000;
-  color: #ffffff;
+  background: #2B2B2B ;
+  color: #2B2B2B ;
   font-size: 14px;
   font-weight: 00;
   padding: 8px 10px;
@@ -28,12 +38,13 @@
 .brand-name {
   font-size: 18px;
   font-weight: 800;
-  color: #000000;
+  color: #FFF5E4;
   text-transform: uppercase;
   letter-spacing: -0.5px;
 }
 
 .navbar-right {
+  margin-left: auto; /* Empuja todo el contenido de la derecha al final */
   display: flex;
   align-items: center;
   gap: 20px;
@@ -56,7 +67,7 @@
 .btn-logout {
   background: none;
   border: none;
-  color: #000000;
+  color: #7EC8C8;
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
@@ -224,3 +235,4 @@
   border-radius: 8px;
   cursor: pointer;
 }
+

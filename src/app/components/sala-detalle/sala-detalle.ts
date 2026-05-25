@@ -12,7 +12,7 @@ import { HeaderComponent } from '../header/header';
   selector: 'app-sala-detalle',
   templateUrl: './sala-detalle.html',
   styleUrl: './sala-detalle.css',
-  imports: [CommonModule, FormsModule, RouterModule, Votacion, HeaderComponent]
+  imports: [CommonModule, FormsModule, RouterModule, Votacion]
 })
 export class SalaDetalleComponent implements OnInit {
 
@@ -28,7 +28,7 @@ export class SalaDetalleComponent implements OnInit {
   // --- Variables para la Pizarra Nativa ---
   @ViewChild('canvasPizarra') canvasRef!: ElementRef<HTMLCanvasElement>;
   private cx!: CanvasRenderingContext2D;
-  colorPizarra: string = '#d4845a';
+  colorPizarra: string = '#000000';
   grosorPincel: number = 5;
   dibujando: boolean = false;
 

@@ -12,7 +12,7 @@ import { HeaderComponent } from '../header/header';
   selector: 'app-inicio',
   templateUrl: './inicio.html',
   styleUrl: './inicio.css',
-  imports: [CommonModule, FormsModule, RouterModule,HeaderComponent]
+  imports: [CommonModule, FormsModule, RouterModule]
 })
 export class InicioComponent implements OnInit {
 

@@ -2,20 +2,11 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: #fdeede;
+  background: #FFF5E4;
   font-family: 'Segoe UI', sans-serif;
 }
 
-/* ── Navbar (Header unificado) ── */
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 2rem;
-  background: #fdf5ee;
-  border-bottom: 0.5px solid #e8d5c0;
-}
-
+/* ── Navbar ── */
 .navbar-brand {
   display: flex;
   align-items: center;
@@ -23,41 +14,22 @@
 }
 
 .brand-icon {
-  background: #d4845a;
-  color: #fff;
+  background: #FFD166;
+  color: #2B2B2B;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 900;
   padding: 6px 8px;
   border-radius: 8px;
+  border: 2px solid #2B2B2B;
 }
 
 .brand-name {
   font-size: 16px;
-  font-weight: 500;
-  color: #7a4a2a;
+  font-weight: 800;
+  color: #FFF5E4;
+  letter-spacing: 0.05em;
 }
 
-.navbar-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.btn-logout {
-  background: none;
-  border: none;
-  color: #b07050;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: color 0.15s;
-}
-
-.btn-logout:hover {
-  color: #c97940;
-}
 
 .logout-icon {
   font-size: 16px;
@@ -68,7 +40,7 @@
   max-width: 900px;
   margin: 2rem auto;
   padding: 1.5rem;
-  background: #f5e6d3; /* Mismo fondo que las tarjetas de inicio */
+  background: #FFF5E4;
   border-radius: 16px;
 }
 
@@ -78,12 +50,11 @@
   gap: 10px;
   margin-top: 10px;
   margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  
-  /* Ocultar scrollbar */
-  scrollbar-width: none; 
-  -ms-overflow-style: none; 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .navbar-sala::-webkit-scrollbar {
@@ -91,35 +62,35 @@
 }
 
 .navbar-sala button {
-  flex: 0 0 auto; 
-  padding: 12px 20px;
-  border-radius: 10px;
-  border: none;
-  background-color: #fdf5ee;
-  color: #a07050;
-  font-size: 14px;
-  font-weight: 500;
+  flex: 0 0 auto;
+  padding: 10px 20px;
+  border-radius: 40px;
+  border: 2px solid #2B2B2B;
+  background-color: #FFF5E4;
+  color: #2B2B2B;
+  font-size: 13px;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s ease;
+  letter-spacing: 0.03em;
+  box-shadow: 3px 3px 0 #2B2B2B;
+  transition: box-shadow 0.1s, transform 0.1s;
 }
 
-/* Pestaña activa */
 .navbar-sala button.activo {
-  background-color: #d4845a;
-  color: white;
-  box-shadow: 0 4px 8px rgba(212, 132, 90, 0.25);
+  background-color: #FFD166;
+  color: #2B2B2B;
+  box-shadow: 3px 3px 0 #2B2B2B;
 }
 
-/* Hover para pestañas inactivas */
 .navbar-sala button:hover:not(.activo) {
-  background-color: #f0ddc8;
-  color: #7a4a2a;
+  background-color: #F4AABB;
+  box-shadow: 1px 1px 0 #2B2B2B;
+  transform: translate(2px, 2px);
 }
 
-/* Distribución equitativa en ordenador */
 @media (min-width: 768px) {
   .navbar-sala button {
-    flex: 1; 
+    flex: 1;
   }
 }
 
@@ -131,19 +102,21 @@
 }
 
 .muro {
-  background-color: #fdf5ee;
+  background-color: #FFF5E4;
   border-radius: 12px;
+  border: 2px solid #2B2B2B;
+  box-shadow: 4px 4px 0 #2B2B2B;
   padding: 1.5rem;
   min-height: 300px;
   max-height: 400px;
   overflow-y: auto;
-  border: 1px solid #e8d5c0;
 }
 
 .mensaje {
   margin-bottom: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #e8d5c0;
+  border-bottom: 1.5px solid #2B2B2B;
+  opacity: 0.9;
 }
 
 .mensaje:last-child {
@@ -156,26 +129,29 @@
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  color: #a07050;
+  color: #2B2B2B;
+  opacity: 0.55;
   margin-bottom: 6px;
 }
 
 .datos-autor strong {
-  color: #7a4a2a;
-  font-size: 14px;
-  font-weight: 600;
+  color: #2B2B2B;
+  opacity: 1;
+  font-size: 13px;
+  font-weight: 800;
 }
 
 .texto {
   margin: 0;
-  color: #5a3a2a;
+  color: #2B2B2B;
   font-size: 14.5px;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .mensaje-vacio {
   text-align: center;
-  color: #a07050;
+  color: #2B2B2B;
+  opacity: 0.4;
   margin-top: 3rem;
   font-size: 15px;
 }
@@ -190,194 +166,216 @@
   flex: 1;
   padding: 13px 16px;
   font-size: 14px;
-  color: #7a4a2a;
-  background: #fdf5ee;
-  border: 1px solid #e8d5c0;
-  border-radius: 12px;
+  color: #2B2B2B;
+  background: #FFF5E4;
+  border: 2px solid #2B2B2B;
+  border-radius: 40px;
   outline: none;
-  transition: box-shadow 0.15s;
+  font-weight: 500;
+  transition: box-shadow 0.1s;
 }
 
 .caja-envio input::placeholder {
-  color: #c4a07a;
+  color: #2B2B2B;
+  opacity: 0.35;
 }
 
 .caja-envio input:focus {
-  box-shadow: 0 0 0 2px rgba(201, 121, 64, 0.25);
+  box-shadow: 3px 3px 0 #2B2B2B;
 }
 
 .caja-envio button {
   padding: 13px 24px;
-  background: #d4845a;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
+  background: #7EC8C8;
+  color: #2B2B2B;
+  border: 2px solid #2B2B2B;
+  border-radius: 40px;
+  font-size: 13px;
+  font-weight: 800;
   cursor: pointer;
-  transition: background 0.15s;
+  letter-spacing: 0.04em;
+  box-shadow: 3px 3px 0 #2B2B2B;
+  transition: box-shadow 0.1s, transform 0.1s;
 }
 
 .caja-envio button:hover {
-  background: #be6e45;
+  box-shadow: 1px 1px 0 #2B2B2B;
+  transform: translate(2px, 2px);
 }
 
-/* ── Vistas Placeholder (Otras funcionalidades) ── */
+/* ── Vistas Placeholder ── */
 .modulo-placeholder {
-  background-color: #fdf5ee;
+  background-color: #FFF5E4;
   padding: 4rem 2rem;
   border-radius: 12px;
   text-align: center;
-  color: #7a4a2a;
-  border: 1px dashed #d4845a;
+  color: #2B2B2B;
+  border: 2.5px dashed #2B2B2B;
 }
 
 .modulo-placeholder h3 {
   margin-top: 0;
-  color: #c97940;
+  color: #2B2B2B;
+  font-weight: 900;
+  letter-spacing: 0.03em;
 }
 
 /* ── Pizarra ── */
 .modulo-pizarra {
-  background-color: #fdf5ee;
+  background-color: #FFF5E4;
   border-radius: 12px;
   padding: 1.5rem;
-  border: 1px solid #e8d5c0;
+  border: 2px solid #2B2B2B;
+  box-shadow: 4px 4px 0 #2B2B2B;
 }
 
 .herramientas-pizarra {
   display: flex;
-  flex-wrap: wrap; /* Clave: permite que bajen a la siguiente línea si no caben */
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 15px;
   align-items: center;
-  justify-content: space-between; /* Distribuye el espacio */
+  justify-content: space-between;
 }
 
 .herramientas-pizarra button {
   padding: 8px 16px;
-  background: #f5e6d3;
-  color: #7a4a2a;
-  border: 1px solid #e8d5c0;
-  border-radius: 8px;
+  background: #FFF5E4;
+  color: #2B2B2B;
+  border: 2px solid #2B2B2B;
+  border-radius: 40px;
   cursor: pointer;
-  font-size: 14px;
-  flex: 1 1 auto; /* Permite que los botones crezcan o se encojan de forma fluida */
-  min-width: 100px; /* Evita que el texto de los botones se aplaste */
+  font-size: 13px;
+  font-weight: 700;
+  flex: 1 1 auto;
+  min-width: 100px;
   text-align: center;
+  box-shadow: 2px 2px 0 #2B2B2B;
+  transition: box-shadow 0.1s, transform 0.1s;
 }
 
 .herramientas-pizarra button:hover {
-  background: #e8d5c0;
+  background: #F4AABB;
+  box-shadow: 1px 1px 0 #2B2B2B;
+  transform: translate(1px, 1px);
 }
 
 .herramientas-pizarra input[type="color"] {
   cursor: pointer;
+  border: 2px solid #2B2B2B;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  padding: 2px;
+  background: #FFF5E4;
 }
 
 .herramientas-pizarra input[type="range"] {
-  flex: 1 1 100px; /* Permite que la barra se estire ocupando el espacio sobrante */
+  flex: 1 1 100px;
   min-width: 80px;
+  accent-color: #2B2B2B;
 }
 
 .contenedor-canvas {
-  border: 2px dashed #d4845a;
+  border: 2.5px solid #2B2B2B;
   border-radius: 8px;
   overflow: hidden;
   background: white;
-  /* Eliminamos el display: flex y justify-content de aquí */
+  box-shadow: 4px 4px 0 #2B2B2B;
 }
 
 canvas {
-  touch-action: none; /* Bloquea el scroll al arrastrar el dedo por la pizarra */
+  touch-action: none;
 }
 
-/* ── Galería Lista Vertical ── */
+/* ── Galería ── */
 .carrusel-dibujos {
   display: flex;
-  flex-direction: column; /* Apila las tarjetas de arriba a abajo */
-  gap: 20px; /* Espacio vertical entre los dibujos */
+  flex-direction: column;
+  gap: 20px;
   width: 100%;
 }
 
 .dibujo-card {
-  width: 100%; /* La tarjeta ocupa todo el ancho disponible */
-  background: #fdf5ee; 
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  width: 100%;
+  background: #FFF5E4;
+  border-radius: 12px;
+  border: 2px solid #2B2B2B;
+  box-shadow: 4px 4px 0 #2B2B2B;
   display: flex;
   flex-direction: column;
-  border: 1px solid #e8d5c0;
 }
 
 .dibujo-card img {
-  width: 100%; 
-  height: auto; /* Deja que la altura se ajuste sola para no deformarse */
-  max-height: 400px; /* Evita que en pantallas muy grandes la foto sea kilométrica */
-  object-fit: contain; 
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: contain;
   background-color: #ffffff;
   border-radius: 6px;
-  border: 1px solid #e8d5c0;
+  border-bottom: 2px solid #2B2B2B;
 }
 
 .info-dibujo {
-  font-size: 14px; 
-  padding: 10px 10px 5px 5px;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 10px 5px 10px;
   display: flex;
-  flex-direction: row; /* Coloca el nombre a la izquierda y fecha a la derecha */
-  justify-content: space-between; 
-  color: #7a4a2a;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #2B2B2B;
 }
 
-/* --- SECCIÓN DE SUBIDA DE FOTOS --- */
+/* ── Subida de fotos ── */
 .upload-section {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Alinea el botón y la vista previa al centro. Cámbialo a 'flex-start' si lo quieres pegado a la izquierda */
+  align-items: center;
   margin-bottom: 25px;
   padding-bottom: 25px;
-  border-bottom: 1px dashed #e1d3c1;
+  border-bottom: 2px dashed #2B2B2B;
 }
 
 .btn-seleccionar-foto {
-  background-color: #ffffff;
-  color: #cc8b65;
-  border: 2px dashed #cc8b65;
+  background-color: #FFF5E4;
+  color: #2B2B2B;
+  border: 2.5px dashed #2B2B2B;
   padding: 12px 24px;
   font-size: 1rem;
-  font-weight: bold;
-  border-radius: 12px;
+  font-weight: 800;
+  border-radius: 40px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  box-shadow: 3px 3px 0 #2B2B2B;
+  transition: box-shadow 0.1s, transform 0.1s;
 }
 
 .btn-seleccionar-foto:hover {
-  background-color: #fffbf7;
-  transform: translateY(-2px);
+  background-color: #FFD166;
+  box-shadow: 1px 1px 0 #2B2B2B;
+  transform: translate(2px, 2px);
 }
 
-/* Caja de la previsualización restringida al tamaño de una tarjeta de galería */
 .preview-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
-  background-color: #fffbf7;
+  background-color: #FFF5E4;
   padding: 15px;
   border-radius: 16px;
-  border: 1px solid #e1d3c1;
-  width: 260px; /* Evita que crezca a lo ancho */
+  border: 2px solid #2B2B2B;
+  box-shadow: 4px 4px 0 #2B2B2B;
+  width: 260px;
   box-sizing: border-box;
 }
 
-/* Imagen adaptada al marco sin deformarse */
 .img-preview {
   width: 100%;
-  height: 180px; /* Evita que crezca a lo alto */
-  border-radius: 12px;
-  object-fit: cover; /* El secreto para que encaje limpiamente como las demás fotos */
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  height: 180px;
+  border-radius: 10px;
+  border: 2px solid #2B2B2B;
+  object-fit: cover;
 }
 
 .preview-actions {
@@ -388,33 +386,50 @@ canvas {
 }
 
 .btn-cancelar {
-  background-color: #f7ede2;
-  color: #7c6e65;
-  border: none;
+  background-color: #FFF5E4;
+  color: #2B2B2B;
+  border: 2px solid #2B2B2B;
   padding: 8px 16px;
-  border-radius: 20px;
+  border-radius: 40px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 800;
   font-size: 0.9rem;
+  box-shadow: 2px 2px 0 #2B2B2B;
+  transition: box-shadow 0.1s, transform 0.1s;
+}
+
+.btn-cancelar:hover {
+  box-shadow: 1px 1px 0 #2B2B2B;
+  transform: translate(1px, 1px);
 }
 
 .btn-confirmar {
-  background-color: #cc8b65;
-  color: white;
-  border: none;
+  background-color: #7EC8C8;
+  color: #2B2B2B;
+  border: 2px solid #2B2B2B;
   padding: 8px 16px;
-  border-radius: 20px;
+  border-radius: 40px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 800;
   font-size: 0.9rem;
+  box-shadow: 2px 2px 0 #2B2B2B;
+  transition: box-shadow 0.1s, transform 0.1s;
+}
+
+.btn-confirmar:hover {
+  box-shadow: 1px 1px 0 #2B2B2B;
+  transform: translate(1px, 1px);
 }
 
 .btn-confirmar:disabled {
-  background-color: #e1d3c1;
+  background-color: #FFF5E4;
+  color: #2B2B2B;
+  opacity: 0.35;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
-/* --- EFECTO CLICK EN GALERÍA --- */
+/* ── Efecto click en galería ── */
 .img-clickable {
   cursor: pointer;
   transition: opacity 0.2s ease-in-out;
@@ -424,50 +439,50 @@ canvas {
   opacity: 0.85;
 }
 
-/* --- MODAL PANTALLA COMPLETA --- */
+/* ── Modal pantalla completa ── */
 .modal-fullscreen {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.85); /* Fondo oscuro semitransparente */
+  background-color: rgba(43, 43, 43, 0.88);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Asegura que quede por encima de absolutamente todo */
-  backdrop-filter: blur(5px); /* Desenfoque del fondo (opcional) */
+  z-index: 9999;
+  backdrop-filter: blur(4px);
 }
 
 .modal-fullscreen img {
   max-width: 90%;
   max-height: 90vh;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  object-fit: contain; /* Mantiene la proporción original sin recortar */
-  animation: zoomIn 0.3s ease-out forwards;
+  border-radius: 14px;
+  border: 3px solid #FFF5E4;
+  box-shadow: 8px 8px 0 #2B2B2B;
+  object-fit: contain;
+  animation: zoomIn 0.2s ease-out forwards;
 }
 
 .btn-cerrar-modal {
   position: absolute;
   top: 25px;
   right: 40px;
-  color: #ffffff;
+  color: #FFF5E4;
   font-size: 50px;
-  font-weight: bold;
+  font-weight: 900;
   cursor: pointer;
   user-select: none;
-  transition: color 0.2s;
+  transition: color 0.15s;
 }
 
 .btn-cerrar-modal:hover {
-  color: #cc8b65;
+  color: #F4AABB;
 }
 
-/* Animación de apertura */
 @keyframes zoomIn {
   from {
-    transform: scale(0.9);
+    transform: scale(0.92);
     opacity: 0;
   }
   to {

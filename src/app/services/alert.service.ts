@@ -6,32 +6,49 @@ import Swal from 'sweetalert2';
 })
 export class AlertService {
 
-  // Alerta de éxito
+  // Alerta de éxito (Se cierra sola, sin botón)
   success(mensaje: string) {
     Swal.fire({
       title: '¡Hecho!',
       text: mensaje,
       icon: 'success',
-      confirmButtonColor: '#d4845a', // El naranja de tu login
-      confirmButtonText: 'Genial'
+      showConfirmButton: false, // Oculta el botón
+      timer: 1500, // Tiempo en milisegundos (1.5 segundos)
+      background: '#FFF5E4',
+      color: '#2B2B2B',
+      customClass: {
+        popup: 'brutal-swal-popup'
+      }
     });
   }
 
-  // Alerta de error
+  // Alerta de error (Mantiene el botón para que el usuario pueda leer el error)
   error(mensaje: string) {
     Swal.fire({
       title: 'Ups...',
       text: mensaje,
       icon: 'error',
-      confirmButtonColor: '#d4845a'
+      confirmButtonText: 'Cerrar',
+      confirmButtonColor: '#000000', 
+      background: '#FFF5E4',
+      color: '#2B2B2B',
+      customClass: {
+        popup: 'brutal-swal-popup',
+        confirmButton: 'brutal-swal-button'
+      }
     });
   }
 
-  // Alerta de carga (útil mientras esperas al servidor)
+  // Alerta de carga
   loading() {
     Swal.fire({
       title: 'Cargando...',
       allowOutsideClick: false,
+      background: '#FFF5E4',
+      color: '#2B2B2B',
+      customClass: {
+        popup: 'brutal-swal-popup'
+      },
       didOpen: () => {
         Swal.showLoading();
       }

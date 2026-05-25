@@ -1,9 +1,12 @@
 <nav class="navbar">
-  <div class="navbar-brand">
-    <span class="brand-icon">BR</span>
-    <span class="brand-name">Break Room</span>
+  <div class="navbar-brand inicio" *ngIf="estaLogueado()">
+    <img src="assets/logo.png" alt="Logo Break Room" class="navbar-logo" [routerLink]="['/inicio']" />
   </div>
-  <div class="navbar-right">
+  <div class="navbar-brand" *ngIf="!estaLogueado()">
+    <img src="assets/logo.png" alt="Logo Break Room" class="navbar-logo" />
+  </div>
+  
+  <div class="navbar-right" *ngIf="estaLogueado()">
     <div class="user-icon">
       <img
         [src]="avatarActual"
