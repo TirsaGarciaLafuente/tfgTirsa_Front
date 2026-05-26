@@ -8,9 +8,7 @@
   <button [class.activo]="vistaActual === 'pizarra'" (click)="cambiarVista('pizarra')">
     Pizarra de dibujo
   </button>
-  <button [class.activo]="vistaActual === 'fotos'" (click)="cambiarVista('fotos')">
-    Subir foto
-  </button>
+  <button [class.activo]="vistaActual === 'fotos'" (click)="cambiarVista('fotos')">Galería</button>
 </nav>
 
 <div class="contenedor-sala">
@@ -19,7 +17,8 @@
       <div
         class="mensaje"
         *ngFor="let msg of mensajes"
-        [class.mensaje-propio]="msg.idUsuario === miUsuarioId">
+        [class.mensaje-propio]="msg.idUsuario === miUsuarioId"
+      >
         <div class="datos-autor">
           <img *ngIf="msg.avatar" [src]="msg.avatar" alt="Avatar" class="avatar-msg" />
 
@@ -51,8 +50,13 @@
 
   <div *ngIf="vistaActual === 'pizarra'" class="modulo-pizarra">
     <div class="herramientas-pizarra">
-      <button (click)="limpiarPizarra()">🗑️ Borrar</button>
-      <button (click)="guardarDibujo()" class="btn-guardar">💾 Publicar</button>
+      <button (click)="limpiarPizarra()" class="btn-herramienta btn-borrar">
+        <img src="assets/papelera.png" alt="Borrar" class="icono-herramienta"> Borrar
+      </button>
+      
+      <button (click)="guardarDibujo()" class="btn-herramienta btn-guardar">
+        <img src="assets/publicar.png" alt="Publicar" class="icono-herramienta"> Publicar
+      </button>
 
       <input type="color" [(ngModel)]="colorPizarra" (change)="actualizarPincel()" />
       <input
@@ -81,24 +85,6 @@
       >
       </canvas>
     </div>
-
-    <div class="seccion-galeria">
-      <h4>Últimos dibujos publicados</h4>
-      <div class="carrusel-dibujos">
-        <div class="dibujo-card" *ngFor="let img of imagenesGaleria">
-          <img [src]="img.imagenBase64" alt="Dibujo" />
-          <div class="info-dibujo">
-            <strong>{{ img.autor?.nombre }}</strong>
-            &nbsp;
-            <small>{{ img.fechaCreacion | date: 'shortDate' }}</small>
-          </div>
-        </div>
-
-        <div *ngIf="imagenesGaleria.length === 0" class="vacio">
-          No hay dibujos publicados. ¡Sé el primero en compartir!
-        </div>
-      </div>
-    </div>
   </div>
 
   <div *ngIf="vistaActual === 'fotos'" class="modulo-muro">
@@ -112,7 +98,7 @@
       />
 
       <button *ngIf="!imagenPrevia" class="btn-seleccionar-foto" (click)="fileInput.click()">
-        📸 Añadir nueva foto
+        <img src="assets/camara.png" alt="Cámara" class="icono-camara"> Añadir nueva foto
       </button>
 
       <div *ngIf="imagenPrevia" class="preview-container">
@@ -135,6 +121,15 @@
         />
         <div class="info-dibujo">
           <strong>{{ img.autor?.nombre }}</strong>
+
+          <button
+            *ngIf="img.autor?.id == miUsuarioId"
+            class="icon-btn-borrar"
+            title="Eliminar foto"
+            (click)="confirmarBorradoFoto(img.id)"
+          >
+            <img src="assets/papelera.png" alt="Borrar" class="icono-papelera" />
+          </button>
         </div>
       </div>
 

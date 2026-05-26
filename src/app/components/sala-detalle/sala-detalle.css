@@ -264,6 +264,15 @@
   transform: translate(1px, 1px);
 }
 
+.herramientas-pizarra .btn-borrar:hover {
+  background: #ff6666; 
+}
+
+/* Hover verde clarito para Publicar */
+.herramientas-pizarra .btn-guardar:hover {
+  background: #7ed47e; 
+}
+
 .herramientas-pizarra input[type="color"] {
   cursor: pointer;
   border: 2px solid #2B2B2B;
@@ -310,7 +319,8 @@ canvas {
   flex-direction: column;
 }
 
-.dibujo-card img {
+/* SUSTITUIMOS "img" POR ".img-clickable" PARA NO AFECTAR A LA PAPELERA */
+.dibujo-card .img-clickable {
   width: 100%;
   height: auto;
   max-height: 400px;
@@ -323,11 +333,41 @@ canvas {
 .info-dibujo {
   font-size: 13px;
   font-weight: 700;
-  padding: 10px 10px 5px 10px;
+  padding: 10px; /* Ajustado para que el botón tenga espacio por debajo */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center; /* AÑADIDO: Centra verticalmente el texto y el botón */
   color: #2B2B2B;
+}
+
+/* ── Botón de borrar foto ── */
+.icon-btn-borrar {
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px; /* Tamaño de la papelera */
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2B2B2B;
+  transition: all 0.1s;
+}
+
+.icon-btn-borrar:hover {
+  background: #ff6666; /* Rojo suave */
+  border: 2px solid #2B2B2B; /* Borde duro al pasar el ratón */
+  box-shadow: 2px 2px 0 #2B2B2B; /* Sombra para encajar con el estilo general */
+  transform: translate(-2px, -2px); /* Efecto de elevación */
+}
+
+.icono-papelera {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
 }
 
 /* ── Subida de fotos ── */
@@ -344,7 +384,7 @@ canvas {
 .btn-seleccionar-foto {
   background-color: #FFF5E4;
   color: #2B2B2B;
-  border: 2.5px dashed #2B2B2B;
+  border: 2.5px solid #2B2B2B;
   padding: 12px 24px;
   font-size: 1rem;
   font-weight: 800;
@@ -352,6 +392,19 @@ canvas {
   cursor: pointer;
   box-shadow: 3px 3px 0 #2B2B2B;
   transition: box-shadow 0.1s, transform 0.1s;
+  
+  /* NUEVO: Alineación para el icono y el texto */
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Control del tamaño del PNG de la cámara */
+.icono-camara {
+  width: 22px; /* Ajusta los píxeles según necesites */
+  height: 22px;
+  object-fit: contain;
+  display: block;
 }
 
 .btn-seleccionar-foto:hover {
@@ -431,6 +484,22 @@ canvas {
   opacity: 0.35;
   cursor: not-allowed;
   box-shadow: none;
+}
+
+/* Tamaño fijo para los iconos de la pizarra */
+.icono-herramienta {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Alineación del contenido del botón */
+.btn-herramienta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Espacio de separación entre la imagen y el texto */
 }
 
 /* ── Efecto click en galería ── */

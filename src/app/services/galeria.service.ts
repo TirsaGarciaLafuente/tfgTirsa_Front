@@ -17,4 +17,9 @@ export class GaleriaService {
   subirImagen(imagenData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/subir`, imagenData);
   }
+
+  // NUEVO MÉTODO PARA BORRAR
+  borrarImagen(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

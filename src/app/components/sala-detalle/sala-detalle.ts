@@ -7,6 +7,7 @@ import { GaleriaService } from '../../services/galeria.service';
 import { Votacion } from '../votacion/votacion';
 import { HeaderComponent } from '../header/header';
 import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   standalone: true,
@@ -251,4 +252,37 @@ export class SalaDetalleComponent implements OnInit {
   cerrarImagen(): void {
     this.imagenSeleccionada = null;
   }
+
+  confirmarBorradoFoto(fotoId: number) {
+  Swal.fire({
+    title: '¿Eliminar foto?',
+    text: "Esta acción no se puede deshacer",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#2B2B2B',
+    cancelButtonColor: '#ff6666',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  }).then((result: any) => {
+    if (result.isConfirmed) {
+      
+      this.galeriaService.borrarImagen(fotoId).subscribe({
+        next: () => {
+          // Filtramos la foto borrada del array para que desaparezca de la vista
+          this.imagenesGaleria = this.imagenesGaleria.filter((img: any) => img.id !== fotoId);
+          
+          // Forzamos la actualización de la pantalla
+          this.cdr.detectChanges();
+          
+          Swal.fire('Eliminada', 'La foto se borró correctamente.', 'success');
+        },
+        error: (err: any) => {
+          console.error('Error al eliminar la foto:', err);
+          Swal.fire('Error', 'No tienes permiso o hubo un fallo en el servidor.', 'error');
+        }
+      });
+
+    }
+  });
+}
 }
