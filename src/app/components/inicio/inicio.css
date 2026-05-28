@@ -381,3 +381,27 @@
   height: 20px;
   object-fit: contain; /* Evita que la imagen se deforme */
 }
+
+/* ── Diseño Responsive (Móviles y Tablets pequeñas) ── */
+@media (max-width: 768px) {
+  .actions-card {
+    padding: 1.5rem 1rem; /* Reducimos un poco el padding lateral en móviles */
+    flex-direction: column;
+    width: auto; 
+  }
+
+  .unirse-group {
+    flex-direction: column; /* Apila el input y el botón negro en vertical */
+    width: 100%; 
+    gap: 1rem; /* Reduce un poco la separación */
+  }
+
+  .btn-crear, 
+  .input-codigo, 
+  .btn-unirse {
+    width: 100%; /* Hace que todos ocupen el ancho completo de la caja amarilla */
+    box-sizing: border-box; /* Evita que el padding sume ancho extra y rompa la caja */
+    text-align: center;
+    justify-content: center;
+  }
+}

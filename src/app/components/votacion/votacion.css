@@ -49,13 +49,21 @@
 }
 
 .companion-vote-card {
-  background: #FFD166; /* Amarillo corporativo */
+  background: #FFD166;
   border: 2.5px solid #2B2B2B;
   box-shadow: 4px 4px 0px #2B2B2B;
   padding: 15px;
   font-size: 16px;
   font-weight: 800;
-  width: 25%;
+  
+  /* 1. Quitamos width: 25% y ponemos tamaños dinámicos */
+  min-width: 120px; /* Tamaño mínimo para que no se vean demasiado pequeñas */
+  max-width: 100%; /* Evita que la tarjeta sea más grande que la pantalla */
+  
+  /* 2. Forzamos al texto a saltar de línea si no cabe */
+  white-space: normal; 
+  word-wrap: break-word; 
+  
   color: #2B2B2B;
   text-transform: uppercase;
   cursor: pointer;
@@ -65,7 +73,7 @@
 .companion-vote-card:hover {
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0px #2B2B2B;
-  background: #F4AABB; /* Cambia a rosa al pasar el ratón */
+  background: #F4AABB;
 }
 
 /* --- Resultados (Avatar y Texto) --- */
