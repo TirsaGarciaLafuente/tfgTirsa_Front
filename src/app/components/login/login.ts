@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from '../../services/alert.service';
@@ -12,7 +12,7 @@ import { AlertService } from '../../services/alert.service';
   styleUrl: './login.css',
   imports: [FormsModule, CommonModule]
 })
-export class LoginComponent {
+export class LoginComponent{
 
   modalAbierto = false;
   loginError = '';
@@ -27,7 +27,7 @@ export class LoginComponent {
   loginData = { username: '', password: '' };
   registerData = { nombre: '', email: '', username: '', password: '' };
 
-  constructor(private authService: AuthService, private router: Router, private cdr: ChangeDetectorRef, private alertService:AlertService) { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object,private authService: AuthService, private router: Router, private cdr: ChangeDetectorRef, private alertService:AlertService) { }
 
   openModal() { this.modalAbierto = true; }
   closeModal() { this.modalAbierto = false; }
@@ -35,6 +35,11 @@ export class LoginComponent {
   openModalPassword() { this.modalPasswordAbierto = true; }
   closeModalPassword() { this.modalPasswordAbierto = false; this.recuperarError = ''; }
   handleOverlayClickPassword(e: Event) { this.closeModalPassword(); }
+
+
+  isAnimating = false;
+  showIntro = false;
+
 
   openModalNuevaPassword() {
     console.log('abriendo nueva password');
@@ -60,8 +65,23 @@ export class LoginComponent {
             // 2. Avisamos al resto de la app de que ya estamos logueados
             this.authService.loginSuccess$.next(); 
         }
-        this.alertService.success('Login correcto');
-        this.router.navigate(['/inicio']);
+        if (isPlatformBrowser(this.platformId)) {
+          this.showIntro = true;
+          // Esperamos 0.5 segundos al entrar a la web antes de lanzar el logo
+          setTimeout(() => {
+            this.isAnimating = true;
+            this.cdr.detectChanges(); 
+
+            // Esperamos 1.5s (la duración exacta de la animación slamDown) para borrar el logo del DOM
+            setTimeout(() => {
+              this.showIntro = false;
+              this.cdr.detectChanges();
+              this.router.navigate(['/inicio']);
+            }, 1000);
+            
+          }, 500);
+        }
+        
       },
       error: (err: any) => {
         this.alertService.error('Usuario o contraseña incorrectos');
@@ -118,4 +138,5 @@ export class LoginComponent {
     });
   }
 
+  
 }

@@ -182,3 +182,82 @@
 .close-btn:hover {
   opacity: 1;
 }
+
+
+#main-content {
+    /* Esta transición hace que el desenfoque desaparezca suavemente */
+    transition: filter 0.5s ease-out; 
+}
+
+/* Clase que aplicará el desenfoque */
+.blur-active {
+    filter: blur(10px); /* Ajusta los píxeles para más o menos desenfoque */
+    pointer-events: none; /* Evita que el usuario haga clic en la web mientras está borrosa */
+}
+/* --- ESTILOS DEL LOGO --- */
+.impact-logo-container {
+    position: fixed;
+    background-color: #FFFFFF;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    pointer-events: none; /* Permite hacer clic a través de él si fuera necesario */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.impact-logo {
+    width: 50vw; /* Ajusta este valor según el tamaño que quieras */
+    max-width: 600px;
+    opacity: 0;
+    transform: scale(4); /* Empieza gigante para el efecto de caída */
+}
+
+/* --- CLASES DE ACTIVACIÓN (Se añaden desde Angular) --- */
+
+/* Hace caer el logo */
+.animate-drop {
+    /* 1.5s de duración total. El impacto ocurre al 10% (0.15s) */
+    animation: slamDown 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Hace temblar la web */
+.shake-screen {
+    /* Dura 0.5s y tiene un retraso de 0.15s para coincidir con el impacto del logo */
+    animation: earthquake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) 0.15s both;
+}
+
+/* --- ANIMACIONES KEYFRAMES --- */
+
+/* Animación 1: El logo cae, hace una pausa y se desliza hacia abajo */
+@keyframes slamDown {
+    0% { transform: scale(4); opacity: 0; }
+    10% { transform: scale(1); opacity: 1; } /* IMPACTO en la pantalla */
+    80% { transform: scale(1); opacity: 1; } /* TIEMPO EN PANTALLA para leerlo */
+    100% { transform: translateY(150vh) rotate(15deg) scale(0.8); opacity: 0; } /* DESAPARECE cayendo */
+}
+
+/* Animación 2: Temblor de cámara intenso */
+@keyframes earthquake {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    10% { transform: translate(-15px, -15px) rotate(-2deg); }
+    20% { transform: translate(15px, 15px) rotate(2deg); }
+    30% { transform: translate(-15px, 10px) rotate(0deg); }
+    40% { transform: translate(15px, -10px) rotate(2deg); }
+    50% { transform: translate(-10px, 15px) rotate(-2deg); }
+    60% { transform: translate(10px, -15px) rotate(0deg); }
+    70% { transform: translate(-5px, -5px) rotate(1deg); }
+    80% { transform: translate(5px, 5px) rotate(-1deg); }
+    90% { transform: translate(-2px, 2px) rotate(0deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes slamDown {
+    0% { transform: scale(4); opacity: 0; }
+    10% { transform: scale(1); opacity: 1; } /* IMPACTO en la pantalla */
+    80% { transform: scale(1); opacity: 1; } /* TIEMPO EN PANTALLA para leerlo */
+    100% { transform: scale(1); opacity: 0; } /* DESAPARECE con fade out */
+}

@@ -1,9 +1,30 @@
+@font-face {
+  font-family: 'Poppins';
+  src: url('/assets/fonts/poppins.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+html,
+body,
+input,
+button,
+select,
+textarea {
+  font-family: 'Poppins', sans-serif;
+}
+
 /* Esto es lo que controla la altura de toda la página */
 html,
 body {
   margin: 0;
   padding: 0;
   height: 100%;
+  font-family: 'Arial';
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #FFF5E4; /* Esto soluciona la franja blanca */
 }
 
 /* El contenedor principal ocupa toda la pantalla */
@@ -24,33 +45,6 @@ app-footer {
   width: 100%;
   margin: 0;
   padding: 0;
-}
-
-/* 2. Esto elimina cualquier espacio extra entre el contenido y el footer */
-body {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: #FFF5E4; /* Esto soluciona la franja blanca */
-}
-
-.footer {
-  background: #2b2b2b;
-  color: #ffffff;
-  padding: 3rem 1.5rem;
-  border-top: 4px solid #000000;
-  /* Añadimos esto para que no se pegue al resto de elementos */
-  margin-top: auto;
-  margin: 0 !important;
-}
-
-/* Esto garantiza que el contenido interno no se estire a lo loco */
-.footer-content,
-.footer-bottom {
-  max-width: 900px; /* Igual que tu .content */
-  margin: 0 auto; /* Centra el footer en la pantalla */
 }
 
 

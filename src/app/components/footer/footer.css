@@ -1,75 +1,181 @@
+/* ── CONTENEDOR PRINCIPAL ── */
 .footer {
-  background: #2B2B2B;
-  color: #ffffff;
-  padding: 1.5rem 2rem; /* Reducido de 3rem a 1.5rem para hacerlo más estrecho */
+  background-color: #2B2B2B;
+  color: #FFFFFF;
   border-top: 4px solid #000000;
-  /* margin-top: auto; (Descomenta esta línea si no usaste el método Flexbox global en app-root) */
+  margin-top: auto;
+  width: 100%;
+}
+
+.footer-container {
+  width: 100%;
+  max-width: 1050px; /* Un ancho perfecto para que no sobre espacio a la derecha */
+  margin: 0 auto !important; /* Esto es clave: fuerza a que el bloque esté en el centro exacto */
 }
 
 .footer-content {
-  max-width: 900px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 2rem;
+  display: grid;
+  /* Le damos un poco más de espacio a la primera y tercera columna para equilibrar los textos */
+  grid-template-columns: 1.2fr 1fr 1.2fr; 
 }
 
-.footer-brand {
-  max-width: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+/* Espaciado de las columnas */
+.footer-brand, .footer-legal, .footer-contact {
+  padding: 3rem 2rem;
 }
 
-/* --- CLASE NUEVA PARA EL LOGO --- */
-.footer-logo {
-  height: 40px; /* Ajusta este valor al tamaño que prefieras */
-  width: auto;
-  object-fit: contain;
-  margin-bottom: 8px; /* Separación con el texto de abajo */
+/* Las líneas separadoras verticales */
+.footer-legal {
+  border-left: 2px solid #FFD166; /* Línea amarilla */
 }
 
-.footer-brand p {
+.footer-contact {
+  border-left: 1px solid rgba(255, 255, 255, 0.1); /* Línea gris muy tenue */
+}
+
+/* ── ESTILOS DE TEXTO GLOBALES ── */
+.text-muted {
+  color: #A0A0A0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.footer-title {
+  color: #FFD166;
+  font-weight: 800;
+  font-size: 1.1rem;
   margin-top: 0;
-  font-size: 14px;
-  color: #aaaaaa;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.footer-links {
+/* ── COLUMNA 1: MARCA ── */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+/* ── COLUMNA 1: MARCA ── */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* Control del tamaño de tu logo PNG */
+.footer-logo-img {
+  max-width: 100px; /* Ajusta este valor para hacerlo más grande o más pequeño */
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.brand-dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 1.5rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.dot-pink { background-color: #F4AABB; }
+.dot-teal { background-color: #7ECFC0; }
+.dot-yellow { background-color: #FFD166; }
+
+/* ── COLUMNA 2: LEGAL ── */
+.legal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
-.footer-links a {
-  color: #FFF5E4; 
-  text-decoration: underline;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 13px;
+.legal-list li {
+  position: relative;
+  padding-left: 18px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #C0C0C0;
 }
 
-.footer-bottom {
-  max-width: 900px;
-  margin: 1.5rem auto 0 auto; /* Ajustado el margen superior */
-  padding-top: 1.5rem; /* Ajustado para que sea más compacto */
-  border-top: 1px solid #444444;
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: #888888;
+/* Puntos turquesa personalizados para la lista */
+.legal-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #7ECFC0;
+  border-radius: 50%;
 }
 
+.legal-list a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.1s;
+}
+
+.legal-list a:hover {
+  color: #FFFFFF;
+}
+
+/* ── COLUMNA 3: CONTACTO ── */
 .contact-email {
+  display: block;
   color: #F4AABB;
   font-weight: 800;
+  font-size: 1.1rem;
   text-decoration: none;
+  margin-bottom: 1rem;
+  transition: opacity 0.1s;
 }
 
-/* Responsive para móvil */
-@media (max-width: 600px) {
-  .footer-content { flex-direction: column; }
-  .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
-  .footer-brand { align-items: center; text-align: center; margin: 0 auto; }
+.contact-email:hover {
+  opacity: 0.8;
+}
+
+/* ── SECCIÓN INFERIOR (COPYRIGHT) ── */
+/* Centramos el copyright para mejorar la simetría visual de todo el footer */
+.footer-bottom {
+  border-top: 2px solid #FFD166; 
+  padding: 1.5rem 2rem;
+  color: #888888;
+  font-size: 0.9rem;
+  text-align: center; /* Nuevo: texto centrado */
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+/* ── DISEÑO RESPONSIVE (MÓVILES) ── */
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr; /* Cambia a una sola columna */
+  }
+
+  /* Quitamos las líneas verticales y añadimos separadores horizontales en móvil */
+  .footer-legal {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-contact {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .footer-brand, .footer-legal, .footer-contact {
+    padding: 2rem;
+  }
 }

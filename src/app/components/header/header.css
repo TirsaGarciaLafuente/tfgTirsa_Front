@@ -47,7 +47,7 @@
   margin-left: auto; /* Empuja todo el contenido de la derecha al final */
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 8px;
 }
 
 .user-icon {
@@ -67,22 +67,32 @@
 .btn-logout {
   background: none;
   border: none;
-  color: #7EC8C8;
+  color: #fff5e4;
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   text-transform: uppercase;
 }
 
 .btn-logout:hover {
-  text-decoration: underline;
+  transform: scale(0.9) translateY(2px);
 }
 
+/* 1. Añadimos la transición al icono base */
 .logout-icon {
-  font-size: 18px;
+  width: 50px; 
+  height: 50px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.15s ease-in-out; /* Controla la velocidad del efecto */
+}
+
+/* 2. Definimos qué hace el icono al hacer hover en el botón */
+.btn-logout:hover .logout-icon {
+  transform: scale(0.9) translateY(2px); /* Reduce el tamaño al 90% y lo baja 2 píxeles */
 }
 
 /* --- MODAL DE AVATARES --- */

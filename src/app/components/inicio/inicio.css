@@ -1,10 +1,3 @@
-@font-face {
-  font-family: 'matcha';
-  /* Al estar en la carpeta public, la ruta raíz es / */
-  src: url('/assets/fonts/SuperNugget.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
 /* ── Page ── */
 .page {
   min-height: 100vh;
@@ -22,17 +15,19 @@
   padding: 3rem 1.5rem;
 }
 
+/* 2. Aplicamos la fuente al título */
 .welcome {
   font-size: 52px;
-  font-weight: 100;
+  font-weight: normal; /* Cambiado a normal, algunas fuentes display no leen bien el 100 */
   color: #000000;
   margin-bottom: 2rem;
   text-transform: uppercase;
   
-  font-family: 'matcha', sans-serif;
+  font-family: 'Arial', sans-serif; /* Aquí cambiamos la fuente */
   letter-spacing: -1px;
 }
 
+/* ── Actions card ── */
 /* ── Actions card ── */
 .actions-card {
   background: #FFD166; 
@@ -40,16 +35,16 @@
   box-shadow: 6px 6px 0px #000000;
   padding: 1.5rem 2rem;
   display: flex;
-  justify-content: center; /* Alinea todo el bloque al centro */
-  align-items: center;
-  gap: 1.5rem; /* Este es el espacio entre el botón rosa y el grupo */
+  align-items: stretch; /* Hace que ambas mitades tengan la misma altura */
+  gap: 1.5rem; 
   margin-bottom: 3rem;
-  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+/* ── MITAD IZQUIERDA ── */
 .btn-crear {
-  /* Se elimina 'flex: 1;' para que no se estire */
-  min-width: 180px;
+  flex: 1; /* Esto obliga al botón a ocupar el 50% de la caja amarilla */
   padding: 14px;
   background: #F4AABB; 
   color: #2B2B2B;
@@ -67,16 +62,17 @@
   box-shadow: 1px 1px 0px #000000;
 }
 
+/* ── MITAD DERECHA ── */
 .unirse-group {
+  flex: 1; /* Esto obliga a este grupo a ocupar el otro 50% exacto */
   display: flex;
-  align-items: center;
-  /* Se elimina 'flex: 1;' */
-  gap: 1.5rem; /* Se iguala al gap de .actions-card para que la separación sea idéntica */
+  align-items: stretch;
+  gap: 1.5rem; 
 }
 
 .input-codigo {
-  /* Se elimina 'flex: 1;' */
-  width: 220px; /* Aquí controlas lo corto o largo que quieres el input */
+  flex: 1; /* Dentro de su mitad, el input se estira para ocupar el espacio libre */
+  min-width: 0; /* Evita que el input rompa la caja si la pantalla es pequeña */
   padding: 13px 16px;
   font-size: 15px;
   font-weight: 600;
@@ -96,17 +92,15 @@
 }
 
 .btn-unirse {
-  /* Se ajusta el padding para que la altura visual sea parecida a la del input y el botón rosa */
   padding: 13px 20px; 
   background: #000000;
-  /* Se elimina 'margin: 3px;' para no alterar el gap matemático */
   color: #ffffff;
   border: 2px solid #000000;
   font-size: 13px;
   font-weight: 800;
   text-transform: uppercase;
   cursor: pointer;
-  white-space: nowrap;
+  white-space: nowrap; /* Evita que el texto salte a dos líneas */
   display: flex;
   align-items: center;
 }
