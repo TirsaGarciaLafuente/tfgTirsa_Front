@@ -29,24 +29,33 @@ export class HeaderComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) { }
 
+  // ... tus otros imports ...
+
   ngOnInit(): void {
-    // 1. Comprobar preferencia de Modo Oscuro guardada en el navegador
+    // 1. Comprobar preferencia de Modo Oscuro
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
       this.isDarkMode = true;
       document.body.setAttribute('data-theme', 'dark');
     }
 
-    // 2. Si el usuario recarga la página (F5) y ya tiene token, cargamos el avatar
+    // 2. Cargar avatar inicial
     if (localStorage.getItem('token')) {
       this.cargarAvatar();
     }
 
-    // 3. Si el usuario acaba de hacer login, escuchamos el aviso y cargamos el avatar
+    // 3. Suscripciones para actualizar el avatar
     this.authService.loginSuccess$.subscribe(() => {
       this.cargarAvatar();
     });
+
+    // --- NUEVA LÍNEA: Escucha cuando el Perfil avisa de un cambio ---
+    this.usuarioService.perfilActualizado$.subscribe(() => {
+      this.cargarAvatar();
+    });
   }
+
+// ... resto de tu código ...
 
   // --- Función para cambiar el tema ---
   toggleTheme() {

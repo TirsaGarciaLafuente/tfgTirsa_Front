@@ -1,37 +1,44 @@
 <div class="overlay-perfil" (click)="cerrarModal()">
   <div class="perfil-container" (click)="$event.stopPropagation()">
-
     <div class="carnet-card">
-      
       <div class="carnet-header">
         <span>&#x2605; Perfil &#x2605;</span>
         <button class="btn-cerrar-perfil" (click)="cerrarModal()">&#x2715;</button>
       </div>
 
       <div class="carnet-body">
-        
         <div class="carnet-izq">
-          <div class="avatar-wrapper">
-            <img [src]="isEditing ? usuarioEdit.avatar : usuario.avatar" alt=" " (click)="abrirModalAvatar()">
-            
-            <input type="file" #fileInput (change)="abrirModalAvatar()" accept="image/*" hidden>
+          <div
+            class="avatar-wrapper"
+            (click)="abrirModalAvatar()"
+            [style.cursor]="isEditing ? 'pointer' : 'default'"
+          >
+            <img [src]="isEditing ? usuarioEdit.avatar : usuario.avatar" alt="Avatar" />
+
+            <div *ngIf="isEditing" class="editar-foto-capa">
+              <span>Editar</span>
+            </div>
           </div>
-          
-        <div class="sello-breakroom">BREAKROOM</div>
+
+          <div class="sello-breakroom">BREAKROOM</div>
         </div>
 
         <div class="carnet-der">
-
           <div class="campo-grupo">
             <label>TÍTULO</label>
             <h3 *ngIf="!isEditing" class="valor-titulo">{{ usuario.titulo }}</h3>
-            <input *ngIf="isEditing" type="text" [(ngModel)]="usuarioEdit.titulo" placeholder="Ej: El Jefe">
+            <input
+              *ngIf="isEditing"
+              type="text"
+              [(ngModel)]="usuarioEdit.titulo"
+              placeholder="Ej: El Jefe"
+            />
           </div>
 
           <div class="campo-grupo">
             <label>NOMBRE</label>
             <h2 *ngIf="!isEditing" class="valor-nombre">{{ usuario.nombre }}</h2>
-            <input *ngIf="isEditing" type="text" [(ngModel)]="usuarioEdit.nombre">
+            <input *ngIf="isEditing" type="text" [(ngModel)]="usuarioEdit.nombre" />
           </div>
 
           <div class="campo-grupo">
@@ -41,35 +48,40 @@
           </div>
 
           <div class="acciones-perfil">
-            <button *ngIf="!isEditing" class="btn-accion" (click)="activarEdicion()">Modificar Perfil</button>
-            
+            <button *ngIf="!isEditing" class="btn-accion" (click)="activarEdicion()">
+              Modificar Perfil
+            </button>
+
             <div *ngIf="isEditing" class="botones-edicion">
               <button class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
               <button class="btn-accion" (click)="guardarPerfil()">Guardar Cambios</button>
             </div>
           </div>
-
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
-<div *ngIf="mostrarModalAvatar" class="modal-overlay" (click)="cerrarModalAvatar()">
+<div
+  *ngIf="mostrarModalAvatar"
+  class="overlay-perfil"
+  (click)="cerrarModalAvatar()"
+  style="z-index: 10000"
+>
   <div class="modal-avatar-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <h3>Elige tu avatar</h3>
-      <span class="btn-cerrar-modal" (click)="cerrarModalAvatar()">&times;</span>
+      <button class="btn-cerrar-modal" (click)="cerrarModalAvatar()">&#x2715;</button>
     </div>
 
     <div class="avatar-grid">
       <img
         *ngFor="let avatar of avataresDisponibles"
         [src]="avatar"
-        alt="Opción de avatar"
+        alt="Avatar"
         class="avatar-option"
-        [class.selected]="avatar === usuario.avatar"
+        [class.selected]="avatar === usuarioEdit.avatar"
         (click)="seleccionarAvatar(avatar)"
       />
     </div>

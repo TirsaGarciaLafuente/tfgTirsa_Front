@@ -13,13 +13,13 @@ import { AuthService } from '../../services/auth.service';
 })
 export class PerfilComponent implements OnInit {
   
-  // Añade este evento para comunicarse con el header
   @Output() cerrar = new EventEmitter<void>();
 
   isEditing = false;
   mostrarModalAvatar = false;
+  guardando = false; // Útil para desactivar el botón de guardar mientras carga
 
-    avataresDisponibles: string[] = [
+  avataresDisponibles: string[] = [
     '/assets/avatar1.jpg',
     '/assets/avatar2.jpg',
     '/assets/avatar3.jpg',
@@ -30,28 +30,40 @@ export class PerfilComponent implements OnInit {
     '/assets/avatar8.jpg',
   ];
 
-  usuario = {
+  // Estructura base
+  usuario: any = {
+    id: '',
     avatar: '/assets/default-avatar.jpg',
     titulo: '',
     nombre: '',
     descripcion: ''
   };
 
-  usuarioEdit = { ...this.usuario };
+  usuarioEdit: any = { ...this.usuario };
 
-    constructor(
+  constructor(
     private authService: AuthService,
-    private usuarioService: UsuarioService, // Inyectamos el servicio
+    private usuarioService: UsuarioService,
     private cdr: ChangeDetectorRef
   ) { }
 
-  ngOnInit() { this.cargarAvatar() }
+  ngOnInit() { 
+    this.cargarDatos(); 
+  }
 
-    cargarAvatar(): void {
+  cargarDatos(): void {
     this.usuarioService.obtenerPerfil().subscribe({
-      next: (usuario) => {
-        if (usuario ) {
-          this.usuario = usuario;
+      next: (data) => {
+        if (data) {
+          // Cargamos los datos reales o aplicamos valores por defecto si están vacíos
+          this.usuario = {
+            id: data.id || '',
+            avatar: data.avatar || '/assets/default-avatar.jpg',
+            titulo: data.titulo || 'EL NOVATO',
+            nombre: data.nombre || data.username || 'Usuario',
+            descripcion: data.descripcion || 'Aún no hay descripción. Pulsa modificar para añadir una.'
+          };
+          this.usuarioEdit = { ...this.usuario };
           this.cdr.detectChanges();
         }
       },
@@ -69,35 +81,75 @@ export class PerfilComponent implements OnInit {
   }
 
   guardarPerfil() {
-    this.usuario = { ...this.usuarioEdit };
-    this.isEditing = false;
+    this.guardando = true;
+
+    // 1. Datos a enviar al endpoint /usuarios/perfil
+    const datosPerfil = {
+      titulo: this.usuarioEdit.titulo,
+      nombre: this.usuarioEdit.nombre,
+      descripcion: this.usuarioEdit.descripcion
+    };
+
+    // 2. Primero actualizamos los datos de texto
+    this.usuarioService.actualizarDatos(datosPerfil).subscribe({
+      next: () => {
+        // 3. Si los datos se guardaron, verificamos si el avatar cambió
+        if (this.usuarioEdit.avatar !== this.usuario.avatar) {
+          this.usuarioService.actualizarAvatar(this.usuarioEdit.avatar).subscribe({
+            next: () => this.finalizarGuardado(),
+            error: (err: any) => this.gestionarError(err)
+          });
+        } else {
+          // Si el avatar no cambió, terminamos aquí
+          this.finalizarGuardado();
+        }
+      },
+      error: (err: any) => this.gestionarError(err)
+    });
   }
 
-    abrirModalAvatar(): void {
-    this.mostrarModalAvatar = true;
+  // Helper para limpiar el estado al finalizar
+  finalizarGuardado() {
+    this.usuario = { ...this.usuarioEdit };
+    this.isEditing = false;
+    this.guardando = false;
+    
+    // AQUÍ ES DONDE ESTÁ LA MAGIA: Avisamos a toda la app
+    this.usuarioService.notificarCambio(); 
+    
+    this.cdr.detectChanges();
+  }
+
+  // Helper para manejar errores
+  gestionarError(err: any) {
+    console.error('Error al guardar:', err);
+    alert('Hubo un problema al guardar los cambios en el servidor.');
+    this.guardando = false;
+  }
+
+  abrirModalAvatar(): void {
+    // Solo permitimos abrir el menú de avatares si estamos en modo edición
+    if (this.isEditing) {
+      this.mostrarModalAvatar = true;
+    }
   }
 
   cerrarModalAvatar(): void {
     this.mostrarModalAvatar = false;
   }
-  // Nueva función para cerrar el modal
+
+  seleccionarAvatar(nuevoAvatar: string): void {
+  // 1. Actualizamos el avatar en el objeto de edición
+  this.usuarioEdit.avatar = nuevoAvatar;
+  
+  // 2. Cerramos el modal
+  this.cerrarModalAvatar();
+  
+  // 3. FORZAMOS la detección de cambios para que la imagen del carnet cambie al instante
+  this.cdr.detectChanges();
+}
+
   cerrarModal() {
     this.cerrar.emit();
-  }
-
-    seleccionarAvatar(nuevoAvatar: string): void {
-    // Llamamos al servicio para persistir el cambio en la BD
-    this.usuarioService.actualizarAvatar(nuevoAvatar).subscribe({
-      next: () => {
-        // Solo actualizamos la vista si el backend confirma el éxito
-        this.usuario.avatar = nuevoAvatar;
-        this.cerrarModalAvatar();
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error('Error al guardar el avatar en la base de datos', err);
-        alert('Hubo un problema al actualizar tu avatar');
-      }
-    });
   }
 }

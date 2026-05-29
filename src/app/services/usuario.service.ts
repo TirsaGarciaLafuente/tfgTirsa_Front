@@ -1,23 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs'; // Asegúrate de tener Subject aquí
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-  // Ajusta esta URL a la dirección de tu backend
-  private urlBackend = 'http://localhost:8080/api'; 
+  private urlBackend = 'http://localhost:8080/api';
+
+  // 1. Emisor de eventos para avisar al Header
+  private perfilActualizado = new Subject<void>();
+  perfilActualizado$ = this.perfilActualizado.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  // Método para actualizar el avatar
+  // 2. Método para disparar el aviso
+  notificarCambio() {
+    this.perfilActualizado.next();
+  }
+
+  // --- MÉTODOS DE API ---
+
   actualizarAvatar(nuevoAvatar: string): Observable<any> {
     return this.http.put(`${this.urlBackend}/usuarios/avatar`, { avatar: nuevoAvatar }, { responseType: 'text' });
   }
 
-  // Método para obtener los datos del usuario (incluyendo el avatar)
   obtenerPerfil(): Observable<any> {
     return this.http.get(`${this.urlBackend}/usuarios/perfil`);
+  }
+
+  actualizarDatos(datos: any): Observable<any> {
+    return this.http.put(`${this.urlBackend}/usuarios/perfil`, datos, { responseType: 'text' });
   }
 }
