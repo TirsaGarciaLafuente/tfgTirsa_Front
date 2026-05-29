@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, Input } from '@angular/core'; // 1. Añadido Input
+import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
 export class PerfilComponent implements OnInit {
   
   @Output() cerrar = new EventEmitter<void>();
-  @Input() userIdParaMostrar?: number; // 2. Nuevo Input opcional
+  @Input() userIdParaMostrar?: number;
 
   isEditing = false;
   mostrarModalAvatar = false;
@@ -31,7 +31,7 @@ export class PerfilComponent implements OnInit {
     '/assets/avatar8.jpg',
   ];
 
-  // Estructura base
+
   usuario: any = {
     id: '',
     avatar: '/assets/default-avatar.jpg',
@@ -53,7 +53,6 @@ export class PerfilComponent implements OnInit {
   }
 
   cargarDatos(): void {
-    // 3. Lógica para decidir qué cargar
     if (this.userIdParaMostrar) {
       this.usuarioService.obtenerPerfilPorId(this.userIdParaMostrar).subscribe({
         next: (data) => this.procesarDatos(data),
@@ -67,7 +66,7 @@ export class PerfilComponent implements OnInit {
     }
   }
 
-  // 4. Función auxiliar para procesar los datos (evita repetir código)
+
   procesarDatos(data: any): void {
     if (data) {
       this.usuario = {
@@ -82,7 +81,6 @@ export class PerfilComponent implements OnInit {
     }
   }
   activarEdicion() {
-    // Solo permitir editar si no estamos viendo a otro usuario (o si el ID coincide)
     if (!this.userIdParaMostrar) {
       this.isEditing = true;
       this.usuarioEdit = { ...this.usuario };
@@ -96,24 +94,20 @@ export class PerfilComponent implements OnInit {
   guardarPerfil() {
     this.guardando = true;
 
-    // 1. Datos a enviar al endpoint /usuarios/perfil
     const datosPerfil = {
       titulo: this.usuarioEdit.titulo,
       nombre: this.usuarioEdit.nombre,
       descripcion: this.usuarioEdit.descripcion
     };
 
-    // 2. Primero actualizamos los datos de texto
     this.usuarioService.actualizarDatos(datosPerfil).subscribe({
       next: () => {
-        // 3. Si los datos se guardaron, verificamos si el avatar cambió
         if (this.usuarioEdit.avatar !== this.usuario.avatar) {
           this.usuarioService.actualizarAvatar(this.usuarioEdit.avatar).subscribe({
             next: () => this.finalizarGuardado(),
             error: (err: any) => this.gestionarError(err)
           });
         } else {
-          // Si el avatar no cambió, terminamos aquí
           this.finalizarGuardado();
         }
       },
@@ -121,19 +115,16 @@ export class PerfilComponent implements OnInit {
     });
   }
 
-  // Helper para limpiar el estado al finalizar
   finalizarGuardado() {
     this.usuario = { ...this.usuarioEdit };
     this.isEditing = false;
     this.guardando = false;
     
-    // AQUÍ ES DONDE ESTÁ LA MAGIA: Avisamos a toda la app
     this.usuarioService.notificarCambio(); 
     
     this.cdr.detectChanges();
   }
 
-  // Helper para manejar errores
   gestionarError(err: any) {
     console.error('Error al guardar:', err);
     alert('Hubo un problema al guardar los cambios en el servidor.');
@@ -141,7 +132,6 @@ export class PerfilComponent implements OnInit {
   }
 
   abrirModalAvatar(): void {
-    // Solo permitimos abrir el menú de avatares si estamos en modo edición
     if (this.isEditing) {
       this.mostrarModalAvatar = true;
     }
@@ -152,13 +142,10 @@ export class PerfilComponent implements OnInit {
   }
 
   seleccionarAvatar(nuevoAvatar: string): void {
-  // 1. Actualizamos el avatar en el objeto de edición
   this.usuarioEdit.avatar = nuevoAvatar;
   
-  // 2. Cerramos el modal
   this.cerrarModalAvatar();
   
-  // 3. FORZAMOS la detección de cambios para que la imagen del carnet cambie al instante
   this.cdr.detectChanges();
 }
 

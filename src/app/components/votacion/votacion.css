@@ -40,7 +40,7 @@
   text-align: center;
 }
 
-/* --- Botones de Votación (Flexbox) --- */
+/* --- Botones de Votación --- */
 .companions-grid {
   display: flex;
   flex-wrap: wrap;
@@ -74,7 +74,7 @@
   background: var(--color-accent-1); 
 }
 
-/* --- Resultados (Avatar y Texto) --- */
+/* --- Resultados --- */
 .result-item {
   margin-bottom: 2rem;
 }
@@ -132,7 +132,6 @@
   transition: width 0.5s ease-out;
 }
 
-/* --- Alertas --- */
 .alert-error, .alert-info, .alert-success {
   border: 2.5px solid var(--color-border);
   padding: 1rem;

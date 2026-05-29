@@ -21,7 +21,6 @@ export class Votacion implements OnInit {
   mensajeError: string = '';
   mensajeExito: string = '';
   
-  // Nuevas variables para el control de la gráfica
   haVotado: boolean = false;
   resultados: any[] = [];
 
@@ -99,7 +98,6 @@ export class Votacion implements OnInit {
   }
 
   emitirVoto(usuarioId: number): void {
-    // Se envía el ID de la pregunta y el ID del compañero seleccionado
     this.votacionService.votar(this.preguntaDelDia.id, usuarioId).subscribe({
       next: () => {
         this.mensajeExito = '¡Tu voto ha sido registrado correctamente!';
@@ -122,7 +120,6 @@ export class Votacion implements OnInit {
   cargarResultados(): void {
     this.votacionService.obtenerResultados(this.preguntaDelDia.id).subscribe({
       next: (data) => {
-        // Ordenación de mayor a menor porcentaje para la visualización
         this.resultados = data.sort((a, b) => b.porcentaje - a.porcentaje);
         this.cargando = false;
         this.cdr.detectChanges();

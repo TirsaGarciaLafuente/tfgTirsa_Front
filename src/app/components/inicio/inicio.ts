@@ -16,7 +16,6 @@ import { HeaderComponent } from '../header/header';
 })
 export class InicioComponent implements OnInit {
 
-  // --- Variable para el Modo Oscuro ---
   isDarkMode = false;
 
   codigoSala = '';
@@ -34,16 +33,13 @@ export class InicioComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // 1. Sincroniza el icono del botón con el estado actual del tema
     if (localStorage.getItem('theme') === 'dark') {
       this.isDarkMode = true;
     }
 
-    // 2. Carga las salas del usuario
     this.obtenerSalas();
   }
 
-  // --- Función para cambiar el tema ---
   toggleTheme() {
     this.isDarkMode = !this.isDarkMode;
     
@@ -103,15 +99,12 @@ export class InicioComponent implements OnInit {
 
     this.salasService.unirse(this.codigoSala).subscribe({
       next: (salaUnida: any) => {
-        // Añadimos la sala a la lista de "Mis salas" para que aparezca al momento
         this.salas.push(salaUnida);
         this.cdr.detectChanges();
-        // Limpiamos el input y avisamos al usuario
         this.codigoSala = '';
         this.alertService.success(`¡Bienvenid@ a la sala ${salaUnida.nombre}!`);
       },
       error: (err: Error) => {
-        // El error vendrá del Back (Sala llena o código inexistente)
         this.alertService.error('El código no es válido o la sala está llena');
       }
     });

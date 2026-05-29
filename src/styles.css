@@ -14,7 +14,6 @@ textarea {
   font-family: 'Poppins', sans-serif;
 }
 
-/* Esto es lo que controla la altura de toda la página */
 html,
 body {
   margin: 0;
@@ -24,7 +23,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #FFF5E4; /* Esto soluciona la franja blanca */
+  background-color: #FFF5E4;
 }
 
 body {
@@ -35,19 +34,16 @@ body {
   min-height: 100vh;
 }
 
-/* El contenedor principal ocupa toda la pantalla */
 .app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* El main se estira para empujar el footer al fondo */
 .main-content {
   flex: 1;
 }
 
-/* 1. Forzar que el footer sea compacto y no ocupe todo el ancho si no quieres */
 app-footer {
   display: block;
   width: 100%;
@@ -64,12 +60,10 @@ app-footer {
   font-family: inherit !important;
 }
 
-/* Espacio entre los dos botones de confirmación */
 .swal2-actions {
   gap: 15px;
 }
 
-/* Estilo BASE (estructura y sombra) para cualquier botón */
 .brutal-swal-button {
   border: 2.5px solid #2b2b2b !important;
   border-radius: 40px !important;
@@ -89,24 +83,20 @@ app-footer {
   box-shadow: 2px 2px 0px #2b2b2b !important;
 }
 
-/* Color para el botón de Abandonar (Derecha) */
 .brutal-btn-danger {
   background-color: #f4aabb !important;
   color: #2b2b2b !important;
 }
 
-/* Color para el botón de Quedarme (Izquierda) */
 .brutal-btn-safe {
   background-color: #ffffff !important;
   color: #2b2b2b !important;
 }
 
-/* Quita el contorno azul de Chrome al hacer clic */
 .swal2-styled:focus {
   box-shadow: 4px 4px 0px #2b2b2b !important;
 }
 
-/* Arregla el fondo blanco del icono de éxito */
 .swal2-success-circular-line-left,
 .swal2-success-circular-line-right,
 .swal2-success-fix {
@@ -114,7 +104,6 @@ app-footer {
 }
 
 /* --- ESTILOS PARA LA BARRA DE DESPLAZAMIENTO (SCROLLBAR) --- */
-/* 1. Chrome, Edge, Safari y Opera (Ignoran scrollbar-color aquí para poder usar webkit) */
 ::-webkit-scrollbar {
   width: 14px;
 }
@@ -125,14 +114,11 @@ app-footer {
 }
 
 ::-webkit-scrollbar-thumb {
-  /* Patrón de franjas diagonales (o tu imagen) */
   background-image: linear-gradient(to bottom, #aaeff4, #ffd166);
   border: 3px solid #000000;
   border-radius: 15px;  
 }
 
-/* 2. Regla exclusiva para Firefox */
-/* Solo se aplicará si el navegador NO soporta ::-webkit-scrollbar */
 @supports not selector(::-webkit-scrollbar) {
   * {
     scrollbar-width: auto;

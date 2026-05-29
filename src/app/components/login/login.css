@@ -110,7 +110,6 @@
   text-decoration: underline;
 }
 
-/* ── Toast ── */
 .toast {
   display: none;
   margin-top: 1rem;
@@ -185,14 +184,12 @@
 
 
 #main-content {
-    /* Esta transición hace que el desenfoque desaparezca suavemente */
     transition: filter 0.5s ease-out; 
 }
 
-/* Clase que aplicará el desenfoque */
 .blur-active {
-    filter: blur(10px); /* Ajusta los píxeles para más o menos desenfoque */
-    pointer-events: none; /* Evita que el usuario haga clic en la web mientras está borrosa */
+    filter: blur(10px);
+    pointer-events: none;
 }
 /* --- ESTILOS DEL LOGO --- */
 .impact-logo-container {
@@ -203,44 +200,38 @@
     width: 100vw;
     height: 100vh;
     z-index: 9999;
-    pointer-events: none; /* Permite hacer clic a través de él si fuera necesario */
+    pointer-events: none;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .impact-logo {
-    width: 50vw; /* Ajusta este valor según el tamaño que quieras */
+    width: 50vw;
     max-width: 600px;
     opacity: 0;
-    transform: scale(4); /* Empieza gigante para el efecto de caída */
+    transform: scale(4);
 }
 
-/* --- CLASES DE ACTIVACIÓN (Se añaden desde Angular) --- */
 
-/* Hace caer el logo */
+
 .animate-drop {
-    /* 1.5s de duración total. El impacto ocurre al 10% (0.15s) */
     animation: slamDown 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-/* Hace temblar la web */
 .shake-screen {
-    /* Dura 0.5s y tiene un retraso de 0.15s para coincidir con el impacto del logo */
     animation: earthquake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) 0.15s both;
 }
 
 /* --- ANIMACIONES KEYFRAMES --- */
 
-/* Animación 1: El logo cae, hace una pausa y se desliza hacia abajo */
 @keyframes slamDown {
     0% { transform: scale(4); opacity: 0; }
-    10% { transform: scale(1); opacity: 1; } /* IMPACTO en la pantalla */
-    80% { transform: scale(1); opacity: 1; } /* TIEMPO EN PANTALLA para leerlo */
-    100% { transform: translateY(150vh) rotate(15deg) scale(0.8); opacity: 0; } /* DESAPARECE cayendo */
+    10% { transform: scale(1); opacity: 1; } 
+    80% { transform: scale(1); opacity: 1; } 
+    100% { transform: translateY(150vh) rotate(15deg) scale(0.8); opacity: 0; } 
 }
 
-/* Animación 2: Temblor de cámara intenso */
 @keyframes earthquake {
     0% { transform: translate(0, 0) rotate(0deg); }
     10% { transform: translate(-15px, -15px) rotate(-2deg); }
@@ -257,9 +248,9 @@
 
 @keyframes slamDown {
     0% { transform: scale(4); opacity: 0; }
-    10% { transform: scale(1); opacity: 1; } /* IMPACTO en la pantalla */
-    80% { transform: scale(1); opacity: 1; } /* TIEMPO EN PANTALLA para leerlo */
-    100% { transform: scale(1); opacity: 0; } /* DESAPARECE con fade out */
+    10% { transform: scale(1); opacity: 1; } 
+    80% { transform: scale(1); opacity: 1; } 
+    100% { transform: scale(1); opacity: 0; } 
 }
 
 /* --- REQUISITOS DE CONTRASEÑA --- */
@@ -268,7 +259,7 @@
   padding: 0;
   margin: 10px 0 15px 0;
   font-size: 14px;
-  text-align: left; /* Asegura que se alinee a la izquierda dentro del modal */
+  text-align: left; 
 }
 
 .requisitos-password li {
@@ -279,29 +270,28 @@
   font-weight: 600;
 }
 
-/* Estado cuando NO se cumple el requisito (Cruz) */
+
 .invalido {
-  color: #d9534f; /* Color rojo */
+  color: #d9534f; 
 }
 
-/* Estado cuando SÍ se cumple el requisito (Check) */
+
 .valido {
-  color: #2b9348; /* Color verde */
+  color: #2b9348; 
 }
 
 .valido span, 
 .invalido span {
   font-size: 16px;
   display: inline-block;
-  width: 15px; /* Mantiene alineado el texto si los símbolos varían de tamaño */
+  width: 15px; 
 }
 
 /* --- ESTILO PARA EL BOTÓN DESHABILITADO --- */
-/* Modifica visualmente el botón cuando la contraseña no es válida */
 .btn-main:disabled {
   background-color: #cccccc !important;
   color: #666666 !important;
   cursor: not-allowed;
-  box-shadow: none !important; /* Quita el efecto brutalista mientras esté bloqueado */
+  box-shadow: none !important; 
   transform: none !important;
 }

@@ -24,19 +24,17 @@ export class SalaDetalleComponent implements OnInit {
   nuevoMensaje: string = '';
   vistaActual: string = 'muro';
   miUsuarioId: number | null = null;
-  // --- Mensajes de estado ---
   mensajeError: string = '';
   mensajeExito: string = '';
 @ViewChild('scrollMe') private myScrollContainer!: ElementRef;
 
-  // --- Variables para la Pizarra Nativa ---
   @ViewChild('canvasPizarra') canvasRef!: ElementRef<HTMLCanvasElement>;
   private cx!: CanvasRenderingContext2D;
   colorPizarra: string = '#000000';
   grosorPincel: number = 5;
   dibujando: boolean = false;
 
-  // --- Galería ---
+
   imagenesGaleria: any[] = [];
   imagenPrevia: string | null = null;
   subiendo: boolean = false;
@@ -57,7 +55,6 @@ export class SalaDetalleComponent implements OnInit {
     this.miUsuarioId = this.authService.obtenerIdUsuarioLogueado();
   }
 
-  // --- Lógica del Muro ---
   cargarHistorial() {
     this.mensajeService.obtenerHistorial(this.salaId).subscribe({
       next: (historial) => {
@@ -82,7 +79,6 @@ export class SalaDetalleComponent implements OnInit {
     });
   }
 
-  // --- Lógica de Vistas ---
   cambiarVista(nuevaVista: string) {
     this.vistaActual = nuevaVista;
     if (nuevaVista === 'pizarra') {
@@ -95,10 +91,10 @@ export class SalaDetalleComponent implements OnInit {
       try {
         this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
       } catch(err) { }
-    }, 50); // 50 milisegundos dan tiempo a Angular a pintar el HTML
+    }, 50);
   }
 
-  // --- Lógica de la Pizarra (Nativa) ---
+
   inicializarPizarra() {
     if (!this.canvasRef) return;
     const canvasEl = this.canvasRef.nativeElement;
@@ -183,7 +179,6 @@ export class SalaDetalleComponent implements OnInit {
     });
   }
 
-  // --- Lógica de Galería (Fotos y Dibujos) ---
   cargarGaleria() {
     this.galeriaService.obtenerImagenes(this.salaId).subscribe({
       next: (imgs) => {
@@ -244,7 +239,6 @@ export class SalaDetalleComponent implements OnInit {
     });
   }
 
-  // --- Lógica de Pantalla Completa ---
   imagenSeleccionada: string | null = null;
 
   abrirImagen(base64: string): void {
@@ -270,10 +264,8 @@ export class SalaDetalleComponent implements OnInit {
       
       this.galeriaService.borrarImagen(fotoId).subscribe({
         next: () => {
-          // Filtramos la foto borrada del array para que desaparezca de la vista
           this.imagenesGaleria = this.imagenesGaleria.filter((img: any) => img.id !== fotoId);
           
-          // Forzamos la actualización de la pantalla
           this.cdr.detectChanges();
           
           Swal.fire('Eliminada', 'La foto se borró correctamente.', 'success');

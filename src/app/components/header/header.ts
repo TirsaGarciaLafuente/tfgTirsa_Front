@@ -15,10 +15,8 @@ import { PerfilComponent } from '../perfil/perfil';
 })
 export class HeaderComponent implements OnInit { 
 
-  // --- Variable para el Modo Oscuro ---
   isDarkMode = false;
 
-  // --- Lógica del Selector de Avatares ---
   mostrarModalAvatar: boolean = false;
   avatarActual: string = '/assets/default-avatar.jpg'; 
 
@@ -29,35 +27,28 @@ export class HeaderComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) { }
 
-  // ... tus otros imports ...
 
   ngOnInit(): void {
-    // 1. Comprobar preferencia de Modo Oscuro
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
       this.isDarkMode = true;
       document.body.setAttribute('data-theme', 'dark');
     }
 
-    // 2. Cargar avatar inicial
     if (localStorage.getItem('token')) {
       this.cargarAvatar();
     }
 
-    // 3. Suscripciones para actualizar el avatar
     this.authService.loginSuccess$.subscribe(() => {
       this.cargarAvatar();
     });
 
-    // --- NUEVA LÍNEA: Escucha cuando el Perfil avisa de un cambio ---
     this.usuarioService.perfilActualizado$.subscribe(() => {
       this.cargarAvatar();
     });
   }
 
-// ... resto de tu código ...
 
-  // --- Función para cambiar el tema ---
   toggleTheme() {
     this.isDarkMode = !this.isDarkMode;
     

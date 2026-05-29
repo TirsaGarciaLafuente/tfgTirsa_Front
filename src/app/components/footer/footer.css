@@ -1,6 +1,6 @@
 /* ── CONTENEDOR PRINCIPAL ── */
 .footer {
-  background-color: #2B2B2B; /* Se mantiene estático por diseño */
+  background-color: #2B2B2B;
   color: #FFFFFF;
   border-top: 4px solid var(--color-border);
   margin-top: auto;
@@ -18,12 +18,10 @@
   grid-template-columns: 1.2fr 1fr 1.2fr; 
 }
 
-/* Espaciado de las columnas */
 .footer-brand, .footer-legal, .footer-contact {
   padding: 3rem 2rem;
 }
 
-/* Las líneas separadoras verticales */
 .footer-legal {
   border-left: 2px solid var(--color-accent-3); 
 }
@@ -49,7 +47,7 @@
   letter-spacing: 1px;
 }
 
-/* ── COLUMNA 1: MARCA ── */
+/* ── COLUMNA 1 ── */
 .brand-logo {
   display: flex;
   align-items: center;
@@ -79,7 +77,7 @@
 .dot-teal { background-color: var(--color-accent-2); }
 .dot-yellow { background-color: var(--color-accent-3); }
 
-/* ── COLUMNA 2: LEGAL ── */
+/* ── COLUMNA 2 ── */
 .legal-list {
   list-style: none;
   padding: 0;
@@ -97,7 +95,6 @@
   color: #C0C0C0;
 }
 
-/* Puntos turquesa personalizados para la lista */
 .legal-list li::before {
   content: '';
   position: absolute;
@@ -120,7 +117,7 @@
   color: #FFFFFF;
 }
 
-/* ── COLUMNA 3: CONTACTO ── */
+/* ── COLUMNA 3 ── */
 .contact-email {
   display: block;
   color: var(--color-accent-1);
@@ -135,7 +132,7 @@
   opacity: 0.8;
 }
 
-/* ── SECCIÓN INFERIOR (COPYRIGHT) ── */
+/* ── SECCIÓN INFERIOR ── */
 .footer-bottom {
   border-top: 2px solid var(--color-accent-3); 
   padding: 1.5rem 2rem;
@@ -148,7 +145,7 @@
   margin: 0;
 }
 
-/* ── DISEÑO RESPONSIVE (MÓVILES) ── */
+/* ── DISEÑO RESPONSIVE ── */
 @media (max-width: 768px) {
   .footer-content {
     grid-template-columns: 1fr; 

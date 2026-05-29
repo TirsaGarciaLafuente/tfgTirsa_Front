@@ -27,7 +27,6 @@ export class LoginComponent {
   loginData = { username: '', password: '' };
   registerData = { nombre: '', email: '', username: '', password: '' };
 
-  // --- Variables para validar la contraseña ---
   tieneLetra = false;
   tieneNumero = false;
   tieneEspecial = false;
@@ -63,7 +62,6 @@ export class LoginComponent {
 
   handleOverlayClickNuevaPassword(e: Event) { this.closeModalNuevaPassword(); }
 
-  // --- Lógica de validación en tiempo real ---
   validarContrasena() {
     const pass = this.registerData.password;
     this.tieneLongitud = pass.length >= 5;
@@ -75,7 +73,6 @@ export class LoginComponent {
   get contrasenaValida(): boolean {
     return this.tieneLetra && this.tieneNumero && this.tieneEspecial && this.registerData.password.length >= 6;
   }
-  // ------------------------------------------
 
   onLogin() {
     this.authService.login(this.loginData).subscribe({
@@ -104,7 +101,6 @@ export class LoginComponent {
   }
   
   onRegister() {
-    // Doble comprobación por seguridad antes de enviar al servidor
     if (!this.contrasenaValida) {
       return; 
     }

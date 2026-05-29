@@ -15,8 +15,8 @@
 }
 
 .brand-icon {
-  background: var(--color-accent-3); /* Mantenemos el amarillo/sol para la marca */
-  color: #2B2B2B; /* Negro estático para el contraste interno del logo */
+  background: var(--color-accent-3); 
+  color: #2B2B2B; 
   font-size: 13px;
   font-weight: 900;
   padding: 6px 8px;
@@ -35,7 +35,7 @@
   font-size: 16px;
 }
 
-/* ── Contenedor Principal de la Sala ── */
+/* ── Contenedor principal de la sala ── */
 .contenedor-sala {
   max-width: 900px;
   margin: 2rem auto;
@@ -44,7 +44,6 @@
   border-radius: 16px;
 }
 
-/* ── Sub-Navbar de Vistas (Pestañas) ── */
 .navbar-sala {
   display: flex;
   gap: 10px;
@@ -78,13 +77,13 @@
 
 .navbar-sala button.activo {
   background-color: var(--color-accent-3);
-  color: #2B2B2B; /* Mantenemos oscuro el texto de la pestaña activa amarilla */
+  color: #2B2B2B; 
   box-shadow: 3px 3px 0 var(--color-shadow);
 }
 
 .navbar-sala button:hover:not(.activo) {
   background-color: var(--color-accent-1);
-  color: #2B2B2B; /* Contraste para el rosa */
+  color: #2B2B2B; 
   box-shadow: 1px 1px 0 var(--color-shadow);
   transform: translate(2px, 2px);
 }
@@ -137,7 +136,7 @@
 
 .datos-autor .fecha {
   margin-left: auto; 
-  color: #888888; /* Gris intermedio para leerse en ambos modos */
+  color: #888888; 
 }
 
 .datos-autor strong {
@@ -162,7 +161,6 @@
   font-size: 15px;
 }
 
-/* ── Caja de envío ── */
 .caja-envio {
   display: flex;
   gap: 10px;
@@ -193,7 +191,7 @@
 .caja-envio button {
   padding: 13px 24px;
   background: var(--color-accent-2);
-  color: #2B2B2B; /* Contraste estático contra el Tiffany */
+  color: #2B2B2B; 
   border: 2px solid var(--color-border);
   border-radius: 40px;
   font-size: 13px;
@@ -209,7 +207,6 @@
   transform: translate(2px, 2px);
 }
 
-/* ── Vistas Placeholder ── */
 .modulo-placeholder {
   background-color: var(--bg-surface);
   padding: 4rem 2rem;
@@ -295,7 +292,7 @@
   border: 2.5px solid var(--color-border);
   border-radius: 8px;
   overflow: hidden;
-  background: white; /* El canvas se mantiene blanco para que el dibujo se vea bien siempre */
+  background: white;
   box-shadow: 4px 4px 0 var(--color-shadow);
 }
 
@@ -326,7 +323,7 @@ canvas {
   height: auto;
   max-height: 400px;
   object-fit: contain;
-  background-color: #ffffff; /* Fondo blanco de la foto mantenido */
+  background-color: #ffffff;
   border-radius: 6px;
   border-bottom: 2px solid var(--color-border);
 }
@@ -461,7 +458,7 @@ canvas {
 
 .btn-confirmar {
   background-color: var(--color-accent-2);
-  color: #2B2B2B; /* Contraste constante con el fondo Tiffany */
+  color: #2B2B2B;
   border: 2px solid var(--color-border);
   padding: 8px 16px;
   border-radius: 40px;
@@ -485,7 +482,7 @@ canvas {
   box-shadow: none;
 }
 
-/* Tamaño fijo para los iconos de la pizarra */
+
 .icono-herramienta {
   width: 18px;
   height: 18px;
@@ -493,7 +490,7 @@ canvas {
   display: block;
 }
 
-/* Alineación del contenido del botón */
+
 .btn-herramienta {
   display: flex;
   align-items: center;
@@ -501,7 +498,7 @@ canvas {
   gap: 8px; 
 }
 
-/* ── Efecto click en galería ── */
+
 .img-clickable {
   cursor: pointer;
   transition: opacity 0.2s ease-in-out;
@@ -511,14 +508,14 @@ canvas {
   opacity: 0.85;
 }
 
-/* ── Modal pantalla completa ── */
+
 .modal-fullscreen {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.88); /* Fondo oscuro estático */
+  background-color: rgba(0, 0, 0, 0.88); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -530,7 +527,7 @@ canvas {
   max-width: 90%;
   max-height: 90vh;
   border-radius: 14px;
-  border: 3px solid #FFF5E4; /* Borde blanco estilo foto */
+  border: 3px solid #FFF5E4; 
   box-shadow: 8px 8px 0 var(--color-shadow);
   object-fit: contain;
   animation: zoomIn 0.2s ease-out forwards;
@@ -540,7 +537,7 @@ canvas {
   position: absolute;
   top: 25px;
   right: 40px;
-  color: #ffffff; /* Blanco estático por el fondo oscuro */
+  color: #ffffff; 
   font-size: 50px;
   font-weight: 900;
   cursor: pointer;
@@ -570,7 +567,7 @@ canvas {
   border: 2px solid var(--color-border);
 }
 
-/* Sombrea levemente el mensaje si es del usuario logueado */
+
 .mensaje-propio {
-  background-color: var(--bg-surface-2); /* El gris claro se adapta a gris oscuro en Dark Mode */
+  background-color: var(--bg-surface-2); 
 }

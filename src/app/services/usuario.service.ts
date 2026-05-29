@@ -17,9 +17,7 @@ export class UsuarioService {
     this.perfilActualizado.next();
   }
 
-  // --- MÉTODOS DE API ---
 
-  // NUEVO MÉTODO PARA OBTENER PERFIL POR ID
   obtenerPerfilPorId(id: number): Observable<any> {
     return this.http.get(`${this.urlBackend}/usuarios/perfil/${id}`);
   }

@@ -6,14 +6,13 @@ import Swal from 'sweetalert2';
 })
 export class AlertService {
 
-  // Alerta de éxito (Se cierra sola, sin botón)
   success(mensaje: string) {
     Swal.fire({
       title: '¡Hecho!',
       text: mensaje,
       icon: 'success',
-      showConfirmButton: false, // Oculta el botón
-      timer: 1500, // Tiempo en milisegundos (1.5 segundos)
+      showConfirmButton: false, 
+      timer: 1500,
       background: '#FFF5E4',
       color: '#2B2B2B',
       customClass: {
@@ -22,7 +21,6 @@ export class AlertService {
     });
   }
 
-  // Alerta de error (Mantiene el botón para que el usuario pueda leer el error)
   error(mensaje: string) {
     Swal.fire({
       title: 'Ups...',
@@ -39,7 +37,6 @@ export class AlertService {
     });
   }
 
-  // NUEVA: Alerta de confirmación para abandonar la sala
   confirmarAbandono(): Promise<any> {
     return Swal.fire({
       title: '¿Seguro que quieres abandonar esta sala?',
@@ -48,7 +45,7 @@ export class AlertService {
       showCancelButton: true,
       confirmButtonText: 'Abandonar',
       cancelButtonText: 'Quedarme',
-      reverseButtons: true, // Coloca 'Quedarme' a la izquierda y 'Abandonar' a la derecha
+      reverseButtons: true,
       background: '#FFF5E4',
       color: '#2B2B2B',
       customClass: {
@@ -59,7 +56,6 @@ export class AlertService {
     });
   }
 
-  // Alerta de carga
   loading() {
     Swal.fire({
       title: 'Cargando...',
