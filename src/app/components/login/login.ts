@@ -12,7 +12,7 @@ import { AlertService } from '../../services/alert.service';
   styleUrl: './login.css',
   imports: [FormsModule, CommonModule]
 })
-export class LoginComponent{
+export class LoginComponent {
 
   modalAbierto = false;
   loginError = '';
@@ -27,7 +27,22 @@ export class LoginComponent{
   loginData = { username: '', password: '' };
   registerData = { nombre: '', email: '', username: '', password: '' };
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object,private authService: AuthService, private router: Router, private cdr: ChangeDetectorRef, private alertService:AlertService) { }
+  // --- Variables para validar la contraseña ---
+  tieneLetra = false;
+  tieneNumero = false;
+  tieneEspecial = false;
+  tieneLongitud = false;
+
+  isAnimating = false;
+  showIntro = false;
+
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private authService: AuthService, 
+    private router: Router, 
+    private cdr: ChangeDetectorRef, 
+    private alertService: AlertService
+  ) { }
 
   openModal() { this.modalAbierto = true; }
   closeModal() { this.modalAbierto = false; }
@@ -36,15 +51,8 @@ export class LoginComponent{
   closeModalPassword() { this.modalPasswordAbierto = false; this.recuperarError = ''; }
   handleOverlayClickPassword(e: Event) { this.closeModalPassword(); }
 
-
-  isAnimating = false;
-  showIntro = false;
-
-
   openModalNuevaPassword() {
-    console.log('abriendo nueva password');
     this.modalNuevaPasswordAbierto = true;
-    console.log('estado:', this.modalNuevaPasswordAbierto);
   }
 
   closeModalNuevaPassword() {
@@ -55,33 +63,39 @@ export class LoginComponent{
 
   handleOverlayClickNuevaPassword(e: Event) { this.closeModalNuevaPassword(); }
 
- onLogin() {
+  // --- Lógica de validación en tiempo real ---
+  validarContrasena() {
+    const pass = this.registerData.password;
+    this.tieneLongitud = pass.length >= 5;
+    this.tieneLetra = /[a-zA-Z]/.test(pass);
+    this.tieneNumero = /[0-9]/.test(pass);
+    this.tieneEspecial = /[^a-zA-Z0-9]/.test(pass);
+  }
+
+  get contrasenaValida(): boolean {
+    return this.tieneLetra && this.tieneNumero && this.tieneEspecial && this.registerData.password.length >= 6;
+  }
+  // ------------------------------------------
+
+  onLogin() {
     this.authService.login(this.loginData).subscribe({
       next: (response: any) => {
         if (response && response.jwt) {
             localStorage.setItem('token', response.jwt);
             localStorage.setItem('usuario', 'True');
-            
-            // 2. Avisamos al resto de la app de que ya estamos logueados
             this.authService.loginSuccess$.next(); 
         }
         if (isPlatformBrowser(this.platformId)) {
           this.showIntro = true;
-          // Esperamos 0.5 segundos al entrar a la web antes de lanzar el logo
-          setTimeout(() => {
             this.isAnimating = true;
             this.cdr.detectChanges(); 
 
-            // Esperamos 1.5s (la duración exacta de la animación slamDown) para borrar el logo del DOM
             setTimeout(() => {
               this.showIntro = false;
               this.cdr.detectChanges();
               this.router.navigate(['/inicio']);
             }, 1000);
-            
-          }, 500);
         }
-        
       },
       error: (err: any) => {
         this.alertService.error('Usuario o contraseña incorrectos');
@@ -90,14 +104,17 @@ export class LoginComponent{
   }
   
   onRegister() {
+    // Doble comprobación por seguridad antes de enviar al servidor
+    if (!this.contrasenaValida) {
+      return; 
+    }
+
     this.authService.registro(this.registerData).subscribe({
       next: (response: any) => {
-        console.log('¡Bienvenido!', response);
         this.alertService.success('Registro correcto');
         this.router.navigate(['/inicio']);
       },
       error: (err: any) => {
-        console.error('Error en el login', err);
         this.alertService.error('Email o nombre de usuario ya existente');
       }
     });
@@ -137,6 +154,4 @@ export class LoginComponent{
       }
     });
   }
-
-  
 }

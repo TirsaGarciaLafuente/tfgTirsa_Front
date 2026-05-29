@@ -1,36 +1,64 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core'; // Añadimos OnInit
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core'; 
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { UsuarioService } from '../../services/usuario.service'; // Importa tu nuevo servicio
+import { UsuarioService } from '../../services/usuario.service'; 
+import { PerfilComponent } from '../perfil/perfil';
 
 @Component({
   standalone: true,
   selector: 'app-header',
   templateUrl: './header.html',
   styleUrl: './header.css',
-  imports: [CommonModule, FormsModule, RouterModule]
+  imports: [CommonModule, FormsModule, RouterModule, PerfilComponent]
 })
-export class HeaderComponent implements OnInit { // Implementamos OnInit
+export class HeaderComponent implements OnInit { 
+
+  // --- Variable para el Modo Oscuro ---
+  isDarkMode = false;
+
+  // --- Lógica del Selector de Avatares ---
+  mostrarModalAvatar: boolean = false;
+  avatarActual: string = '/assets/default-avatar.jpg'; 
 
   constructor(
     private router: Router,
     private authService: AuthService,
-    private usuarioService: UsuarioService, // Inyectamos el servicio
+    private usuarioService: UsuarioService, 
     private cdr: ChangeDetectorRef
   ) { }
 
-ngOnInit(): void {
-    // A) Si el usuario recarga la página (F5) y ya tiene token, cargamos el avatar
+  ngOnInit(): void {
+    // 1. Comprobar preferencia de Modo Oscuro guardada en el navegador
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      this.isDarkMode = true;
+      document.body.setAttribute('data-theme', 'dark');
+    }
+
+    // 2. Si el usuario recarga la página (F5) y ya tiene token, cargamos el avatar
     if (localStorage.getItem('token')) {
       this.cargarAvatar();
     }
 
-    // B) Si el usuario acaba de hacer login, escuchamos el aviso y cargamos el avatar
+    // 3. Si el usuario acaba de hacer login, escuchamos el aviso y cargamos el avatar
     this.authService.loginSuccess$.subscribe(() => {
       this.cargarAvatar();
     });
+  }
+
+  // --- Función para cambiar el tema ---
+  toggleTheme() {
+    this.isDarkMode = !this.isDarkMode;
+    
+    if (this.isDarkMode) {
+      document.body.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'light');
+    }
   }
 
   cargarAvatar(): void {
@@ -46,9 +74,7 @@ ngOnInit(): void {
   }
 
   estaLogueado(): boolean {
-    // Devuelve true si existe el token, false si es null
     return localStorage.getItem('token') !== null;
-    
   }
   
   cerrarSesion() {
@@ -56,43 +82,11 @@ ngOnInit(): void {
     this.router.navigate(['/login']);
   }
 
-  // --- Lógica del Selector de Avatares ---
-  mostrarModalAvatar: boolean = false;
-  
-  avatarActual: string = '/assets/avatar-default.jpg'; 
-  
-  avataresDisponibles: string[] = [
-    '/assets/avatar1.jpg',
-    '/assets/avatar2.jpg',
-    '/assets/avatar3.jpg',
-    '/assets/avatar4.jpg',
-    '/assets/avatar5.jpg',
-    '/assets/avatar6.jpg',
-    '/assets/avatar7.jpg',
-    '/assets/avatar8.jpg',
-  ];
-
   abrirModalAvatar(): void {
     this.mostrarModalAvatar = true;
   }
 
   cerrarModalAvatar(): void {
     this.mostrarModalAvatar = false;
-  }
-
-  seleccionarAvatar(nuevoAvatar: string): void {
-    // Llamamos al servicio para persistir el cambio en la BD
-    this.usuarioService.actualizarAvatar(nuevoAvatar).subscribe({
-      next: () => {
-        // Solo actualizamos la vista si el backend confirma el éxito
-        this.avatarActual = nuevoAvatar;
-        this.cerrarModalAvatar();
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error('Error al guardar el avatar en la base de datos', err);
-        alert('Hubo un problema al actualizar tu avatar');
-      }
-    });
   }
 }

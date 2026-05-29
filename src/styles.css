@@ -27,6 +27,14 @@ body {
   background-color: #FFF5E4; /* Esto soluciona la franja blanca */
 }
 
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-page);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
 /* El contenedor principal ocupa toda la pantalla */
 .app-container {
   display: flex;
@@ -130,4 +138,30 @@ app-footer {
     scrollbar-width: auto;
     scrollbar-color: #000000 #fff5e4;
   }
+}
+
+/* --- MODO CLARO (Por defecto) --- */
+:root {
+  --bg-page: #FFF5E4;
+  --bg-surface: #ffffff; 
+  --bg-surface-2: #f4f4f4; 
+  --color-text: #2B2B2B;
+  --color-shadow: #000000;
+  --color-border: #000000;
+  --color-accent-1: #F4AABB; 
+  --color-accent-2: #7EC8C8; 
+  --color-accent-3: #FFD166; 
+}
+
+/* --- MODO OSCURO --- */
+[data-theme="dark"] {
+  --bg-page: #0D0D0D;
+  --bg-surface: #1A1A1A;
+  --bg-surface-2: #282828;
+  --color-text: #FFF5E4;
+  --color-shadow: #FFD166; 
+  --color-border: #2B2B2B; 
+  --color-accent-1: #F4AABB; 
+  --color-accent-2: #7EC8C8; 
+  --color-accent-3: #FFD166; 
 }

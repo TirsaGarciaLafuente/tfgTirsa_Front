@@ -1,11 +1,16 @@
 <nav class="navbar">
   <div class="navbar-brand inicio" *ngIf="estaLogueado()">
-    <img src="assets/logo.png" alt="Logo Break Room" class="navbar-logo" [routerLink]="['/inicio']" />
+    <img
+      src="assets/logo.png"
+      alt="Logo Break Room"
+      class="navbar-logo"
+      [routerLink]="['/inicio']"
+    />
   </div>
   <div class="navbar-brand" *ngIf="!estaLogueado()">
     <img src="assets/logo.png" alt="Logo Break Room" class="navbar-logo" />
   </div>
-  
+
   <div class="navbar-right" *ngIf="estaLogueado()">
     <div class="user-icon">
       <img
@@ -17,27 +22,9 @@
       />
     </div>
     <button class="btn-logout" (click)="cerrarSesion()">
-      <img src="assets/cerrarsesion.png" alt="Salir" class="logout-icon"> Cerrar sesión
+      <img src="assets/cerrarsesion.png" alt="Salir" class="logout-icon" /> salir
     </button>
   </div>
 </nav>
 
-<div *ngIf="mostrarModalAvatar" class="modal-overlay" (click)="cerrarModalAvatar()">
-  <div class="modal-avatar-content" (click)="$event.stopPropagation()">
-    <div class="modal-header">
-      <h3>Elige tu avatar</h3>
-      <span class="btn-cerrar-modal" (click)="cerrarModalAvatar()">&times;</span>
-    </div>
-
-    <div class="avatar-grid">
-      <img
-        *ngFor="let avatar of avataresDisponibles"
-        [src]="avatar"
-        alt="Opción de avatar"
-        class="avatar-option"
-        [class.selected]="avatar === avatarActual"
-        (click)="seleccionarAvatar(avatar)"
-      />
-    </div>
-  </div>
-</div>
+<app-perfil *ngIf="mostrarModalAvatar" (cerrar)="mostrarModalAvatar = false"> </app-perfil>

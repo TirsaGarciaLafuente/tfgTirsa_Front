@@ -1,11 +1,9 @@
-
 @if (showIntro) {
   <div class="impact-logo-container">
       <img src="assets/logo.png" alt="Break Room" class="impact-logo" [class.animate-drop]="isAnimating">
   </div>
 }
 
-<!-- LOGIN -->
 <div class="page">
   <div class="card">
     <h1 class="brand">Break room</h1>
@@ -43,7 +41,6 @@
   </div>
 </div>
 
-<!-- MODAL REGISTRO -->
 <div class="overlay" [class.open]="modalAbierto" (click)="handleOverlayClick($event)">
   <div class="modal" (click)="$event.stopPropagation()">
     <button class="close-btn" type="button" (click)="closeModal()">&#x2715;</button>
@@ -78,24 +75,47 @@
           required
         />
       </div>
+      
       <div class="field">
         <input
           type="password"
           name="regPassword"
           [(ngModel)]="registerData.password"
+          (ngModelChange)="validarContrasena()" 
           placeholder="Contraseña"
           required
         />
       </div>
 
-      <button type="submit" class="btn-main">Registrarse</button>
+      <ul class="requisitos-password" *ngIf="registerData.password.length > 0">
+        <li [class.valido]="tieneLongitud" [class.invalido]="!tieneLongitud">
+          <span *ngIf="tieneLongitud">✔</span>
+          <span *ngIf="!tieneLongitud">✖</span> 
+          Al menos 5 caracteres
+        </li>
+        <li [class.valido]="tieneLetra" [class.invalido]="!tieneLetra">
+          <span *ngIf="tieneLetra">✔</span>
+          <span *ngIf="!tieneLetra">✖</span> 
+          Al menos 1 letra
+        </li>
+        <li [class.valido]="tieneNumero" [class.invalido]="!tieneNumero">
+          <span *ngIf="tieneNumero">✔</span>
+          <span *ngIf="!tieneNumero">✖</span> 
+          Al menos un número
+        </li>
+        <li [class.valido]="tieneEspecial" [class.invalido]="!tieneEspecial">
+          <span *ngIf="tieneEspecial">✔</span>
+          <span *ngIf="!tieneEspecial">✖</span> 
+          Un carácter especial (ej. @, #, !)
+        </li>
+      </ul>
+      <button type="submit" class="btn-main" [disabled]="!contrasenaValida">Registrarse</button>
     </form>
 
     <div *ngIf="registerMensaje" class="toast show">{{ registerMensaje }}</div>
   </div>
 </div>
 
-<!-- MODAL RECUPERAR CONTRASEÑA -->
 <div class="overlay" [class.open]="modalPasswordAbierto" (click)="handleOverlayClickPassword($event)">
   <div class="modal" (click)="$event.stopPropagation()">
     <button class="close-btn" type="button" (click)="closeModalPassword()">&#x2715;</button>
@@ -128,7 +148,6 @@
   </div>
 </div>
 
-<!-- MODAL NUEVA CONTRASEÑA -->
 <div class="overlay" [class.open]="modalNuevaPasswordAbierto" (click)="handleOverlayClickNuevaPassword($event)">
   <div class="modal" (click)="$event.stopPropagation()">
     <button class="close-btn" type="button" (click)="closeModalNuevaPassword()">&#x2715;</button>

@@ -261,3 +261,47 @@
     80% { transform: scale(1); opacity: 1; } /* TIEMPO EN PANTALLA para leerlo */
     100% { transform: scale(1); opacity: 0; } /* DESAPARECE con fade out */
 }
+
+/* --- REQUISITOS DE CONTRASEÑA --- */
+.requisitos-password {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 15px 0;
+  font-size: 14px;
+  text-align: left; /* Asegura que se alinee a la izquierda dentro del modal */
+}
+
+.requisitos-password li {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+/* Estado cuando NO se cumple el requisito (Cruz) */
+.invalido {
+  color: #d9534f; /* Color rojo */
+}
+
+/* Estado cuando SÍ se cumple el requisito (Check) */
+.valido {
+  color: #2b9348; /* Color verde */
+}
+
+.valido span, 
+.invalido span {
+  font-size: 16px;
+  display: inline-block;
+  width: 15px; /* Mantiene alineado el texto si los símbolos varían de tamaño */
+}
+
+/* --- ESTILO PARA EL BOTÓN DESHABILITADO --- */
+/* Modifica visualmente el botón cuando la contraseña no es válida */
+.btn-main:disabled {
+  background-color: #cccccc !important;
+  color: #666666 !important;
+  cursor: not-allowed;
+  box-shadow: none !important; /* Quita el efecto brutalista mientras esté bloqueado */
+  transform: none !important;
+}

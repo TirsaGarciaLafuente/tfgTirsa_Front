@@ -2,8 +2,9 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: #FFF5E4;
+  background: var(--bg-page);
   font-family: 'Arial', sans-serif;
+  color: var(--color-text);
 }
 
 /* ── Navbar ── */
@@ -14,22 +15,21 @@
 }
 
 .brand-icon {
-  background: #FFD166;
-  color: #2B2B2B;
+  background: var(--color-accent-3); /* Mantenemos el amarillo/sol para la marca */
+  color: #2B2B2B; /* Negro estático para el contraste interno del logo */
   font-size: 13px;
   font-weight: 900;
   padding: 6px 8px;
   border-radius: 8px;
-  border: 2px solid #2B2B2B;
+  border: 2px solid var(--color-border);
 }
 
 .brand-name {
   font-size: 16px;
   font-weight: 800;
-  color: #FFF5E4;
+  color: var(--color-text);
   letter-spacing: 0.05em;
 }
-
 
 .logout-icon {
   font-size: 16px;
@@ -40,7 +40,7 @@
   max-width: 900px;
   margin: 2rem auto;
   padding: 1.5rem;
-  background: #FFF5E4;
+  background: var(--bg-page);
   border-radius: 16px;
 }
 
@@ -65,26 +65,27 @@
   flex: 0 0 auto;
   padding: 10px 20px;
   border-radius: 40px;
-  border: 2px solid #2B2B2B;
-  background-color: #FFF5E4;
-  color: #2B2B2B;
+  border: 2px solid var(--color-border);
+  background-color: var(--bg-surface);
+  color: var(--color-text);
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   letter-spacing: 0.03em;
-  box-shadow: 3px 3px 0 #2B2B2B;
+  box-shadow: 3px 3px 0 var(--color-shadow);
   transition: box-shadow 0.1s, transform 0.1s;
 }
 
 .navbar-sala button.activo {
-  background-color: #FFD166;
-  color: #2B2B2B;
-  box-shadow: 3px 3px 0 #2B2B2B;
+  background-color: var(--color-accent-3);
+  color: #2B2B2B; /* Mantenemos oscuro el texto de la pestaña activa amarilla */
+  box-shadow: 3px 3px 0 var(--color-shadow);
 }
 
 .navbar-sala button:hover:not(.activo) {
-  background-color: #F4AABB;
-  box-shadow: 1px 1px 0 #2B2B2B;
+  background-color: var(--color-accent-1);
+  color: #2B2B2B; /* Contraste para el rosa */
+  box-shadow: 1px 1px 0 var(--color-shadow);
   transform: translate(2px, 2px);
 }
 
@@ -102,10 +103,10 @@
 }
 
 .muro {
-  background-color: #FFF5E4;
+  background-color: var(--bg-surface);
   border-radius: 12px;
-  border: 2px solid #2B2B2B;
-  box-shadow: 4px 4px 0 #2B2B2B;
+  border: 2px solid var(--color-border);
+  box-shadow: 4px 4px 0 var(--color-shadow);
   padding: 1.5rem;
   min-height: 300px;
   max-height: 400px;
@@ -114,8 +115,9 @@
 
 .mensaje {
   margin-bottom: 1rem;
+  padding: 10px;
   padding-bottom: 1rem;
-  border-bottom: 1.5px solid #2B2B2B;
+  border-bottom: 1.5px solid var(--color-border);
   opacity: 0.9;
 }
 
@@ -128,18 +130,18 @@
 .datos-autor {
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Obliga a que todo empiece desde la izquierda */
-  gap: 10px; /* Es el espacio exacto entre el avatar y el nombre */
+  justify-content: flex-start;
+  gap: 10px;
   margin-bottom: 8px;
 }
 
 .datos-autor .fecha {
   margin-left: auto; 
-  color: #666666; /* Opcional: un color más suave para la hora */
+  color: #888888; /* Gris intermedio para leerse en ambos modos */
 }
 
 .datos-autor strong {
-  color: #2B2B2B;
+  color: var(--color-text);
   opacity: 1;
   font-size: 13px;
   font-weight: 800;
@@ -147,14 +149,14 @@
 
 .texto {
   margin: 0;
-  color: #2B2B2B;
+  color: var(--color-text);
   font-size: 14.5px;
   line-height: 1.5;
 }
 
 .mensaje-vacio {
   text-align: center;
-  color: #2B2B2B;
+  color: var(--color-text);
   opacity: 0.4;
   margin-top: 3rem;
   font-size: 15px;
@@ -170,9 +172,9 @@
   flex: 1;
   padding: 13px 16px;
   font-size: 14px;
-  color: #2B2B2B;
-  background: #FFF5E4;
-  border: 2px solid #2B2B2B;
+  color: var(--color-text);
+  background: var(--bg-surface);
+  border: 2px solid var(--color-border);
   border-radius: 40px;
   outline: none;
   font-weight: 500;
@@ -180,57 +182,57 @@
 }
 
 .caja-envio input::placeholder {
-  color: #2B2B2B;
+  color: var(--color-text);
   opacity: 0.35;
 }
 
 .caja-envio input:focus {
-  box-shadow: 3px 3px 0 #2B2B2B;
+  box-shadow: 3px 3px 0 var(--color-shadow);
 }
 
 .caja-envio button {
   padding: 13px 24px;
-  background: #7EC8C8;
-  color: #2B2B2B;
-  border: 2px solid #2B2B2B;
+  background: var(--color-accent-2);
+  color: #2B2B2B; /* Contraste estático contra el Tiffany */
+  border: 2px solid var(--color-border);
   border-radius: 40px;
   font-size: 13px;
   font-weight: 800;
   cursor: pointer;
   letter-spacing: 0.04em;
-  box-shadow: 3px 3px 0 #2B2B2B;
+  box-shadow: 3px 3px 0 var(--color-shadow);
   transition: box-shadow 0.1s, transform 0.1s;
 }
 
 .caja-envio button:hover {
-  box-shadow: 1px 1px 0 #2B2B2B;
+  box-shadow: 1px 1px 0 var(--color-shadow);
   transform: translate(2px, 2px);
 }
 
 /* ── Vistas Placeholder ── */
 .modulo-placeholder {
-  background-color: #FFF5E4;
+  background-color: var(--bg-surface);
   padding: 4rem 2rem;
   border-radius: 12px;
   text-align: center;
-  color: #2B2B2B;
-  border: 2.5px dashed #2B2B2B;
+  color: var(--color-text);
+  border: 2.5px dashed var(--color-border);
 }
 
 .modulo-placeholder h3 {
   margin-top: 0;
-  color: #2B2B2B;
+  color: var(--color-text);
   font-weight: 900;
   letter-spacing: 0.03em;
 }
 
 /* ── Pizarra ── */
 .modulo-pizarra {
-  background-color: #FFF5E4;
+  background-color: var(--bg-surface);
   border-radius: 12px;
   padding: 1.5rem;
-  border: 2px solid #2B2B2B;
-  box-shadow: 4px 4px 0 #2B2B2B;
+  border: 2px solid var(--color-border);
+  box-shadow: 4px 4px 0 var(--color-shadow);
 }
 
 .herramientas-pizarra {
@@ -244,9 +246,9 @@
 
 .herramientas-pizarra button {
   padding: 8px 16px;
-  background: #FFF5E4;
-  color: #2B2B2B;
-  border: 2px solid #2B2B2B;
+  background: var(--bg-page);
+  color: var(--color-text);
+  border: 2px solid var(--color-border);
   border-radius: 40px;
   cursor: pointer;
   font-size: 13px;
@@ -254,13 +256,14 @@
   flex: 1 1 auto;
   min-width: 100px;
   text-align: center;
-  box-shadow: 2px 2px 0 #2B2B2B;
+  box-shadow: 2px 2px 0 var(--color-shadow);
   transition: box-shadow 0.1s, transform 0.1s;
 }
 
 .herramientas-pizarra button:hover {
-  background: #F4AABB;
-  box-shadow: 1px 1px 0 #2B2B2B;
+  background: var(--color-accent-1);
+  color: #2B2B2B;
+  box-shadow: 1px 1px 0 var(--color-shadow);
   transform: translate(1px, 1px);
 }
 
@@ -268,33 +271,32 @@
   background: #ff6666; 
 }
 
-/* Hover verde clarito para Publicar */
 .herramientas-pizarra .btn-guardar:hover {
   background: #7ed47e; 
 }
 
 .herramientas-pizarra input[type="color"] {
   cursor: pointer;
-  border: 2px solid #2B2B2B;
+  border: 2px solid var(--color-border);
   border-radius: 8px;
   width: 36px;
   height: 36px;
   padding: 2px;
-  background: #FFF5E4;
+  background: var(--bg-page);
 }
 
 .herramientas-pizarra input[type="range"] {
   flex: 1 1 100px;
   min-width: 80px;
-  accent-color: #2B2B2B;
+  accent-color: var(--color-border);
 }
 
 .contenedor-canvas {
-  border: 2.5px solid #2B2B2B;
+  border: 2.5px solid var(--color-border);
   border-radius: 8px;
   overflow: hidden;
-  background: white;
-  box-shadow: 4px 4px 0 #2B2B2B;
+  background: white; /* El canvas se mantiene blanco para que el dibujo se vea bien siempre */
+  box-shadow: 4px 4px 0 var(--color-shadow);
 }
 
 canvas {
@@ -311,34 +313,33 @@ canvas {
 
 .dibujo-card {
   width: 100%;
-  background: #FFF5E4;
+  background: var(--bg-surface);
   border-radius: 12px;
-  border: 2px solid #2B2B2B;
-  box-shadow: 4px 4px 0 #2B2B2B;
+  border: 2px solid var(--color-border);
+  box-shadow: 4px 4px 0 var(--color-shadow);
   display: flex;
   flex-direction: column;
 }
 
-/* SUSTITUIMOS "img" POR ".img-clickable" PARA NO AFECTAR A LA PAPELERA */
 .dibujo-card .img-clickable {
   width: 100%;
   height: auto;
   max-height: 400px;
   object-fit: contain;
-  background-color: #ffffff;
+  background-color: #ffffff; /* Fondo blanco de la foto mantenido */
   border-radius: 6px;
-  border-bottom: 2px solid #2B2B2B;
+  border-bottom: 2px solid var(--color-border);
 }
 
 .info-dibujo {
   font-size: 13px;
   font-weight: 700;
-  padding: 10px; /* Ajustado para que el botón tenga espacio por debajo */
+  padding: 10px; 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center; /* AÑADIDO: Centra verticalmente el texto y el botón */
-  color: #2B2B2B;
+  align-items: center; 
+  color: var(--color-text);
 }
 
 /* ── Botón de borrar foto ── */
@@ -347,20 +348,20 @@ canvas {
   border: 2px solid transparent;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 16px; /* Tamaño de la papelera */
+  font-size: 16px; 
   padding: 4px 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #2B2B2B;
+  color: var(--color-text);
   transition: all 0.1s;
 }
 
 .icon-btn-borrar:hover {
-  background: #ff6666; /* Rojo suave */
-  border: 2px solid #2B2B2B; /* Borde duro al pasar el ratón */
-  box-shadow: 2px 2px 0 #2B2B2B; /* Sombra para encajar con el estilo general */
-  transform: translate(-2px, -2px); /* Efecto de elevación */
+  background: #ff6666; 
+  border: 2px solid var(--color-border); 
+  box-shadow: 2px 2px 0 var(--color-shadow); 
+  transform: translate(-2px, -2px); 
 }
 
 .icono-papelera {
@@ -378,38 +379,36 @@ canvas {
   align-items: center;
   margin-bottom: 25px;
   padding-bottom: 25px;
-  border-bottom: 2px dashed #2B2B2B;
+  border-bottom: 2px dashed var(--color-border);
 }
 
 .btn-seleccionar-foto {
-  background-color: #FFF5E4;
-  color: #2B2B2B;
-  border: 2.5px solid #2B2B2B;
+  background-color: var(--bg-surface);
+  color: var(--color-text);
+  border: 2.5px solid var(--color-border);
   padding: 12px 24px;
   font-size: 1rem;
   font-weight: 800;
   border-radius: 40px;
   cursor: pointer;
-  box-shadow: 3px 3px 0 #2B2B2B;
+  box-shadow: 3px 3px 0 var(--color-shadow);
   transition: box-shadow 0.1s, transform 0.1s;
-  
-  /* NUEVO: Alineación para el icono y el texto */
   display: inline-flex;
   align-items: center;
   gap: 10px;
 }
 
-/* Control del tamaño del PNG de la cámara */
 .icono-camara {
-  width: 22px; /* Ajusta los píxeles según necesites */
+  width: 22px; 
   height: 22px;
   object-fit: contain;
   display: block;
 }
 
 .btn-seleccionar-foto:hover {
-  background-color: #FFD166;
-  box-shadow: 1px 1px 0 #2B2B2B;
+  background-color: var(--color-accent-3);
+  color: #2B2B2B;
+  box-shadow: 1px 1px 0 var(--color-shadow);
   transform: translate(2px, 2px);
 }
 
@@ -418,11 +417,11 @@ canvas {
   flex-direction: column;
   align-items: center;
   gap: 15px;
-  background-color: #FFF5E4;
+  background-color: var(--bg-surface);
   padding: 15px;
   border-radius: 16px;
-  border: 2px solid #2B2B2B;
-  box-shadow: 4px 4px 0 #2B2B2B;
+  border: 2px solid var(--color-border);
+  box-shadow: 4px 4px 0 var(--color-shadow);
   width: 260px;
   box-sizing: border-box;
 }
@@ -431,7 +430,7 @@ canvas {
   width: 100%;
   height: 180px;
   border-radius: 10px;
-  border: 2px solid #2B2B2B;
+  border: 2px solid var(--color-border);
   object-fit: cover;
 }
 
@@ -443,44 +442,44 @@ canvas {
 }
 
 .btn-cancelar {
-  background-color: #FFF5E4;
-  color: #2B2B2B;
-  border: 2px solid #2B2B2B;
+  background-color: var(--bg-surface);
+  color: var(--color-text);
+  border: 2px solid var(--color-border);
   padding: 8px 16px;
   border-radius: 40px;
   cursor: pointer;
   font-weight: 800;
   font-size: 0.9rem;
-  box-shadow: 2px 2px 0 #2B2B2B;
+  box-shadow: 2px 2px 0 var(--color-shadow);
   transition: box-shadow 0.1s, transform 0.1s;
 }
 
 .btn-cancelar:hover {
-  box-shadow: 1px 1px 0 #2B2B2B;
+  box-shadow: 1px 1px 0 var(--color-shadow);
   transform: translate(1px, 1px);
 }
 
 .btn-confirmar {
-  background-color: #7EC8C8;
-  color: #2B2B2B;
-  border: 2px solid #2B2B2B;
+  background-color: var(--color-accent-2);
+  color: #2B2B2B; /* Contraste constante con el fondo Tiffany */
+  border: 2px solid var(--color-border);
   padding: 8px 16px;
   border-radius: 40px;
   cursor: pointer;
   font-weight: 800;
   font-size: 0.9rem;
-  box-shadow: 2px 2px 0 #2B2B2B;
+  box-shadow: 2px 2px 0 var(--color-shadow);
   transition: box-shadow 0.1s, transform 0.1s;
 }
 
 .btn-confirmar:hover {
-  box-shadow: 1px 1px 0 #2B2B2B;
+  box-shadow: 1px 1px 0 var(--color-shadow);
   transform: translate(1px, 1px);
 }
 
 .btn-confirmar:disabled {
-  background-color: #FFF5E4;
-  color: #2B2B2B;
+  background-color: var(--bg-surface);
+  color: var(--color-text);
   opacity: 0.35;
   cursor: not-allowed;
   box-shadow: none;
@@ -499,7 +498,7 @@ canvas {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px; /* Espacio de separación entre la imagen y el texto */
+  gap: 8px; 
 }
 
 /* ── Efecto click en galería ── */
@@ -519,7 +518,7 @@ canvas {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(43, 43, 43, 0.88);
+  background-color: rgba(0, 0, 0, 0.88); /* Fondo oscuro estático */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -531,8 +530,8 @@ canvas {
   max-width: 90%;
   max-height: 90vh;
   border-radius: 14px;
-  border: 3px solid #FFF5E4;
-  box-shadow: 8px 8px 0 #2B2B2B;
+  border: 3px solid #FFF5E4; /* Borde blanco estilo foto */
+  box-shadow: 8px 8px 0 var(--color-shadow);
   object-fit: contain;
   animation: zoomIn 0.2s ease-out forwards;
 }
@@ -541,7 +540,7 @@ canvas {
   position: absolute;
   top: 25px;
   right: 40px;
-  color: #FFF5E4;
+  color: #ffffff; /* Blanco estático por el fondo oscuro */
   font-size: 50px;
   font-weight: 900;
   cursor: pointer;
@@ -550,7 +549,7 @@ canvas {
 }
 
 .btn-cerrar-modal:hover {
-  color: #F4AABB;
+  color: var(--color-accent-1);
 }
 
 @keyframes zoomIn {
@@ -564,33 +563,14 @@ canvas {
   }
 }
 
-/* Aseguramos que el avatar y el texto queden alineados horizontalmente */
-.datos-autor {
-  display: flex;
-  align-items: center;
-  gap: 10px; 
-  margin-bottom: 8px;
-}
-
-/* Estilo para el avatar */
 .avatar-msg {
   width: 35px;
   height: 35px;
-  border-radius: 50%; /* Hazlo 0% si lo prefieres cuadrado */
-  border: 2px solid #000000;
+  border-radius: 50%; 
+  border: 2px solid var(--color-border);
 }
 
 /* Sombrea levemente el mensaje si es del usuario logueado */
 .mensaje-propio {
-  background-color: #f0f0f0; /* Un gris muy claro. Cámbialo si prefieres un tono pastel */
-  padding: 10px; /* Da un poco de aire al color de fondo */
-  
-  /* Opcional: si quieres que tus mensajes se alineen a la derecha, descomenta la siguiente línea */
-  /* margin-left: auto; */
-}
-
-/* Ajustes por si el mensaje normal no tenía padding antes */
-.mensaje {
-  padding: 10px;
-  margin-bottom: 10px;
+  background-color: var(--bg-surface-2); /* El gris claro se adapta a gris oscuro en Dark Mode */
 }

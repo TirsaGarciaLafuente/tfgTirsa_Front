@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router'; // 1. Añade RouterModule aquí
+import { Router, RouterModule } from '@angular/router'; 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SalaService } from '../../services/sala.service';
@@ -16,6 +16,9 @@ import { HeaderComponent } from '../header/header';
 })
 export class InicioComponent implements OnInit {
 
+  // --- Variable para el Modo Oscuro ---
+  isDarkMode = false;
+
   codigoSala = '';
   salas: any[] = [];
   mostrarModal: boolean = false;
@@ -31,7 +34,26 @@ export class InicioComponent implements OnInit {
 
 
   ngOnInit(): void {
+    // 1. Sincroniza el icono del botón con el estado actual del tema
+    if (localStorage.getItem('theme') === 'dark') {
+      this.isDarkMode = true;
+    }
+
+    // 2. Carga las salas del usuario
     this.obtenerSalas();
+  }
+
+  // --- Función para cambiar el tema ---
+  toggleTheme() {
+    this.isDarkMode = !this.isDarkMode;
+    
+    if (this.isDarkMode) {
+      document.body.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'light');
+    }
   }
 
   abrirModal() {
@@ -41,7 +63,6 @@ export class InicioComponent implements OnInit {
   cerrarModal() {
     this.mostrarModal = false;
     this.nuevoNombreSala = '';
-    
   }
 
   confirmarCreacion() {
@@ -51,12 +72,10 @@ export class InicioComponent implements OnInit {
         this.cerrarModal();
         this.cdr.detectChanges();
         this.alertService.success("Sala creada correctamente");
-        
       },
       error: (err: Error) => this.alertService.error('Error al crear la sala')
     });
   }
-
 
   cerrarSesion() {
     this.authService.logout();
@@ -102,30 +121,21 @@ export class InicioComponent implements OnInit {
     this.router.navigate(['/sala', salaId]);
   }
 
-// En tu archivo inicio.ts
-
-// 1. Asegúrate de tener inyectado tanto el AlertService como el SalaService en tu constructor:
-// constructor(private alertService: AlertService, private salaService: SalaService) {}
-
-confirmarYAbandonar(salaId: string) {
-  this.alertService.confirmarAbandono().then((result) => {
-    if (result.isConfirmed) {
-      
-      // Cambio 1: Añadida la 's' a salasService
-      this.salasService.abandonarSala(salaId).subscribe({
-        next: () => {
-          this.salas = this.salas.filter(s => s.id !== salaId);
-          this.cdr.detectChanges();
-          this.alertService.success('Has abandonado la sala correctamente');
-        },
-        // Cambio 2: Añadido ': any' al parámetro err
-        error: (err: any) => {
-          console.error('Error al abandonar la sala:', err);
-          this.alertService.error('No se pudo procesar la solicitud. Inténtalo de nuevo.');
-        }
-      });
-
-    }
-  });
-}
+  confirmarYAbandonar(salaId: string) {
+    this.alertService.confirmarAbandono().then((result) => {
+      if (result.isConfirmed) {
+        this.salasService.abandonarSala(salaId).subscribe({
+          next: () => {
+            this.salas = this.salas.filter(s => s.id !== salaId);
+            this.cdr.detectChanges();
+            this.alertService.success('Has abandonado la sala correctamente');
+          },
+          error: (err: any) => {
+            console.error('Error al abandonar la sala:', err);
+            this.alertService.error('No se pudo procesar la solicitud. Inténtalo de nuevo.');
+          }
+        });
+      }
+    });
+  }
 }

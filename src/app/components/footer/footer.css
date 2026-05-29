@@ -1,21 +1,20 @@
 /* ── CONTENEDOR PRINCIPAL ── */
 .footer {
-  background-color: #2B2B2B;
+  background-color: #2B2B2B; /* Se mantiene estático por diseño */
   color: #FFFFFF;
-  border-top: 4px solid #000000;
+  border-top: 4px solid var(--color-border);
   margin-top: auto;
   width: 100%;
 }
 
 .footer-container {
   width: 100%;
-  max-width: 1050px; /* Un ancho perfecto para que no sobre espacio a la derecha */
-  margin: 0 auto !important; /* Esto es clave: fuerza a que el bloque esté en el centro exacto */
+  max-width: 1050px; 
+  margin: 0 auto !important; 
 }
 
 .footer-content {
   display: grid;
-  /* Le damos un poco más de espacio a la primera y tercera columna para equilibrar los textos */
   grid-template-columns: 1.2fr 1fr 1.2fr; 
 }
 
@@ -26,11 +25,11 @@
 
 /* Las líneas separadoras verticales */
 .footer-legal {
-  border-left: 2px solid #FFD166; /* Línea amarilla */
+  border-left: 2px solid var(--color-accent-3); 
 }
 
 .footer-contact {
-  border-left: 1px solid rgba(255, 255, 255, 0.1); /* Línea gris muy tenue */
+  border-left: 1px solid rgba(255, 255, 255, 0.1); 
 }
 
 /* ── ESTILOS DE TEXTO GLOBALES ── */
@@ -41,7 +40,7 @@
 }
 
 .footer-title {
-  color: #FFD166;
+  color: var(--color-accent-3);
   font-weight: 800;
   font-size: 1.1rem;
   margin-top: 0;
@@ -58,16 +57,8 @@
   margin-bottom: 1rem;
 }
 
-/* ── COLUMNA 1: MARCA ── */
-.brand-logo {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-/* Control del tamaño de tu logo PNG */
 .footer-logo-img {
-  max-width: 100px; /* Ajusta este valor para hacerlo más grande o más pequeño */
+  max-width: 100px; 
   height: auto;
   display: block;
   object-fit: contain;
@@ -84,9 +75,9 @@
   height: 12px;
   border-radius: 50%;
 }
-.dot-pink { background-color: #F4AABB; }
-.dot-teal { background-color: #7ECFC0; }
-.dot-yellow { background-color: #FFD166; }
+.dot-pink { background-color: var(--color-accent-1); }
+.dot-teal { background-color: var(--color-accent-2); }
+.dot-yellow { background-color: var(--color-accent-3); }
 
 /* ── COLUMNA 2: LEGAL ── */
 .legal-list {
@@ -115,7 +106,7 @@
   transform: translateY(-50%);
   width: 6px;
   height: 6px;
-  background-color: #7ECFC0;
+  background-color: var(--color-accent-2);
   border-radius: 50%;
 }
 
@@ -132,7 +123,7 @@
 /* ── COLUMNA 3: CONTACTO ── */
 .contact-email {
   display: block;
-  color: #F4AABB;
+  color: var(--color-accent-1);
   font-weight: 800;
   font-size: 1.1rem;
   text-decoration: none;
@@ -145,13 +136,12 @@
 }
 
 /* ── SECCIÓN INFERIOR (COPYRIGHT) ── */
-/* Centramos el copyright para mejorar la simetría visual de todo el footer */
 .footer-bottom {
-  border-top: 2px solid #FFD166; 
+  border-top: 2px solid var(--color-accent-3); 
   padding: 1.5rem 2rem;
   color: #888888;
   font-size: 0.9rem;
-  text-align: center; /* Nuevo: texto centrado */
+  text-align: center; 
 }
 
 .footer-bottom p {
@@ -161,10 +151,9 @@
 /* ── DISEÑO RESPONSIVE (MÓVILES) ── */
 @media (max-width: 768px) {
   .footer-content {
-    grid-template-columns: 1fr; /* Cambia a una sola columna */
+    grid-template-columns: 1fr; 
   }
 
-  /* Quitamos las líneas verticales y añadimos separadores horizontales en móvil */
   .footer-legal {
     border-left: none;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
