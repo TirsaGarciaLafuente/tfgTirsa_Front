@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, Input } from '@angular/core'; // 1. Añadido Input
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
@@ -14,10 +14,11 @@ import { AuthService } from '../../services/auth.service';
 export class PerfilComponent implements OnInit {
   
   @Output() cerrar = new EventEmitter<void>();
+  @Input() userIdParaMostrar?: number; // 2. Nuevo Input opcional
 
   isEditing = false;
   mostrarModalAvatar = false;
-  guardando = false; // Útil para desactivar el botón de guardar mientras carga
+  guardando = false;
 
   avataresDisponibles: string[] = [
     '/assets/avatar1.jpg',
@@ -52,28 +53,40 @@ export class PerfilComponent implements OnInit {
   }
 
   cargarDatos(): void {
-    this.usuarioService.obtenerPerfil().subscribe({
-      next: (data) => {
-        if (data) {
-          // Cargamos los datos reales o aplicamos valores por defecto si están vacíos
-          this.usuario = {
-            id: data.id || '',
-            avatar: data.avatar || '/assets/default-avatar.jpg',
-            titulo: data.titulo || 'EL NOVATO',
-            nombre: data.nombre || data.username || 'Usuario',
-            descripcion: data.descripcion || 'Aún no hay descripción. Pulsa modificar para añadir una.'
-          };
-          this.usuarioEdit = { ...this.usuario };
-          this.cdr.detectChanges();
-        }
-      },
-      error: (err) => console.error('Error al cargar perfil:', err)
-    });
+    // 3. Lógica para decidir qué cargar
+    if (this.userIdParaMostrar) {
+      this.usuarioService.obtenerPerfilPorId(this.userIdParaMostrar).subscribe({
+        next: (data) => this.procesarDatos(data),
+        error: (err) => console.error('Error al cargar perfil ajeno:', err)
+      });
+    } else {
+      this.usuarioService.obtenerPerfil().subscribe({
+        next: (data) => this.procesarDatos(data),
+        error: (err) => console.error('Error al cargar perfil propio:', err)
+      });
+    }
   }
 
+  // 4. Función auxiliar para procesar los datos (evita repetir código)
+  procesarDatos(data: any): void {
+    if (data) {
+      this.usuario = {
+        id: data.id || '',
+        avatar: data.avatar || '/assets/default-avatar.jpg',
+        titulo: data.titulo || 'EL NOVATO',
+        nombre: data.nombre || data.username || 'Usuario',
+        descripcion: data.descripcion || 'Aún no hay descripción.'
+      };
+      this.usuarioEdit = { ...this.usuario };
+      this.cdr.detectChanges();
+    }
+  }
   activarEdicion() {
-    this.isEditing = true;
-    this.usuarioEdit = { ...this.usuario };
+    // Solo permitir editar si no estamos viendo a otro usuario (o si el ID coincide)
+    if (!this.userIdParaMostrar) {
+      this.isEditing = true;
+      this.usuarioEdit = { ...this.usuario };
+    }
   }
 
   cancelarEdicion() {

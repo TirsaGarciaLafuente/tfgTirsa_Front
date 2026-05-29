@@ -20,9 +20,19 @@
         [class.mensaje-propio]="msg.idUsuario === miUsuarioId"
       >
         <div class="datos-autor">
-          <img *ngIf="msg.avatar" [src]="msg.avatar" alt="Avatar" class="avatar-msg" />
+          <img
+            *ngIf="msg.avatar"
+            [src]="msg.avatar"
+            alt="Avatar"
+            class="avatar-msg"
+            (click)="modalService.abrirPerfil(msg.idUsuario)"
+            style="cursor: pointer"
+          />
 
-          <strong>{{ msg.nombreAutor }}</strong>
+          <strong (click)="modalService.abrirPerfil(msg.idUsuario)" style="cursor: pointer">
+            {{ msg.nombreAutor }}
+          </strong>
+
           <span class="fecha">{{ msg.fechaEnvio | date: 'dd/MM HH:mm' }}</span>
         </div>
         <p class="texto">{{ msg.texto }}</p>
@@ -51,11 +61,11 @@
   <div *ngIf="vistaActual === 'pizarra'" class="modulo-pizarra">
     <div class="herramientas-pizarra">
       <button (click)="limpiarPizarra()" class="btn-herramienta btn-borrar">
-        <img src="assets/papelera.png" alt="Borrar" class="icono-herramienta"> Borrar
+        <img src="assets/papelera.png" alt="Borrar" class="icono-herramienta" /> Borrar
       </button>
-      
+
       <button (click)="guardarDibujo()" class="btn-herramienta btn-guardar">
-        <img src="assets/publicar.png" alt="Publicar" class="icono-herramienta"> Publicar
+        <img src="assets/publicar.png" alt="Publicar" class="icono-herramienta" /> Publicar
       </button>
 
       <input type="color" [(ngModel)]="colorPizarra" (change)="actualizarPincel()" />
@@ -98,7 +108,7 @@
       />
 
       <button *ngIf="!imagenPrevia" class="btn-seleccionar-foto" (click)="fileInput.click()">
-        <img src="assets/camara.png" alt="Cámara" class="icono-camara"> Añadir nueva foto
+        <img src="assets/camara.png" alt="Cámara" class="icono-camara" /> Añadir nueva foto
       </button>
 
       <div *ngIf="imagenPrevia" class="preview-container">

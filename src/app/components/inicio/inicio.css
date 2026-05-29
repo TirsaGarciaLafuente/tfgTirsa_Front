@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'SuperNugget';
+  src: url('/assets/fonts/SuperNugget.ttf') format('truetype');
+}
+
 /* ── Page ── */
 .page {
   min-height: 100vh;
@@ -19,13 +24,13 @@
   color: var(--color-text);
   margin-bottom: 2rem;
   text-transform: uppercase;
-  font-family: 'Arial', sans-serif; 
+  font-family: 'SuperNugget', sans-serif; 
   letter-spacing: -1px;
 }
 
 /* ── Actions card ── */
 .actions-card {
-  background: var(--color-accent-3); /* El amarillo se mantiene aquí como fondo */
+  background: var(--color-accent-3);
   border: 3px solid var(--color-border);
   box-shadow: 6px 6px 0px var(--color-shadow);
   padding: 1.5rem 2rem;
@@ -48,13 +53,13 @@
   font-weight: 800;
   text-transform: uppercase;
   cursor: pointer;
-  box-shadow: 3px 3px 0px #000000; /* Fijo en negro */
+  box-shadow: 3px 3px 0px #000000; 
   transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .btn-crear:hover {
   transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0px #000000; /* Fijo en negro */
+  box-shadow: 1px 1px 0px #000000; 
 }
 
 /* ── MITAD DERECHA ── */
@@ -191,7 +196,7 @@
   width: 100%;
   padding: 12px;
   background: var(--color-accent-2); 
-  color: #2B2B2B; /* Se mantiene en negro para el contraste con Tiffany */
+  color: #2B2B2B; 
   border: 2px solid var(--color-border);
   font-size: 15px;
   font-weight: 800;
@@ -213,7 +218,7 @@
   opacity: 0;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.8); /* El overlay semitransparente se mantiene igual en ambos modos */
+  background: rgba(0, 0, 0, 0.8); 
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -286,7 +291,7 @@
 .btn-main {
   width: 100%;
   padding: 16px;
-  background: #FF3366; /* Se mantiene estático por ser botón de acción principal */
+  background: #FF3366; 
   color: #ffffff;
   border: 2px solid var(--color-border);
   font-size: 16px;
@@ -404,7 +409,7 @@
   display: block;
 }
 
-/* ── Diseño Responsive (Móviles y Tablets pequeñas) ── */
+/* ── Diseño Responsive ── */
 @media (max-width: 768px) {
   .actions-card {
     padding: 1.5rem 1rem; 

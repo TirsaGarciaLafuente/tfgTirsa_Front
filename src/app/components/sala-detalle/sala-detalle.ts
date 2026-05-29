@@ -8,6 +8,7 @@ import { Votacion } from '../votacion/votacion';
 import { HeaderComponent } from '../header/header';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   standalone: true,
@@ -45,7 +46,8 @@ export class SalaDetalleComponent implements OnInit {
     private mensajeService: MensajeService,
     private galeriaService: GaleriaService,
     private cdr: ChangeDetectorRef,
-    private authService: AuthService
+    private authService: AuthService,
+    public modalService: ModalService
   ) { }
 
   ngOnInit(): void {

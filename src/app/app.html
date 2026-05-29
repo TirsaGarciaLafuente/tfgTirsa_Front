@@ -5,3 +5,10 @@
 </main>
 
 <app-footer></app-footer>
+
+<div *ngIf="modalService.mostrar" class="overlay-perfil" style="z-index: 9999;">
+  <app-perfil 
+    [userIdParaMostrar]="modalService.usuarioId ?? undefined" 
+    (cerrar)="modalService.cerrar()">
+  </app-perfil>
+</div>
