@@ -28,13 +28,16 @@ jobs:
       - name: Compilar proyecto
         run: npx ng build --configuration=production --base-href /tfgTirsa_Front/
 
+      - name: Chivato de carpetas (Ver qué ha creado Angular)
+        run: ls -R dist
+
       - name: Configurar Pages
         uses: actions/configure-pages@v4
 
       - name: Subir artefacto
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist/tfgTirsa_Front/browser' 
+          path: './dist' 
 
       - name: Desplegar en GitHub Pages
         uses: actions/deploy-pages@v4
