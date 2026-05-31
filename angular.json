@@ -30,6 +30,10 @@
             ],
             "styles": [
               "src/styles.css"
+            ],
+            "externalDependencies": [
+              "assets/fonts/SuperNugget.ttf",
+              "assets/fonts/poppins.ttf"
             ]
           },
           "configurations": {

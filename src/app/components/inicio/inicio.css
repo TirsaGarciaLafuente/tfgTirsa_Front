@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'SuperNugget';
-  src: url('./assets/fonts/SuperNugget.ttf') format('truetype');
+  src: url('assets/fonts/SuperNugget.ttf') format('truetype');
 }
 
 /* ── Page ── */
