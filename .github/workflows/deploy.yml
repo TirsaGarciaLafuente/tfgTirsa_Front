@@ -1,0 +1,40 @@
+name: Deploy Angular 19 to GitHub Pages
+
+on:
+  push:
+    branches: [ main ] 
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar proyecto
+        run: npx ng build --configuration=production --base-href /tfgTirsa_Front/
+
+      - name: Configurar Pages
+        uses: actions/configure-pages@v4
+
+      - name: Subir artefacto
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist/tu-proyecto/browser' 
+
+      - name: Desplegar en GitHub Pages
+        uses: actions/deploy-pages@v4
