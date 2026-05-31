@@ -21,20 +21,20 @@ export class PerfilComponent implements OnInit {
   guardando = false;
 
   avataresDisponibles: string[] = [
-    '/assets/avatar1.jpg',
-    '/assets/avatar2.jpg',
-    '/assets/avatar3.jpg',
-    '/assets/avatar4.jpg',
-    '/assets/avatar5.jpg',
-    '/assets/avatar6.jpg',
-    '/assets/avatar7.jpg',
-    '/assets/avatar8.jpg',
+    'assets/avatar1.jpg',
+    'assets/avatar2.jpg',
+    'assets/avatar3.jpg',
+    'assets/avatar4.jpg',
+    'assets/avatar5.jpg',
+    'assets/avatar6.jpg',
+    'assets/avatar7.jpg',
+    'assets/avatar8.jpg',
   ];
 
 
   usuario: any = {
     id: '',
-    avatar: '/assets/default-avatar.jpg',
+    avatar: 'assets/default-avatar.jpg',
     titulo: '',
     nombre: '',
     descripcion: ''
@@ -71,7 +71,7 @@ export class PerfilComponent implements OnInit {
     if (data) {
       this.usuario = {
         id: data.id || '',
-        avatar: data.avatar || '/assets/default-avatar.jpg',
+        avatar: data.avatar || 'assets/default-avatar.jpg',
         titulo: data.titulo || 'EL NOVATO',
         nombre: data.nombre || data.username || 'Usuario',
         descripcion: data.descripcion || 'Aún no hay descripción.'

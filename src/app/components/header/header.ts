@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   isDarkMode = false;
 
   mostrarModalAvatar: boolean = false;
-  avatarActual: string = '/assets/default-avatar.jpg'; 
+  avatarActual: string = 'assets/default-avatar.jpg'; 
 
   constructor(
     private router: Router,
