@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SalaService {
-  private apiUrl = 'https://breakroom-backend.onrender.com/api/salas';
+  private apiUrl = 'https://tfgtirsa-back.onrender.com/api/salas';
 
   constructor(private http: HttpClient) { }
 

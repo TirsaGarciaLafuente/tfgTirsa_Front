@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class MensajeService {
 
-  private apiUrl = 'https://breakroom-backend.onrender.com/api/mensajes';
+  private apiUrl = 'https://tfgtirsa-back.onrender.com/api/mensajes';
 
   constructor(private http: HttpClient) { }
 
