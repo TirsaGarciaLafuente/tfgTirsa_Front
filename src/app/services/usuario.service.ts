@@ -6,7 +6,7 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private urlBackend = 'http://localhost:8080/api';
+  private urlBackend = 'https://breakroom-backend.onrender.com/api';
 
   private perfilActualizado = new Subject<void>();
   perfilActualizado$ = this.perfilActualizado.asObservable();

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class GaleriaService {
-  private apiUrl = 'http://localhost:8080/api/galeria';
+  private apiUrl = 'https://breakroom-backend.onrender.com/api/galeria';
 
   constructor(private http: HttpClient) {}
 

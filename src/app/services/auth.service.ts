@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private authUrl = 'http://localhost:8080/api/auth';
+  private authUrl = 'https://breakroom-backend.onrender.com/api/auth';
 
   public loginSuccess$ = new Subject<void>();
 

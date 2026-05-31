@@ -12,7 +12,7 @@ export interface ResultadoVotacion {
   providedIn: 'root'
 })
 export class VotacionService {
-  private apiUrl = 'http://localhost:8080/api/votaciones';
+  private apiUrl = 'https://breakroom-backend.onrender.com/api/votaciones';
 
   constructor(private http: HttpClient) {}
 
