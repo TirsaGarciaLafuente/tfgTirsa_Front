@@ -26,10 +26,9 @@ jobs:
         run: npm ci
 
       - name: Compilar proyecto
-        run: npx ng build --configuration=production --base-href /tfgTirsa_Front/
-
-      - name: Chivato de carpetas (Ver qué ha creado Angular)
-        run: ls -R dist
+        run: |
+          npx ng build --configuration=production --base-href /tfgTirsa_Front/
+          cp dist/break-room/browser/index.html dist/break-room/browser/404.html
 
       - name: Configurar Pages
         uses: actions/configure-pages@v4
@@ -37,7 +36,7 @@ jobs:
       - name: Subir artefacto
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist' 
+          path: './dist/break-room/browser' 
 
       - name: Desplegar en GitHub Pages
         uses: actions/deploy-pages@v4
